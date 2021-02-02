@@ -9,8 +9,12 @@
 
   <ItemGroup>
     <None Remove="Image_Icons\cart.png" />
+    <None Remove="Image_Icons\location.png" />
     <None Remove="Image_Icons\logo.png" />
+    <None Remove="Image_Icons\logo1.png" />
+    <None Remove="Image_Icons\phone.png" />
     <None Remove="Image_Icons\placeholder.png" />
+    <None Remove="Image_Icons\search.png" />
     <None Remove="Image_Icons\user.png" />
     <None Remove="Image_Icons\user_add.png" />
   </ItemGroup>
@@ -19,10 +23,22 @@
     <Content Include="Image_Icons\cart.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Image_Icons\location.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Image_Icons\logo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Image_Icons\logo1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Image_Icons\phone.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Image_Icons\placeholder.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Image_Icons\search.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Image_Icons\user.png">

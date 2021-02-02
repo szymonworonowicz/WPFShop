@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -10,6 +11,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfProject.DAL;
+using WpfProject.Models;
 
 namespace WpfProject.Pages
 {
@@ -23,8 +26,14 @@ namespace WpfProject.Pages
             InitializeComponent();
         }
 
-        private void OnLoaded(object sender, RoutedEventArgs e)
+        private void PageOnLoaded(object sender, RoutedEventArgs e)
         {
+            var context = DataContextAccesor.GetDataContext();
+            var categoryList = context.Categories.ToList();
+            var productList = context.Products.Where(x => x.Sale == true).Take(10).ToList();
+
+            CategoryList.ItemsSource = categoryList;
+            SalesProduct.ItemsSource = productList;
         }
     }
 }
