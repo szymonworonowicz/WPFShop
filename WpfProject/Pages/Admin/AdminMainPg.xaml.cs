@@ -116,6 +116,7 @@ namespace WpfProject.Pages.Admin
             product.StanMagazynowy += orderCount;
             
             DbAccessorService.updateProduct(product);
+            OrderCount.Value = "1";
         }
 
         private void Order_Edit_Click(object sender, RoutedEventArgs e)
@@ -394,6 +395,28 @@ namespace WpfProject.Pages.Admin
         {
             ProductView.GroupDescriptions.Clear();
             foreach(var element in Group_radio.Children)
+            {
+                RadioButton radio = element as RadioButton;
+                if (radio.IsChecked == true)
+                    radio.IsChecked = false;
+            }
+        }
+
+        private void Order_Sort_Remove(object sender, RoutedEventArgs e)
+        {
+            OrderView.SortDescriptions.Clear();
+            foreach (var element in OrderSort_radio.Children)
+            {
+                RadioButton radio = element as RadioButton;
+                if (radio.IsChecked == true)
+                    radio.IsChecked = false;
+            }
+        }
+
+        private void Order_Group_Remove(object sender, RoutedEventArgs e)
+        {
+            OrderView.GroupDescriptions.Clear();
+            foreach (var element in OrderGroup_radio.Children)
             {
                 RadioButton radio = element as RadioButton;
                 if (radio.IsChecked == true)

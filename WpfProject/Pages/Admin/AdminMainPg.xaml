@@ -215,12 +215,12 @@
                             <RowDefinition Height="auto"></RowDefinition>
                         </Grid.RowDefinitions>
                         <Label Grid.ColumnSpan="2" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18">Stan magazynowy produktu:</Label>
-                        <Label Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">Nazwa</Label>
-                        <Label Grid.Row="1" Grid.Column="1" Content="{Binding Path=Name}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
-                        <Label Grid.Row="2"  Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center">Cena</Label>
-                        <Label Grid.Row="2" Grid.Column="1" Content="{Binding Path=Price}"></Label>
-                        <Label Grid.Row="3"  Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center">Stan magazynowy</Label>
-                        <Label Grid.Row="3" Grid.Column="1" Margin="5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="{Binding Path=StanMagazynowy, Mode=OneWay}"></Label>
+                        <Label Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right">Nazwa:</Label>
+                        <Label Grid.Row="1" Grid.Column="1" Content="{Binding Path=Name}" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"></Label>
+                        <Label Grid.Row="2"  Margin="5" VerticalAlignment="Center" HorizontalAlignment="Right">Cena:</Label>
+                        <Label Grid.Row="2" Grid.Column="1" Content="{Binding Path=Price}"  VerticalContentAlignment="Center" HorizontalContentAlignment="Left" ContentStringFormat="{}{0} zł"></Label>
+                        <Label Grid.Row="3"  Margin="5" VerticalAlignment="Center" HorizontalAlignment="Right">Stan magazynowy:</Label>
+                        <Label Grid.Row="3" Grid.Column="1" Margin="5" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Content="{Binding Path=StanMagazynowy, Mode=OneWay}"></Label>
                         <Grid Grid.Row="4" Grid.ColumnSpan="2">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="auto"></ColumnDefinition>
@@ -230,7 +230,7 @@
                                 <RowDefinition Height="auto"></RowDefinition>
                             </Grid.RowDefinitions>
                             <usercontrols:NumericUpDown x:Name="OrderCount" maxValue="2000" minValue="1"  Grid.Column="0" Margin="5" />
-                            <Button Name="Zamow"  Grid.Column="1" Margin="5" Click="Store_OrderProduct_CLick">Zamow</Button>
+                            <Button Name="Zamow"  Grid.Column="1" Margin="5" Click="Store_OrderProduct_CLick" BorderThickness="0" Background="LightYellow">Zamow</Button>
                         </Grid>
 
                     </Grid>
@@ -273,22 +273,30 @@
                             </Grid>
                         </Expander >
                         <Expander Header="Grupowanie"  Margin="5,0,5,0" Expanded="OrderExpander_Expand" Collapsed="OrderExpander_Expand" >
-                            <GroupBox BorderThickness="0">
-                                <StackPanel>
+                            <StackPanel>
+                                <GroupBox BorderThickness="0">
+                                <StackPanel Name="OrderGroup_radio">
                                     <RadioButton Margin="5" Click="Order_Status_Group">Po stanie zamowienia</RadioButton>
                                     <RadioButton Margin="5" Click="Order_Price_Group">Po Cenie</RadioButton>
                                 </StackPanel>
                             </GroupBox>
+                                <Button  Margin="5" Padding="5" Background="Transparent" BorderThickness="0" Click="Order_Group_Remove">Usun Filtry</Button>
+                            </StackPanel>
+                            
                         </Expander>
                         <Expander Header="Sortowanie" Expanded="OrderExpander_Expand" Collapsed="OrderExpander_Expand" >
-                            <GroupBox BorderThickness="0">
-                                <StackPanel>
-                                    <RadioButton Margin="5" Content="Cena: (rosnąco)" Click="Sort_Order_Price_Asc"/>
-                                    <RadioButton Margin="5" Content="Cena: (malejąco)" Click="Sort_Order_Price_Desc"/>
-                                    <RadioButton Margin="5" Content="Data: (rosnąco)" Click="Sort_Order_Date_Asc"/>
-                                    <RadioButton Margin="5" Content="Data: (malejąco)" Click="Sort_Order_Date_Desc"/>
-                                </StackPanel>
-                            </GroupBox>
+                            <StackPanel>
+                                <GroupBox BorderThickness="0">
+                                    <StackPanel Name="OrderSort_radio">
+                                        <RadioButton Margin="5" Content="Cena: (rosnąco)" Click="Sort_Order_Price_Asc"/>
+                                        <RadioButton Margin="5" Content="Cena: (malejąco)" Click="Sort_Order_Price_Desc"/>
+                                        <RadioButton Margin="5" Content="Data: (rosnąco)" Click="Sort_Order_Date_Asc"/>
+                                        <RadioButton Margin="5" Content="Data: (malejąco)" Click="Sort_Order_Date_Desc"/>
+                                    </StackPanel>
+                                </GroupBox>
+                                <Button  Margin="5" Padding="5" Background="Transparent" BorderThickness="0" Click="Order_Sort_Remove">Usun Filtry</Button>
+                            </StackPanel>
+                            
                         </Expander>
                     </WrapPanel>
                     <ListView Name="ListofItemOrder" Margin="5,5,5,5" Grid.Row="1" Grid.ColumnSpan="5" Grid.RowSpan="4">
