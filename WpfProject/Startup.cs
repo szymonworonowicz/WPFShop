@@ -38,6 +38,7 @@ namespace WpfProject
 
                 string directory = Path.Combine(Directory.GetCurrentDirectory(), "Image");
                 var path = Directory.GetFiles(directory);
+                int i = 0;
 
                 foreach (var item in path)
                 {
@@ -46,7 +47,16 @@ namespace WpfProject
                         byte[] buffer = new byte[stream.Length];
                         stream.Read(buffer, 0, (int)stream.Length);
 
-                        productList.Add(new Product { Name = "lodowka", Price = 239.22M, Description = "Super Lodowka", Photo = buffer, Sale = true,StanMagazynowy = 20});
+                        if(++i%2 ==0)
+                        {
+                            productList.Add(new Product { Name = "lodowka", Price = 239.22M, Description = "Super Lodowka", Photo = buffer, Sale = 0, StanMagazynowy = 20 });
+                        }
+                        else
+                        {
+                            productList.Add(new Product { Name = "lodowka", Price = 239.22M, Description = "Super Lodowka", Photo = buffer, Sale = 20, StanMagazynowy = 20 });
+                        }
+
+
                     }
                 }
                 await context.Categories.AddRangeAsync(categoryList);

@@ -54,11 +54,14 @@
                     <TextBox  HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Margin="5" VerticalContentAlignment="Center" HorizontalContentAlignment="left" Padding="5" FontSize="14" BorderThickness="0">Wyszukaj przedmiot...</TextBox>
                 </DockPanel>
             </Border>
-            <Image Grid.Column="3" Margin="5" Height="40" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="40" Name="Cart">
-                <Image.Source>
-                    <BitmapImage UriSource="../Image_Icons/cart.png" />
-                </Image.Source>
-            </Image>
+            <Button  Grid.Column="3" Width="40" Height="40" Background="Transparent" BorderThickness="0" Click="Cart_Click" >
+                <Image  Height="40" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Name="Cart">
+                    <Image.Source>
+                        <BitmapImage UriSource="../Image_Icons/cart.png" />
+                    </Image.Source>
+                </Image>
+            </Button>
+
             <Button Name="Admin" Grid.Column="3" Margin="5" VerticalAlignment="Stretch" Height="40" Width="40"  BorderThickness="0"  Background="LightYellow" Visibility="Collapsed">Admin</Button>
         </Grid>
         <ListBox Name="CategoryList" Grid.Row="2" Grid.ColumnSpan="4" ItemTemplate="{StaticResource CategoryListTemplate }" Padding="5" Margin="5" Background="LightYellow" ScrollViewer.CanContentScroll="false"  HorizontalAlignment="Stretch">

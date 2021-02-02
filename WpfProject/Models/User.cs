@@ -16,6 +16,7 @@ namespace WpfProject.Models
         public int? UserDataId { get; set; }
 
         public virtual UserData UserData { get; set; }
+        public ICollection<OrderItem> Orders { get; set; }
 
     }
 }

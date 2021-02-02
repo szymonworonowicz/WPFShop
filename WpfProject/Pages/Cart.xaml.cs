@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,26 +10,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using WpfProject.DAL;
 
 namespace WpfProject.Pages
 {
     /// <summary>
-    /// Interaction logic for SalesProducts.xaml
+    /// Interaction logic for Cart.xaml
     /// </summary>
-    public partial class SalesProducts : Page
+    public partial class Cart : Page
     {
-        public SalesProducts()
+        public Cart()
         {
             InitializeComponent();
-        }
-
-        private void LoadSaleProducts(object sender, RoutedEventArgs e)
-        {
-            var context = DataContextAccesor.GetDataContext();
-            var productList = context.Products.ToList();
-
-            SalesProduct.ItemsSource = productList;
         }
     }
 }

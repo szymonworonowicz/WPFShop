@@ -14,6 +14,7 @@ namespace WpfProject.DAL
         public DbSet<Product> Products { get; set; }
         public DbSet<UserData> UserDatas { get; set; }
         public DbSet<Adres> Adreses { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -24,6 +25,15 @@ namespace WpfProject.DAL
             optionsBuilder.UseSqlite(connectioString);
         }
 
-        
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<OrderItem>(entity =>
+            {
+                entity.HasKey(x => new { x.Id, x.ProductId });
+            });
+        }
+
     }
 }

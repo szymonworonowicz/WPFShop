@@ -33,7 +33,7 @@ namespace WpfProject.Pages
             var categoryList = context.Categories.ToList();
 
             CategoryList.ItemsSource = categoryList;
-            if(LoginService.Role == AppRole.Admin)
+            if (LoginService.Role == AppRole.Admin)
             {
                 Cart.Visibility = Visibility.Collapsed;
                 Admin.Visibility = Visibility.Visible;
@@ -45,6 +45,9 @@ namespace WpfProject.Pages
             }
         }
 
-        
+        private void Cart_Click(object sender, RoutedEventArgs e)
+        {
+            WindowContent.Navigate(new Cart());
+        }
     }
 }
