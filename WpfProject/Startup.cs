@@ -12,6 +12,8 @@ namespace WpfProject
         {
             base.OnStartup(e);
 
+            //Application app = new Application();
+
             var context = DataContextAccesor.GetDataContext();
 
             context.Database.EnsureCreated();
