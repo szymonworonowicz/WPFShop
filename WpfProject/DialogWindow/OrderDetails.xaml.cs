@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WpfProject.Models;
 
 namespace WpfProject.DialogWindow
 {
@@ -17,9 +18,10 @@ namespace WpfProject.DialogWindow
     /// </summary>
     public partial class OrderDetails : Window
     {
-        public OrderDetails()
+        public OrderDetails(Order order)
         {
             InitializeComponent();
+            this.DataContext = order;
         }
     }
 }

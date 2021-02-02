@@ -50,7 +50,7 @@ namespace WpfProject.Pages.UserPages
 
             dlg.ShowDialog();
 
-            OrderList.SelectedIndex = -1;
+            OrderList.SelectedIndex = -1;       
         }
     }
 }

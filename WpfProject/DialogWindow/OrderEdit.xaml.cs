@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using WpfProject.Helpers;
+using WpfProject.Models;
 
 namespace WpfProject.DialogWindow
 {
@@ -19,15 +20,22 @@ namespace WpfProject.DialogWindow
     /// </summary>
     public partial class OrderEdit : Window
     {
-        public OrderEdit()
+        private readonly Order order;
+        public OrderEdit(Order Order)
         {
             InitializeComponent();
-            
+            this.order = Order;
         }
 
         private void OrderEdit_Loaded(object sender, RoutedEventArgs e)
         {
             OrderStatus.ItemsSource = Enum.GetValues(typeof(OrderStatus)).Cast<OrderStatus>();
+            DataContext = order;
+        }
+
+        private void Confirm(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

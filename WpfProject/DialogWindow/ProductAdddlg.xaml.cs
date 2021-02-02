@@ -47,7 +47,9 @@ namespace WpfProject.DialogWindow
             categories = context.Categories.Where(x => x.SubCategoryId == null).Include(x => x.SubCategories).ToList();
             CategoryCombo.ItemsSource = categories;
 
+            //CategoryCombo.SelectedIndex = 0;
             MainGrid.DataContext = newProduct;
+            this.WindowStyle = WindowStyle.None;
 
         }
         private void AddPhoto_Click(object sender, RoutedEventArgs e)
@@ -75,15 +77,20 @@ namespace WpfProject.DialogWindow
 
         private void Category_Selection_Changed(object sender, SelectionChangedEventArgs e)
         {
-            
+            //SubCategoryCombo.SelectedIndex = -1;
             SubCategoryCombo.ItemsSource = categories[CategoryCombo.SelectedIndex].SubCategories;
+            SubCategoryCombo.SelectedIndex = 0;
 
         }
 
         private void SubCategory_Selection_Changed(object sender, SelectionChangedEventArgs e)
         {
-            var category = SubCategoryCombo.SelectedItem as Category;
-            newProduct.CategoryId = category.Id;
+            if(SubCategoryCombo.SelectedIndex!=-1)
+            {
+                var category = SubCategoryCombo.SelectedItem as Category;
+                newProduct.CategoryId = category.Id;
+            }
+
         }
 
         private void Add_Product_Click(object sender, RoutedEventArgs e)
@@ -108,5 +115,6 @@ namespace WpfProject.DialogWindow
             context.SaveChanges();
             this.Close();
         }
+
     }
 }

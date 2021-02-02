@@ -44,6 +44,7 @@ namespace WpfProject.Pages
         private void Confirm_Order(object sender, RoutedEventArgs e)
         {
             order.Status = OrderStatus.Nowe;
+            order.Date = DateTime.Now;
 
             DataContext context = DataContextAccesor.GetDataContext();
 
