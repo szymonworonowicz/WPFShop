@@ -7,6 +7,9 @@ namespace WpfProject.Helpers
     public enum AppRole
     {
         Admin,
-        User
+        User,
+        NotExist,
+        BadPassword,
+        None
     }
 }

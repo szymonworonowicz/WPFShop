@@ -1,27 +1,29 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows;
+using WpfProject.Account;
 using WpfProject.DAL;
+using WpfProject.Helpers;
 using WpfProject.Models;
 
 namespace WpfProject
 {
     public partial class Startup : Application
     {
-        protected override void OnStartup(StartupEventArgs e)
+        protected override async void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
 
-            //Application app = new Application();
 
             var context = DataContextAccesor.GetDataContext();
 
             context.Database.EnsureCreated();
 
-            if (context.Categories.Any() == false) // drop bazy
+            if (await context.Categories.AnyAsync() == false) // drop bazy
             {
                 List<Category> categoryList = new List<Category>()
                 {
@@ -47,9 +49,22 @@ namespace WpfProject
                         productList.Add(new Product { Name = "lodowka", Price = 239.22M, Description = "Super Lodowka", Photo = buffer, Sale = true });
                     }
                 }
-                context.Categories.AddRange(categoryList);
-                context.Products.AddRange(productList);
-                context.SaveChanges();
+                await context.Categories.AddRangeAsync(categoryList);
+                await context.Products.AddRangeAsync(productList);
+
+                await context.SaveChangesAsync();
+
+                if (await context.Users.AnyAsync() == false)
+                {
+                    User admin = new User
+                    {
+                        Name = "admin",
+                        Password = "admin",
+                        Role = AppRole.Admin
+                    };
+
+                    await AccountManager.Register(admin);
+                }
             }
 
 
