@@ -1,0 +1,35 @@
+﻿<Page x:Class="WpfProject.Pages.LoginPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfProject.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="LoginPage"
+      Background="White">
+
+    <Grid Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="auto"></ColumnDefinition>
+            <ColumnDefinition ></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Label Grid.Column="1" Grid.ColumnSpan="3" Margin="5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" >Logowanie</Label>
+        <Label Grid.Column="1" Grid.Row="1" Margin="5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">Login:</Label>
+        <TextBox  Grid.Column="2" Grid.Row="1" Margin="5" Grid.ColumnSpan="2"></TextBox>
+        <Label  Grid.Column="1" Grid.Row="2" Margin="5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">Hasło:</Label>
+        <TextBox  Grid.Column="2" Grid.Row="2" Margin="5" Grid.ColumnSpan="2"></TextBox>
+        <Button  Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Background="Transparent" BorderThickness="0" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center">Zaloguj się</Button>
+        <Button Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" Margin="5"  Background="Transparent" BorderThickness="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="9">Przypomnij Hasło</Button>
+    </Grid>
+</Page>

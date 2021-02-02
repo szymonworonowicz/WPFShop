@@ -12,31 +12,25 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WpfProject.DAL;
-using WpfProject.Models;
 
 namespace WpfProject.Pages
 {
     /// <summary>
-    /// Interaction logic for LoginPage.xaml
+    /// Interaction logic for SalesProducts.xaml
     /// </summary>
-    public partial class MainPage : Page
+    public partial class SalesProducts : Page
     {
-        public MainPage()
+        public SalesProducts()
         {
             InitializeComponent();
         }
 
-        private void PageOnLoaded(object sender, RoutedEventArgs e)
+        private void LoadSaleProducts(object sender, RoutedEventArgs e)
         {
             var context = DataContextAccesor.GetDataContext();
-            var categoryList = context.Categories.ToList();
+            var productList = context.Products.Where(x => x.Sale == true).Take(6).ToList();
 
-            CategoryList.ItemsSource = categoryList;
-        }
-
-        private void Zaloguj_OnClick(object sender, RoutedEventArgs e)
-        {
-            WindowContent.Navigate(new LoginPage());
+            SalesProduct.ItemsSource = productList;
         }
     }
 }

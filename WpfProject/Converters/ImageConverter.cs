@@ -9,6 +9,7 @@ using System.Windows.Media.Imaging;
 
 namespace WpfProject.Converters
 {
+    [ValueConversion(typeof(byte[]),typeof(BitmapImage))]
     public class ImageConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
