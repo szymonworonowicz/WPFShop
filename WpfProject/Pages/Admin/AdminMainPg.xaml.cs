@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfProject.Helpers;
 
 namespace WpfProject.Pages.Admin
 {
@@ -45,6 +46,12 @@ namespace WpfProject.Pages.Admin
                     expander.Visibility = Visibility.Visible;
                 }
             }
+        }
+
+        private void MainPage_CLick(object sender, RoutedEventArgs e)
+        {
+            MainWindow win = (MainWindow)Application.Current.MainWindow;
+            win.Content = new MainPage();
         }
     }
 }

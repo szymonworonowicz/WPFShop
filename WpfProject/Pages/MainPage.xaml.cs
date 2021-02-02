@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WpfProject.DAL;
+using WpfProject.Helpers;
 using WpfProject.Models;
 
 namespace WpfProject.Pages
@@ -32,16 +33,18 @@ namespace WpfProject.Pages
             var categoryList = context.Categories.ToList();
 
             CategoryList.ItemsSource = categoryList;
+            if(LoginService.Role == AppRole.Admin)
+            {
+                Cart.Visibility = Visibility.Collapsed;
+                Admin.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                Cart.Visibility = Visibility.Visible;
+                Admin.Visibility = Visibility.Collapsed;
+            }
         }
 
-        private void Zaloguj_OnClick(object sender, RoutedEventArgs e)
-        {
-            WindowContent.Navigate(new LoginPage());
-        }
-
-        private void Zarejestruj_OnClick(object sender, RoutedEventArgs e)
-        {
-            WindowContent.Navigate(new RegisterPage());
-        }
+        
     }
 }

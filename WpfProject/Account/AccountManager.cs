@@ -37,20 +37,20 @@ namespace WpfProject.Account
             return false;
         }
 
-        public static async Task<AppRole> Login(User user)
+        public static async Task<(AppRole role,User user)> Login(User user)
         {
             User userFromDb = await context.Users.FirstOrDefaultAsync(x => x.Name == user.Name);
 
             if (userFromDb == null)
             {
-                return AppRole.NotExist;
+                return (AppRole.NotExist,null);
             }
 
             if (VerifyPassword(user.Password, userFromDb.Password) == true)
             {
-                return userFromDb.Role;
+                return (userFromDb.Role,userFromDb);
             }
-            return AppRole.BadPassword;
+            return (AppRole.BadPassword,null);
         }
 
         private static string HashPassword(string password)

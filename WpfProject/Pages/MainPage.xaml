@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:WpfProject.Pages"
       xmlns:styles="clr-namespace:WpfProject.Helpers"
+      xmlns:controls="clr-namespace:WpfProject.UserControls"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="LoginPage"
@@ -29,26 +30,7 @@
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
-        <StackPanel  Grid.ColumnSpan="4" Margin="5" Background="LightYellow" >
-            <WrapPanel  HorizontalAlignment="Right" >
-                <WrapPanel Margin="5,0,5,0">
-                    <Image Width="20" Height="20">
-                        <Image.Source>
-                            <BitmapImage UriSource="..\Image_Icons\user.png" />
-                        </Image.Source>
-                    </Image>
-                    <Button  Background="Transparent" BorderThickness="0" FontSize="10" Click="Zaloguj_OnClick">Zaloguj się</Button>
-                </WrapPanel>
-                <WrapPanel Margin="5,0,5,0">
-                    <Image Width="20" Height="20" Name="register">
-                        <Image.Source>
-                            <BitmapImage UriSource="..\Image_Icons\user_add.png"/>
-                        </Image.Source>
-                    </Image>
-                    <Button  Background="Transparent" BorderThickness="0" FontSize="10" Click="Zarejestruj_OnClick">Zarejestruj się</Button>
-                </WrapPanel>
-            </WrapPanel>
-        </StackPanel>
+        <controls:LoginRegisterNavbar Grid.ColumnSpan="4"></controls:LoginRegisterNavbar>
         
         <Grid Grid.Row="1" Grid.ColumnSpan="4" Margin="5" >
             <Grid.ColumnDefinitions>
@@ -72,11 +54,12 @@
                     <TextBox  HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Margin="5" VerticalContentAlignment="Center" HorizontalContentAlignment="left" Padding="5" FontSize="14" BorderThickness="0">Wyszukaj przedmiot...</TextBox>
                 </DockPanel>
             </Border>
-            <Image Grid.Column="3" Margin="5" Height="40" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="40">
+            <Image Grid.Column="3" Margin="5" Height="40" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="40" Name="Cart">
                 <Image.Source>
                     <BitmapImage UriSource="../Image_Icons/cart.png" />
                 </Image.Source>
             </Image>
+            <Button Name="Admin" Grid.Column="3" Margin="5" VerticalAlignment="Stretch" Height="40" Width="40"  BorderThickness="0"  Background="LightYellow" Visibility="Collapsed">Admin</Button>
         </Grid>
         <ListBox Name="CategoryList" Grid.Row="2" Grid.ColumnSpan="4" ItemTemplate="{StaticResource CategoryListTemplate }" Padding="5" Margin="5" Background="LightYellow" ScrollViewer.CanContentScroll="false"  HorizontalAlignment="Stretch">
             <ListBox.ItemsPanel>

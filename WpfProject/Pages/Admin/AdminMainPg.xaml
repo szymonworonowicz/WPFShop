@@ -6,6 +6,7 @@
       xmlns:usercontrols="clr-namespace:WpfProject.UserControls"     
       xmlns:local="clr-namespace:WpfProject.Pages.Admin"
       xmlns:converters ="clr-namespace:WpfProject.Converters"
+      xmlns:controls="clr-namespace:WpfProject.UserControls"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="AdminMainPg" Background="White"
@@ -24,22 +25,16 @@
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Row="0" Grid.ColumnSpan="4" Margin="5" Background="LightYellow" >
-            <WrapPanel Margin="5,0,5,0" HorizontalAlignment="Right">
-                <Image Width="16" Height="16" Margin="0,0,5,0 ">
+        <controls:LoginRegisterNavbar Grid.ColumnSpan="4"></controls:LoginRegisterNavbar>
+        <WrapPanel Grid.Row="1" Grid.ColumnSpan="4">
+            <Button Background="Transparent"  Margin="5" BorderThickness="0" Click="MainPage_CLick">
+                <Image  Height="30" HorizontalAlignment="Left">
                     <Image.Source>
-                        <BitmapImage UriSource="../../Image_Icons/logout.png"/>
+                        <BitmapImage UriSource="../../Image_Icons/logo1.png"/>
                     </Image.Source>
                 </Image>
-                <Button  Background="Transparent" BorderThickness="0" FontSize="10">Wyloguj się</Button>
-            </WrapPanel>
-        </StackPanel>
-        <WrapPanel Grid.Row="1" Grid.ColumnSpan="4">
-            <Image  Margin="5" Height="30" HorizontalAlignment="Left" >
-                <Image.Source>
-                    <BitmapImage UriSource="../../Image_Icons/logo1.png"/>
-                </Image.Source>
-            </Image>
+            </Button>
+
         </WrapPanel>
 
         <TabControl Grid.Row="2" Grid.ColumnSpan="4" Grid.RowSpan="3" Margin="5" Padding="5">
@@ -86,23 +81,23 @@
                                 </WrapPanel>
                             </Grid>
                         </Expander >
-                        <Expander Header="Sortowanie"  Margin="5,0,5,0" Expanded="ExpanderGroup_Expand" Collapsed="ExpanderGroup_Expand" >
-                            <GroupBox BorderThickness="0">
-                                <StackPanel>
-                                    <RadioButton Margin="5">Cena: (rosnąco)</RadioButton>
-                                    <RadioButton Margin="5">Cena: (malejąco)</RadioButton>
-                                    <RadioButton Margin="5">Najnowsze</RadioButton>
-                                    <RadioButton Margin="5">Nazwa: (A-Z)</RadioButton>
-                                    <RadioButton Margin="5">Nazwa: (Z-A)</RadioButton>
-                                </StackPanel>
-                            </GroupBox>
-                        </Expander>
                         <Expander Header="Grupowanie"  Margin="5,0,5,0" Expanded="ExpanderGroup_Expand" Collapsed="ExpanderGroup_Expand" >
                             <GroupBox BorderThickness="0">
                                 <StackPanel>
                                     <RadioButton Margin="5">Po Kategorii</RadioButton>
                                     <RadioButton Margin="5">Po Cenie</RadioButton>
                                     <RadioButton Margin="5">Po Wyprzedaży</RadioButton>
+                                </StackPanel>
+                            </GroupBox>
+                        </Expander>
+                        <Expander Header="Sortowanie" Expanded="ExpanderGroup_Expand" Collapsed="ExpanderGroup_Expand" >
+                            <GroupBox BorderThickness="0">
+                                <StackPanel>
+                                    <RadioButton Margin="5" Content="Cena: (rosnąco)"/>
+                                    <RadioButton Margin="5" Content="Cena: (malejąco)"/>
+                                    <RadioButton Margin="5" Content="Najnowsze"/>
+                                    <RadioButton Margin="5" Content="Nazwa: (A-Z)"/>
+                                    <RadioButton Margin="5" Content="Nazwa: (Z-A)"/>
                                 </StackPanel>
                             </GroupBox>
                         </Expander>
@@ -127,17 +122,18 @@
             <TabItem Header="Magazyn" Background="#ff1616">
                 <Grid Margin="5">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="73*"></ColumnDefinition>
+                        <ColumnDefinition Width="119*"/>
+                        <ColumnDefinition Width="192*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <ListBox Name="MagazynLista">
+                    <ListBox Name="MagazynLista" Grid.ColumnSpan="2">
                         <ListBox.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel></WrapPanel>
                             </ItemsPanelTemplate>
                         </ListBox.ItemsPanel>
                     </ListBox>
-                    <Grid Grid.Column ="1" Margin="5" DataContext="{Binding ElementName=MagazynLista, Path=SelectedItem}">
+                    <Grid Grid.Column ="2" Margin="5,5,5,5" DataContext="{Binding ElementName=MagazynLista, Path=SelectedItem}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" ></ColumnDefinition>
                             <ColumnDefinition ></ColumnDefinition>
@@ -156,15 +152,160 @@
                         <Label Grid.Row="2" Grid.Column="1" Content="{Binding Path=Cena}"></Label>
                         <Label Grid.Row="3"  Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center">Stan magazynowy</Label>
                         <Label Grid.Row="3" Grid.Column="1" Margin="5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="{Binding Path=StanMagazynowy}"></Label>
-                        <usercontrols:NumericUpDown Grid.Row="4"  MinHeight="50" Margin="5" />
-                        <Button Name="Zamow" Grid.Row="4" Grid.Column="1" Margin="5">Zamow</Button>
+                        <Grid Grid.Row="4" Grid.ColumnSpan="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <usercontrols:NumericUpDown  Grid.Column="0" Margin="5" />
+                            <Button Name="Zamow"  Grid.Column="1" Margin="5">Zamow</Button>
+                        </Grid>
+
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem Header="Zamowienia" Background="#ffdb59"></TabItem>
-            <TabItem Header="Dodaj sprzedawce" Background="#ffdb59"></TabItem>
-            <TabItem Header="Uzytkownicy" Background="#5272ff"></TabItem>
-            <TabItem Header="Faktury" Background="#5272ff"></TabItem>
+            <TabItem Header="Zamowienia" Background="#ffdb59">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="41*"></ColumnDefinition>
+                        <ColumnDefinition Width="75*"/>
+                        <ColumnDefinition Width="116*"></ColumnDefinition>
+                        <ColumnDefinition Width="116*"></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" ></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <WrapPanel Name="ExpandersOrder" Grid.ColumnSpan="5" Margin="5,5,5,5" Background="LightYellow">
+                        <Expander Header="Filtrowanie" Margin="5,0,5,0" Expanded="ExpanderGroup_Expand" Collapsed="ExpanderGroup_Expand">
+                            <Grid HorizontalAlignment="Stretch">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Label>Stan Zamowienia</Label>
+                                <ComboBox Grid.Row="0" Grid.Column="1" Margin="4" MinWidth="100" IsEnabled="False"></ComboBox>
+                                <WrapPanel Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Right" Margin="5,10,5,5" >
+                                    <Button Name="FilterResetOrder" Margin="5" Padding="5">Usun Filtry</Button>
+                                    <Button Name="FilterOrder" Margin="5" Padding="5">Filtruj</Button>
+                                </WrapPanel>
+                            </Grid>
+                        </Expander >
+                        <Expander Header="Grupowanie"  Margin="5,0,5,0" Expanded="ExpanderGroup_Expand" Collapsed="ExpanderGroup_Expand" >
+                            <GroupBox BorderThickness="0">
+                                <StackPanel>
+                                    <RadioButton Margin="5">Po stanie zamowienia</RadioButton>
+                                    <RadioButton Margin="5">Po Cenie</RadioButton>
+                                </StackPanel>
+                            </GroupBox>
+                        </Expander>
+                        <Expander Header="Sortowanie" Expanded="ExpanderGroup_Expand" Collapsed="ExpanderGroup_Expand" >
+                            <GroupBox BorderThickness="0">
+                                <StackPanel>
+                                    <RadioButton Margin="5" Content="Cena: (rosnąco)"/>
+                                    <RadioButton Margin="5" Content="Cena: (malejąco)"/>
+                                    <RadioButton Margin="5" Content="Data: (rosnąco)"/>
+                                    <RadioButton Margin="5" Content="Data: (malejąco)"/>
+                                </StackPanel>
+                            </GroupBox>
+                        </Expander>
+                    </WrapPanel>
+                    <ListBox Name="ListofItemOrder" Grid.Row="1" Grid.RowSpan="4" Grid.ColumnSpan="4" Margin="5,5,5,5">
+
+                    </ListBox>
+                    <Grid Grid.Row="1" Grid.Column="3" Grid.RowSpan="4" Background="LightYellow" Grid.ColumnSpan="2" Margin="232,0,0,0" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Button Margin="5" Padding="10" BorderThickness="0" Grid.Row="0" Background="Transparent">Usun</Button>
+                        <Button Margin="5" Padding="10" BorderThickness="0" Grid.Row="1" Background="Transparent">Edytuj</Button>
+                        <Button Margin="5" Padding="10" BorderThickness="0" Grid.Row="2" Background="Transparent">Szczegóły</Button>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Dodaj sprzedawce" Background="#ffdb59">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <ListBox Name="Employees" Grid.RowSpan="2" Margin="5"></ListBox>
+                    <Grid Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Background="LightYellow" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Button Margin="5" Padding="10" BorderThickness="0" Grid.Row="0" Background="Transparent">Dodaj</Button>
+                        <Button Margin="5" Padding="10" BorderThickness="0" Grid.Row="1" Background="Transparent">Usun</Button>
+                        <Button Margin="5" Padding="10" BorderThickness="0" Grid.Row="2" Background="Transparent">Edytuj</Button>
+                        <Button Margin="5" Padding="10" BorderThickness="0" Grid.Row="3" Background="Transparent">Szczegóły</Button>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Uzytkownicy" Background="#5272ff">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <ListBox Name="Users" Grid.RowSpan="2" Margin="5"></ListBox>
+                    <Grid Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Background="LightYellow" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Button Margin="5" Padding="10" BorderThickness="0" Grid.Row="0" Background="Transparent">Edytuj</Button>
+                        <Button Margin="5" Padding="10" BorderThickness="0" Grid.Row="1" Background="Transparent">Szczegóły</Button>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Faktury" Background="#5272ff">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <ListBox Name="Payment" Margin="5" Grid.RowSpan="2"></ListBox>
+                    <Grid Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Background="LightYellow" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Button Margin="5" Padding="10" BorderThickness="0" Grid.Row="0" Background="Transparent">Drukuj</Button>
+                        <Button Margin="5" Padding="10" BorderThickness="0" Grid.Row="1" Background="Transparent">Usun</Button>
+                    </Grid>
+                </Grid>
+            </TabItem>
         </TabControl>
     </Grid>
 </Page>

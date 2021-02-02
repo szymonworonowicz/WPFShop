@@ -37,12 +37,19 @@ namespace WpfProject.Pages
                     Password = Password.Password
                 };
 
-                AppRole role = await AccountManager.Login(user);
+                var data = await AccountManager.Login(user);
 
-                if (role == AppRole.Admin)
+                LoginService.Login(data);
+
+                if (data.role == AppRole.Admin)
                 {
                     MainWindow main = (MainWindow)Application.Current.MainWindow;
                     main.Content = new AdminMainPg();
+                }
+                else if(data.role == AppRole.User)
+                {
+                    MainWindow main = (MainWindow)Application.Current.MainWindow;
+                    main.Content = new MainPage();
                 }
             }
         }

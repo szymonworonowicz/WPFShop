@@ -7,8 +7,23 @@
              mc:Ignorable="d" 
              d:DesignHeight="40" d:DesignWidth="200"
              Name="UpDown">
-
-    <Grid Background="White" Name="main" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"  >
+    <DockPanel>
+        <Grid DockPanel.Dock="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBox DockPanel.Dock="Left" Grid.RowSpan="2" Name="counter" MinWidth="100" TextChanged="CounterTextChanged" FontSize="12" Text="{Binding  Path=Value, ElementName=UpDown }" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></TextBox>
+            <Button DockPanel.Dock="Top" Grid.Column="1"  Content="⇧" FontSize="12" Click="UpClick" MaxWidth="50"></Button>
+            <Button DockPanel.Dock="Bottom" Grid.Column="1" Grid.Row="1"   Content="⇩" FontSize="12" Click="DownClick" MaxWidth="50"></Button>
+        </Grid>
+        
+    </DockPanel>
+    <!--<Grid Background="White" Name="main" VerticalAlignment="Center" HorizontalAlignment="Center"  >
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
@@ -17,8 +32,8 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="auto"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <TextBox Grid.RowSpan="2" Name="counter" TextChanged="CounterTextChanged" FontSize="12" Text="{Binding  Path=Value, ElementName=UpDown }" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></TextBox>
+        <TextBox Grid.RowSpan="2" Name="counter" MinWidth="100" TextChanged="CounterTextChanged" FontSize="12" Text="{Binding  Path=Value, ElementName=UpDown }" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></TextBox>
         <Button Grid.Column="1"  Content="⇧" FontSize="12" Click="UpClick"></Button>
         <Button Grid.Column="1" Grid.Row="1"   Content="⇩" FontSize="12" Click="DownClick"></Button>
-    </Grid>
+    </Grid>-->
 </UserControl>
