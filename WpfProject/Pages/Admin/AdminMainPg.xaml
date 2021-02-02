@@ -112,7 +112,7 @@
                             <RowDefinition Height="auto"></RowDefinition>
                             <RowDefinition Height="auto"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <Button Margin="5" Padding="10" BorderThickness="0" Background="Transparent">Dodaj</Button>
+                        <Button Margin="5" Padding="10" BorderThickness="0" Background="Transparent" Click="Products_Add_Click">Dodaj</Button>
                         <Button Margin="5" Padding="10" BorderThickness="0" Grid.Row="1" Background="Transparent">Usun</Button>
                         <Button Margin="5" Padding="10" BorderThickness="0" Grid.Row="2" Background="Transparent">Edytuj</Button>
                         <Button Margin="5" Padding="10" BorderThickness="0" Grid.Row="3" Background="Transparent">Szczegóły</Button>

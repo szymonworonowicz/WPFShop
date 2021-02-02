@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfProject.DialogWindow;
 using WpfProject.Helpers;
 
 namespace WpfProject.Pages.Admin
@@ -52,6 +53,13 @@ namespace WpfProject.Pages.Admin
         {
             MainWindow win = (MainWindow)Application.Current.MainWindow;
             win.Content = new MainPage();
+        }
+
+        private void Products_Add_Click(object sender, RoutedEventArgs e)
+        {
+            ProductAdddlg dialog = new ProductAdddlg();
+            dialog.ShowDialog();
+
         }
     }
 }

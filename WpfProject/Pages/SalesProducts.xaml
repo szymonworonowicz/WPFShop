@@ -14,6 +14,7 @@
     <Page.Resources>
         <converters:ImageConverter x:Key="ImageConverter"/>
         <converters:PriceConverter x:Key="PriceConverter"/>
+        <converters:ColumnWidthConverter x:Key="ColumnWidthConverter"/>
         <DataTemplate x:Key="SaleTemplate">
             <Border x:Name="Border" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="Transparent" >
                 <Grid Margin="3" x:Name="Grid" Grid.IsSharedSizeScope="True">
@@ -34,11 +35,61 @@
             </Border>
         </DataTemplate>
     </Page.Resources>
-    <ListBox Name="SalesProduct" Grid.Row="3" Grid.ColumnSpan="4" Margin="5" Padding="5" BorderThickness="0" ItemTemplate="{StaticResource SaleTemplate}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-        <ListBox.ItemsPanel>
-            <ItemsPanelTemplate>
-                <WrapPanel></WrapPanel>
-            </ItemsPanelTemplate>
-        </ListBox.ItemsPanel>
-    </ListBox>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Name="InfoColumn" MaxWidth="250">
+                <ColumnDefinition.Style>
+                    <Style TargetType="ColumnDefinition">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=SalesProduct, Path=SelectedItem,Converter= {StaticResource ColumnWidthConverter}}" Value="true">
+                                <Setter Property="Width" Value="0"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding ElementName=SalesProduct, Path=SelectedItem,Converter= {StaticResource ColumnWidthConverter}}" Value="false">
+                                <Setter Property="Width" Value="250"></Setter>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ColumnDefinition.Style>
+            </ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <ListBox Name="SalesProduct" Grid.Row="1"  Padding="5" BorderThickness="0" ItemTemplate="{StaticResource SaleTemplate}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel></WrapPanel>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>
+        <Grid Name="ProductInfo" Grid.Column="1" Background="White" DataContext="{Binding ElementName=SalesProduct, Path=SelectedItem}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <Grid.Style>
+                <Style TargetType="{x:Type Grid}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=SalesProduct, Path=SelectedItem}" Value="{x:Null}">
+                            <Setter Property="Visibility" Value="Collapsed"></Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Button Margin="5" Click="Item_Panel_Collapse" Padding="5" Background="red" BorderThickness="0">X</Button>
+            <Image Grid.Column="1" Grid.RowSpan="2" Margin="5" MaxWidth="150" MaxHeight="150" Source="{Binding Path=Photo,Converter={StaticResource ImageConverter}}"></Image>
+            <StackPanel Grid.Column="2" Grid.RowSpan="2" Margin="5" VerticalAlignment="Center">
+                <Label Name="Name" Content="{Binding Name}" Margin="5"></Label>
+                <Label Name="Price" Content="{Binding Price}" Margin="5"></Label>
+            </StackPanel>
+            <TextBox IsReadOnly="True" Margin="5" MinLines="8" Grid.Row="2" Grid.ColumnSpan="3" BorderThickness="0" Text="{Binding Description}" TextWrapping="WrapWithOverflow"></TextBox>
+            <Button Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Center" Padding="5" Margin="10" Click="AddToCart_Click" > Dodaj do koszyka</Button>
+        </Grid>
+    </Grid>
+    
 </Page>

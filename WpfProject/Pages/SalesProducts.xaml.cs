@@ -12,6 +12,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WpfProject.DAL;
+using WpfProject.Helpers;
+using WpfProject.Models;
 
 namespace WpfProject.Pages
 {
@@ -31,6 +33,19 @@ namespace WpfProject.Pages
             var productList = context.Products.ToList();
 
             SalesProduct.ItemsSource = productList;
+        }
+
+        private void Item_Panel_Collapse(object sender, RoutedEventArgs e)
+        {
+            SalesProduct.SelectedIndex = -1;
+        }
+
+        private void AddToCart_Click(object sender, RoutedEventArgs e)
+        {
+            Product p = SalesProduct.SelectedItem as Product;
+            CartHelper.AddToCart(p, 1);
+
+            MessageBox.Show("Dodano Do koszyka", "Zamowienie", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 }

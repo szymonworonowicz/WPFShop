@@ -25,6 +25,7 @@ namespace WpfProject
 
             if (await context.Categories.AnyAsync() == false) // drop bazy
             {
+                string lorem = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam mi felis, pellentesque nec suscipit vitae, ullamcorper sit amet lorem. Nullam posuere elit eget lectus hendrerit, in vulputate ex aliquam. Aliquam cursus, dui quis semper placerat, libero ipsum pharetra ante, a efficitur justo nunc eu purus. Vivamus at sapien vitae justo sagittis ullamcorper. Sed eu odio at elit dapibus blandit ut vel lectus. Suspendisse sit amet lacinia lorem. Morbi vestibulum luctus volutpat. Mauris egestas augue vitae eleifend molestie. Suspendisse nec magna felis. Nulla ligula nunc, aliquet non hendrerit eu, pulvinar ac neque. Vivamus ex turpis, tempor ut viverra ac, facilisis eu ligula.";
                 List<Category> categoryList = new List<Category>()
                 {
                     new Category{Name = "AGD" ,SubCategoryId=null},
@@ -51,11 +52,11 @@ namespace WpfProject
 
                         if (++i % 2 == 0)
                         {
-                            productList.Add(new Product { Name = "lodowka", Price = 239.22M, Description = "Super Lodowka", Photo = buffer, Sale = 0, StanMagazynowy = 20 });
+                            productList.Add(new Product { Name = "lodowka", Price = 239.22M, Description = lorem, Photo = buffer, Sale = 0, StanMagazynowy = 20,});
                         }
                         else
                         {
-                            productList.Add(new Product { Name = "lodowka", Price = 239.22M, Description = "Super Lodowka", Photo = buffer, Sale = 20, StanMagazynowy = 20 });
+                            productList.Add(new Product { Name = "lodowka", Price = 239.22M, Description = lorem, Photo = buffer, Sale = 20, StanMagazynowy = 20 });
                         }
 
 
@@ -80,7 +81,7 @@ namespace WpfProject
                     new Category{Name="Smartfony",SubCategoryId=productList[2].Id},
                     new Category{Name="Tablety",SubCategoryId=productList[2].Id},
                     new Category{Name="Telefony Stacjonarne",SubCategoryId=productList[2].Id},
-                    new Category{Name="PC",SubCategoryId=productList[2].Id},
+                    new Category{Name="PC",SubCategoryId=productList[3].Id},
                     new Category{Name="Laptopy",SubCategoryId=productList[3].Id},
                     new Category{Name="Notebooki",SubCategoryId=productList[3].Id},
                     new Category{Name="Drukarki",SubCategoryId=productList[3].Id},
@@ -107,6 +108,15 @@ namespace WpfProject
                     };
 
                     await AccountManager.Register(admin);
+
+                    User user = new User
+                    {
+                        Name = "user",
+                        Password = "user",
+                        Role = AppRole.User
+                    };
+
+                    await AccountManager.Register(user);
                 }
             }
 

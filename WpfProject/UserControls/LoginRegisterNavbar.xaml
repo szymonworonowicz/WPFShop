@@ -15,11 +15,17 @@
                         <BitmapImage UriSource="pack://application:,,,/Image_Icons/account.png" />
                     </Image.Source>
                 </Image>
-                <Menu Background="LightYellow" >
-                    <MenuItem Header="Konto"    FontSize="10"  >
+                <Menu Background="LightYellow" Name="User_Panel">
+                    <MenuItem Header="Konto" FontSize="10" Foreground="Black"  >
                         <MenuItem Header="Zamowienia" Name="Orders" Background="LightYellow" Click="Orders_Click"></MenuItem>
                         <MenuItem Header="Ustawienia" Name="Settings" Background="LightYellow" Click="Settings_Click"></MenuItem>
-                        <MenuItem Header="Zmiana Hasla" Name="PasswordChange" Background="LightYellow" Click="PasswordChange_Click"></MenuItem>    
+                        <MenuItem Header="Zmiana Hasla" Name="PasswordChange" Background="LightYellow" Click="PasswordChange_Click"></MenuItem>
+                    </MenuItem>
+                </Menu>
+                <Menu Background="LightYellow" Name="Admin_Panel">
+                    <MenuItem Header="Konto" FontSize="10" Foreground="Black"  >
+                        <MenuItem Header="Zmiana Hasla" Name="AdminPasswordChange" Background="LightYellow" Click="PasswordChange_Click"></MenuItem>
+                        <MenuItem Header="Panel admina" Name="AdminPanel" Background="LightYellow" Click="AdminPanel_CLick"></MenuItem>
                     </MenuItem>
                 </Menu>
             </WrapPanel>
@@ -50,6 +56,6 @@
                 <Button  Background="Transparent" BorderThickness="0" FontSize="10" Click="Zarejestruj_OnClick">Zarejestruj się</Button>
             </WrapPanel>
         </WrapPanel>
-        
+
     </StackPanel>
 </UserControl>

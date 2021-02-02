@@ -21,11 +21,11 @@ namespace WpfProject.UserControls
         public static DependencyProperty ValueProperty;
         private const int maxValue = 2000;
 
-
-        public int Value
+        //public string StringValue { get; set; }
+        public string Value
         {
-            get { return (int)GetValue(ValueProperty); }
-            set { SetValue(ValueProperty, value); }
+            get { return (string)GetValue(ValueProperty); }
+            set { SetCurrentValue(ValueProperty, value); }
         }
         public NumericUpDown()
         {
@@ -33,36 +33,49 @@ namespace WpfProject.UserControls
         }
         static NumericUpDown()
         {
-            ValueProperty = DependencyProperty.Register("Value", typeof(int), typeof(NumericUpDown), new FrameworkPropertyMetadata(0),new ValidateValueCallback(Validate) );
+            ValueProperty = DependencyProperty.Register("Value", typeof(string), typeof(NumericUpDown), new FrameworkPropertyMetadata("",FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         }
 
         private static bool Validate(object value)
         {
-            int number = (int)value;
-
-            return (!number.Equals(int.MaxValue) & !number.Equals(int.MinValue));
+            if (value != null && (string)value != "")
+            {
+                int.TryParse((string)value, out int current);
+                return current < maxValue;
+            }
+            return false;
         }
         private void CounterTextChanged(object sender, TextChangedEventArgs e)
         {
             TextBox text = sender as TextBox;
 
             int.TryParse(text.Text, out int current);
+            if (current < 0)
+                current = 0;
+            else if (current > maxValue)
+                current = maxValue;
 
-            Value = current;
+            Value = current.ToString();
         }
 
         private void UpClick(object sender, RoutedEventArgs e)
         {
-            Value++;
-            if (Value > maxValue)
-                Value = maxValue;
+            int.TryParse(Value, out int current);
+            current++;
+            if (current > maxValue)
+                current = maxValue;
+
+            Value = current.ToString();
         }
 
         private void DownClick(object sender, RoutedEventArgs e)
         {
-            Value--;
-            if (Value < 0)
-                Value = 0;
+            int.TryParse(Value, out int current);
+            current--;
+            if (current < 0)
+                current = 0;
+
+            Value = current.ToString();
         }
     }
 }

@@ -12,6 +12,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WpfProject.Helpers;
 using WpfProject.Pages;
+using WpfProject.Pages.Admin;
 using WpfProject.Pages.UserPages;
 
 namespace WpfProject.UserControls
@@ -28,7 +29,7 @@ namespace WpfProject.UserControls
 
         private void LoginRegisterNvbarLoaded(object sender, RoutedEventArgs e)
         {
-            if(LoginService.Role !=AppRole.None)
+            if(LoginService.Role != AppRole.None)
             {
                 Logout.Visibility = Visibility.Visible;
                 Login.Visibility = Visibility.Collapsed;
@@ -37,6 +38,17 @@ namespace WpfProject.UserControls
             {
                 Logout.Visibility = Visibility.Collapsed;
                 Login.Visibility = Visibility.Visible;
+            }
+
+            if(LoginService.Role == AppRole.User)
+            {
+                Admin_Panel.Visibility = Visibility.Collapsed;
+                User_Panel.Visibility = Visibility.Visible;
+            }
+            else if(LoginService.Role == AppRole.Admin)
+            {
+                Admin_Panel.Visibility = Visibility.Visible;
+                User_Panel.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -89,6 +101,13 @@ namespace WpfProject.UserControls
 
             win.Content = page;
             page.WindowContent.Navigate(new PasswordChange());
+        }
+
+        private void AdminPanel_CLick(object sender, RoutedEventArgs e)
+        {
+            MainWindow win = (MainWindow)Application.Current.MainWindow;
+
+            win.Content = new AdminMainPg();
         }
     }
 }
