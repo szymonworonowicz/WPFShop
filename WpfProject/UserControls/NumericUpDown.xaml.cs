@@ -1,15 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace WpfProject.UserControls
 {
@@ -31,7 +22,7 @@ namespace WpfProject.UserControls
             set { SetCurrentValue(ValueProperty, value); }
         }
 
-        public  string minValue
+        public string minValue
         {
             get => (string)GetValue(MinProperty);
             set => SetCurrentValue(MinProperty, value);
@@ -48,7 +39,7 @@ namespace WpfProject.UserControls
         }
         static NumericUpDown()
         {
-            ValueProperty = DependencyProperty.Register("Value", typeof(string), typeof(NumericUpDown), new FrameworkPropertyMetadata("",FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+            ValueProperty = DependencyProperty.Register("Value", typeof(string), typeof(NumericUpDown), new FrameworkPropertyMetadata("", FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
             MinProperty = DependencyProperty.Register("minValue", typeof(string), typeof(NumericUpDown), new FrameworkPropertyMetadata(""));
             MaxProperty = DependencyProperty.Register("maxValue", typeof(string), typeof(NumericUpDown), new FrameworkPropertyMetadata(""));
         }
@@ -75,8 +66,8 @@ namespace WpfProject.UserControls
                 current = max;
 
             Value = current.ToString();
-            
-            if(ValueChanged !=null)
+
+            if (ValueChanged != null)
             {
                 ValueChanged(this, EventArgs.Empty);
             }

@@ -1,11 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 using WpfProject.DAL;
 using WpfProject.Helpers;
 using WpfProject.Models;
@@ -53,7 +49,7 @@ namespace WpfProject.Account
                 var hashedpassword = HashPassword(user.Password);
 
                 user.Password = hashedpassword;
- 
+
                 context.Users.Add(user);
 
                 context.SaveChanges();
@@ -64,9 +60,9 @@ namespace WpfProject.Account
             return false;
         }
 
-        public static  (AppRole role, User user) Login(User user)
+        public static (AppRole role, User user) Login(User user)
         {
-            User userFromDb =  context.Users
+            User userFromDb = context.Users
                 .Include(x => x.UserData)
                 .ThenInclude(x => x.Adres)
                 .FirstOrDefault(x => x.Name == user.Name);
@@ -111,10 +107,10 @@ namespace WpfProject.Account
             return true;
         }
 
-        public static bool ChangePassword(string oldPassword,string newPassword)
+        public static bool ChangePassword(string oldPassword, string newPassword)
         {
             var user = LoginService.user;
-            if(VerifyPassword(oldPassword,user.Password))
+            if (VerifyPassword(oldPassword, user.Password))
             {
                 user.Password = HashPassword(newPassword);
                 try

@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
 using System.Windows;
 using WpfProject.Account;
@@ -26,7 +24,6 @@ namespace WpfProject
 
             if (await context.Categories.AnyAsync() == false) // drop bazy
             {
-                string lorem = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam mi felis, pellentesque nec suscipit vitae, ullamcorper sit amet lorem. Nullam posuere elit eget lectus hendrerit, in vulputate ex aliquam. Aliquam cursus, dui quis semper placerat, libero ipsum pharetra ante, a efficitur justo nunc eu purus. Vivamus at sapien vitae justo sagittis ullamcorper. Sed eu odio at elit dapibus blandit ut vel lectus. Suspendisse sit amet lacinia lorem. Morbi vestibulum luctus volutpat. Mauris egestas augue vitae eleifend molestie. Suspendisse nec magna felis. Nulla ligula nunc, aliquet non hendrerit eu, pulvinar ac neque. Vivamus ex turpis, tempor ut viverra ac, facilisis eu ligula.";
                 List<Category> categoryList = new List<Category>()
                 {
                     new Category{Name = "AGD" ,SubCategoryId=null},
@@ -42,8 +39,6 @@ namespace WpfProject
 
                 string directory = Path.Combine(Directory.GetCurrentDirectory(), "Image");
                 var path = Directory.GetFiles(directory);
-                int i = 0;
-
 
                 await context.Categories.AddRangeAsync(categoryList);
 
@@ -98,7 +93,7 @@ namespace WpfProject
                         stream.Read(buffer, 0, (int)stream.Length);
 
                         product.Photo = buffer;
-                        product.CategoryId = subCategoryList[product.CategoryId.Value-1].Id;
+                        product.CategoryId = subCategoryList[product.CategoryId.Value - 1].Id;
                     }
                 }
 

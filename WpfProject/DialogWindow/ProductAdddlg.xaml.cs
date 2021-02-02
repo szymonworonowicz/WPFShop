@@ -1,18 +1,11 @@
-﻿using Microsoft.Win32;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using Microsoft.EntityFrameworkCore;
 using WpfProject.DAL;
 using WpfProject.Models;
 
@@ -23,7 +16,7 @@ namespace WpfProject.DialogWindow
     /// </summary>
     public partial class ProductAdddlg : Window
     {
-        private  DataContext context;
+        private DataContext context;
         private List<Category> categories;
         public Product newProduct { get; set; }
         public bool add { get; set; }
@@ -54,25 +47,25 @@ namespace WpfProject.DialogWindow
         }
         private void AddPhoto_Click(object sender, RoutedEventArgs e)
         {
-            string photourl="";
+            string photourl = "";
             OpenFileDialog dialog = new OpenFileDialog();
 
             dialog.Filter = "Image files (*.png;*.jpeg;*.jpg)|*.png;*.jpeg;*.jpg|All files (*.*)|*.*";
             dialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             dialog.Multiselect = false;
 
-            if(dialog.ShowDialog() == true)
+            if (dialog.ShowDialog() == true)
             {
                 photourl = dialog.FileNames[0];
             }
-            if(photourl !="")
-            using (FileStream stream = new FileStream(photourl, FileMode.Open, FileAccess.Read))
-            {
-                byte[] buffer = new byte[stream.Length];
-                stream.Read(buffer, 0, (int) stream.Length);
-                newProduct.Photo = buffer;
-            }
-            
+            if (photourl != "")
+                using (FileStream stream = new FileStream(photourl, FileMode.Open, FileAccess.Read))
+                {
+                    byte[] buffer = new byte[stream.Length];
+                    stream.Read(buffer, 0, (int)stream.Length);
+                    newProduct.Photo = buffer;
+                }
+
         }
 
         private void Category_Selection_Changed(object sender, SelectionChangedEventArgs e)
@@ -85,7 +78,7 @@ namespace WpfProject.DialogWindow
 
         private void SubCategory_Selection_Changed(object sender, SelectionChangedEventArgs e)
         {
-            if(SubCategoryCombo.SelectedIndex!=-1)
+            if (SubCategoryCombo.SelectedIndex != -1)
             {
                 var category = SubCategoryCombo.SelectedItem as Category;
                 newProduct.CategoryId = category.Id;
@@ -106,7 +99,9 @@ namespace WpfProject.DialogWindow
                 {
                     context.Attach(newProduct).State = EntityState.Modified;
                 }
+#pragma warning disable CS0168 // The variable 'ex' is declared but never used
                 catch (DbUpdateConcurrencyException ex)
+#pragma warning restore CS0168 // The variable 'ex' is declared but never used
                 {
 
                 }

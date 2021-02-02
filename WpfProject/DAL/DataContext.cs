@@ -1,13 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using WpfProject.Models;
 
 namespace WpfProject.DAL
 {
-    public class DataContext :DbContext
+    public class DataContext : DbContext
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Category> Categories { get; set; }

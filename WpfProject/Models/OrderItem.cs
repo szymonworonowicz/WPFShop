@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace WpfProject.Models
 {
@@ -15,7 +12,7 @@ namespace WpfProject.Models
         public int OrderId { get; set; }
 
         private int count;
-        public int Count 
+        public int Count
         {
             get
             {
@@ -35,7 +32,7 @@ namespace WpfProject.Models
         {
             get
             {
-                if(Product !=null)
+                if (Product != null)
                 {
                     return Product.Price * (decimal)Count;
                 }

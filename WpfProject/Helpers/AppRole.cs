@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace WpfProject.Helpers
+﻿namespace WpfProject.Helpers
 {
     public enum AppRole
     {

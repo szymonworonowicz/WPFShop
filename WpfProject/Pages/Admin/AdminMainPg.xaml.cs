@@ -4,17 +4,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using WpfProject.DAL;
 using WpfProject.DialogWindow;
 using WpfProject.Groupers;
@@ -207,23 +200,47 @@ namespace WpfProject.Pages.Admin
 
                  if (p != null)
                  {
-                     if (category == null)
+                     if (cena == 0)
                      {
-                         if (p.Price < cena && ((p.Sale != 0) == sale))
+                         if (category == null)
+                         {
+                             if (((p.Sale != 0) == sale))
+                             {
+                                 return true;
+                             }
+                         }
+                         else if (subcategory == null)
+                         {
+                             if (((p.Sale != 0) == sale) && p.Category.SubCategory.Name == category.Name)
+                             {
+                                 return true;
+                             }
+                         }
+                         else
+                         {
+                             if (((p.Sale != 0) == sale) && p.Category.SubCategory.Name == category.Name && p.Category.Name == subcategory.Name)
+                             {
+                                 return true;
+                             }
+                         }
+                     }
+                     else if (category == null)
+                     {
+                         if (p.Price < cena  && ((p.Sale != 0) == sale))
                          {
                              return true;
                          }
                      }
                      else if (subcategory == null)
                      {
-                         if (p.Price < cena && ((p.Sale != 0) == sale) && p.Category.SubCategory.Name == category.Name)
+                         if (p.Price < cena  && ((p.Sale != 0) == sale) && p.Category.SubCategory.Name == category.Name)
                          {
                              return true;
                          }
                      }
                      else
                      {
-                         if (p.Price < cena && ((p.Sale != 0) == sale) && p.Category.SubCategory.Name == category.Name && p.Category.Name == subcategory.Name)
+                         if (p.Price < cena  && ((p.Sale != 0) == sale) && p.Category.SubCategory.Name == category.Name && p.Category.Name == subcategory.Name)
                          {
                              return true;
                          }
@@ -231,7 +248,7 @@ namespace WpfProject.Pages.Admin
                  }
                  return false;
              };
-            ;
+            
         }
 
         private void Category_Filter_SelectionChanged(object sender, SelectionChangedEventArgs e)

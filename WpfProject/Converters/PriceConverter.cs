@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Text;
 using System.Windows.Data;
 
 namespace WpfProject.Converters
@@ -10,7 +8,9 @@ namespace WpfProject.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+#pragma warning disable CS0252 // Possible unintended reference comparison; to get a value comparison, cast the left hand side to type 'string'
             if (value != "")
+#pragma warning restore CS0252 // Possible unintended reference comparison; to get a value comparison, cast the left hand side to type 'string'
                 return $"{value} zł";
             return "";
         }

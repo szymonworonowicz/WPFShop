@@ -1,15 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace WpfProject.UserControls
 {
@@ -38,7 +29,7 @@ namespace WpfProject.UserControls
 
         static PasswordControl()
         {
-            PasswordProperty = DependencyProperty.Register("Password", typeof(string), typeof(PasswordControl), new FrameworkPropertyMetadata(String.Empty,FrameworkPropertyMetadataOptions.BindsTwoWayByDefault)
+            PasswordProperty = DependencyProperty.Register("Password", typeof(string), typeof(PasswordControl), new FrameworkPropertyMetadata(String.Empty, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault)
                 , new ValidateValueCallback(Validate));
         }
 

@@ -1,21 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using WpfProject.DAL;
 using WpfProject.Helpers;
-using WpfProject.Models;
 using WpfProject.Pages.Admin;
 
 namespace WpfProject.Pages
@@ -38,10 +23,10 @@ namespace WpfProject.Pages
 
         private void Return_To_MainPage(object sender, RoutedEventArgs e)
         {
-            if(WindowContent.Content is SalesProducts sale)
+            if (WindowContent.Content is SalesProducts sale)
             {
-                sale.resetFilter(); 
-            } 
+                sale.resetFilter();
+            }
             else
             {
                 WindowContent.Navigate(new SalesProducts());
@@ -66,7 +51,7 @@ namespace WpfProject.Pages
         private void Search_CLick(object sender, RoutedEventArgs e)
         {
             SalesProducts sale = null;
-            if (Search_Text.Text == "Wyszukaj przedmiot..." && to_search=="")
+            if (Search_Text.Text == "Wyszukaj przedmiot..." && to_search == "")
             {
                 return;
             }

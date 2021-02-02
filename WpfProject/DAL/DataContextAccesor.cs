@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace WpfProject.DAL
+﻿namespace WpfProject.DAL
 {
     public class DataContextAccesor
     {
         private static DataContext context;
-        private  DataContextAccesor()
+        private DataContextAccesor()
         {
         }
 

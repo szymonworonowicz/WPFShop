@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using WpfProject.Models;
 
 namespace WpfProject.Helpers
 {
     public class CartHelper
     {
-        private static List<OrderItem> OrderItems { get;  set; }
+        private static List<OrderItem> OrderItems { get; set; }
         private static DateTime CartCreated;
 
         private CartHelper() { }
@@ -21,7 +20,7 @@ namespace WpfProject.Helpers
 
             OrderItem item = new OrderItem { Product = p, Count = Count };
             var iteminlist = OrderItems.FirstOrDefault(x => x.Product == item.Product);
-            if(iteminlist!= null)
+            if (iteminlist != null)
             {
                 iteminlist.Count++;
             }
@@ -52,7 +51,7 @@ namespace WpfProject.Helpers
 
         public static decimal getCartSum()
         {
-            decimal sum =0;
+            decimal sum = 0;
 
 
             OrderItems.ForEach(x => sum += x.Amount);

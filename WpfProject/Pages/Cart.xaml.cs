@@ -1,17 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using WpfProject.DAL;
 using WpfProject.Helpers;
 using WpfProject.Models;
@@ -45,7 +36,7 @@ namespace WpfProject.Pages
             this.NavigationService.Navigate(new CartDelivery());
         }
 
-        private void NumericUpDown_Change_Value(object sender,EventArgs e)
+        private void NumericUpDown_Change_Value(object sender, EventArgs e)
         {
             var numeric = sender as NumericUpDown;
             var product = CartGrid.SelectedItem as OrderItem;

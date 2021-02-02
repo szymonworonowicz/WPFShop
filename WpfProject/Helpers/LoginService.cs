@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using WpfProject.Models;
+﻿using WpfProject.Models;
 
 namespace WpfProject.Helpers
 {
@@ -9,7 +6,7 @@ namespace WpfProject.Helpers
     {
         public static AppRole Role { get; set; } = AppRole.None;
         public static User user;
-        public static void Login((AppRole role,User user) data)
+        public static void Login((AppRole role, User user) data)
         {
             Role = data.role;
             user = data.user;

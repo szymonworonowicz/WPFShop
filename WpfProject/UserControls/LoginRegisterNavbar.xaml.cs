@@ -1,15 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using WpfProject.Helpers;
 using WpfProject.Pages;
 using WpfProject.Pages.Admin;
@@ -29,7 +19,7 @@ namespace WpfProject.UserControls
 
         private void LoginRegisterNvbarLoaded(object sender, RoutedEventArgs e)
         {
-            if(LoginService.Role != AppRole.None)
+            if (LoginService.Role != AppRole.None)
             {
                 Logout.Visibility = Visibility.Visible;
                 Login.Visibility = Visibility.Collapsed;
@@ -40,13 +30,14 @@ namespace WpfProject.UserControls
                 Login.Visibility = Visibility.Visible;
             }
 
-            if(LoginService.Role == AppRole.User)
+            if (LoginService.Role == AppRole.User)
             {
                 Admin_Panel.Visibility = Visibility.Collapsed;
                 User_Panel.Visibility = Visibility.Visible;
             }
-            else if(LoginService.Role == AppRole.Admin)
-            { Admin_Panel.Visibility = Visibility.Visible;
+            else if (LoginService.Role == AppRole.Admin)
+            {
+                Admin_Panel.Visibility = Visibility.Visible;
                 User_Panel.Visibility = Visibility.Collapsed;
             }
         }

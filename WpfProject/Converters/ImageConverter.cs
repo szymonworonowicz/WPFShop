@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Text;
 using System.Windows.Data;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace WpfProject.Converters
 {
-    [ValueConversion(typeof(byte[]),typeof(BitmapImage))]
+    [ValueConversion(typeof(byte[]), typeof(BitmapImage))]
     public class ImageConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

@@ -1,16 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Internal;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using WpfProject.DAL;
 using WpfProject.Helpers;
 using WpfProject.Models;
@@ -33,7 +22,7 @@ namespace WpfProject.Pages
 
         private void CartDelivery_Loaded(object sender, RoutedEventArgs e)
         {
-            if(LoginService.user != null)
+            if (LoginService.user != null)
             {
                 UserData = LoginService.user.UserData;
             }
@@ -49,14 +38,14 @@ namespace WpfProject.Pages
         private void SumaryPage_Click(object sender, RoutedEventArgs e)
         {
             string delivery = "";
-            decimal deliverycost=0;
+            decimal deliverycost = 0;
 
-            if(Deliver.IsChecked==true)
+            if (Deliver.IsChecked == true)
             {
                 delivery = "Kurier";
                 deliverycost = 13;
             }
-            else if(Post.IsChecked ==true)
+            else if (Post.IsChecked == true)
             {
                 delivery = "Poczta";
                 deliverycost = 10;
@@ -74,9 +63,9 @@ namespace WpfProject.Pages
 
             var cartamount = CartHelper.getCartSum();
             var amount = cartamount + deliverycost;
-            Order order = new Order { Ordered = CartHelper.getCart(),UserData = UserData, OrderAmount =cartamount,Amount = amount,OrderOption  = delivery};
+            Order order = new Order { Ordered = CartHelper.getCart(), UserData = UserData, OrderAmount = cartamount, Amount = amount, OrderOption = delivery };
 
-            this.NavigationService.Navigate(new SumaryPage(order,fromcart:true));
+            this.NavigationService.Navigate(new SumaryPage(order, fromcart: true));
         }
     }
 }
