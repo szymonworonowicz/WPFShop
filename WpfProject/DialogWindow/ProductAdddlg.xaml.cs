@@ -23,20 +23,30 @@ namespace WpfProject.DialogWindow
     /// </summary>
     public partial class ProductAdddlg : Window
     {
-        private readonly DataContext context;
+        private  DataContext context;
         private List<Category> categories;
         public Product newProduct { get; set; }
+        public bool add { get; set; }
         public ProductAdddlg()
         {
             InitializeComponent();
-            context = DataContextAccesor.GetDataContext();
+            newProduct = new Product();
+            add = true;
 
         }
+        public ProductAdddlg(Product product)
+        {
+            InitializeComponent();
+            newProduct = product;
+            AddProduct.Content = "Edytuj Produkt";
+            add = false;
+        }
         private void Add_Product_Loaded(object sender, RoutedEventArgs e)
-        { 
+        {
+            context = DataContextAccesor.GetDataContext();
             categories = context.Categories.Where(x => x.SubCategoryId == null).Include(x => x.SubCategories).ToList();
             CategoryCombo.ItemsSource = categories;
-            newProduct = new Product();
+
             MainGrid.DataContext = newProduct;
 
         }
@@ -78,7 +88,23 @@ namespace WpfProject.DialogWindow
 
         private void Add_Product_Click(object sender, RoutedEventArgs e)
         {
-            context.Products.Add(newProduct);
+            if (add)
+            {
+                context.Products.Add(newProduct);
+
+            }
+            else
+            {
+                try
+                {
+                    context.Attach(newProduct).State = EntityState.Modified;
+                }
+                catch (DbUpdateConcurrencyException ex)
+                {
+
+                }
+
+            }
             context.SaveChanges();
             this.Close();
         }

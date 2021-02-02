@@ -37,34 +37,15 @@ namespace WpfProject
                 };
                
 
-                List<Product> productList = new List<Product>();
+
 
                 string directory = Path.Combine(Directory.GetCurrentDirectory(), "Image");
                 var path = Directory.GetFiles(directory);
                 int i = 0;
 
-                foreach (var item in path)
-                {
-                    using (FileStream stream = new FileStream(item, FileMode.Open, FileAccess.Read))
-                    {
-                        byte[] buffer = new byte[stream.Length];
-                        stream.Read(buffer, 0, (int)stream.Length);
 
-                        if (++i % 2 == 0)
-                        {
-                            productList.Add(new Product { Name = "lodowka", Price = 239.22M, Description = lorem, Photo = buffer, Sale = 0, StanMagazynowy = 20,});
-                        }
-                        else
-                        {
-                            productList.Add(new Product { Name = "lodowka", Price = 239.22M, Description = lorem, Photo = buffer, Sale = 20, StanMagazynowy = 20 });
-                        }
-
-
-                    }
-                }
                 await context.Categories.AddRangeAsync(categoryList);
 
-                await context.Products.AddRangeAsync(productList);
 
                 await context.SaveChangesAsync();
 
@@ -96,6 +77,31 @@ namespace WpfProject
 
                 await context.Categories.AddRangeAsync(subCategoryList);
 
+
+                await context.SaveChangesAsync();
+
+                List<Product> productList = new List<Product>();
+                foreach (var item in path)
+                {
+                    using (FileStream stream = new FileStream(item, FileMode.Open, FileAccess.Read))
+                    {
+                        byte[] buffer = new byte[stream.Length];
+                        stream.Read(buffer, 0, (int)stream.Length);
+
+                        if (++i % 2 == 0)
+                        {
+                            productList.Add(new Product { Name = "lodowka", Price = 239.22M, Description = lorem, Photo = buffer, Sale = 0, StanMagazynowy = 20, CategoryId=subCategoryList[i].Id });
+                        }
+                        else
+                        {
+                            productList.Add(new Product { Name = "lodowka", Price = 239.22M, Description = lorem, Photo = buffer, Sale = 20, StanMagazynowy = 20, CategoryId = subCategoryList[i].Id } );
+                        }
+
+
+                    }
+                }
+
+                await context.Products.AddRangeAsync(productList);
                 await context.SaveChangesAsync();
 
                 if (await context.Users.AnyAsync() == false)

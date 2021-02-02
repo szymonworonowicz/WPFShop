@@ -12,6 +12,31 @@
       Title="AdminMainPg" Background="White"
       Name="AdminPage"
       Loaded="AdminPageLoaded">
+    <Page.Resources>
+        <converters:ImageConverter x:Key="ImageConverter"/>
+        <converters:PriceConverter x:Key="PriceConverter"/>
+        <converters:ColumnWidthConverter x:Key="ColumnWidthConverter"/>
+        <DataTemplate x:Key="SaleTemplate">
+            <Border x:Name="Border" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="Transparent" >
+                <Grid Margin="3" x:Name="Grid" Grid.IsSharedSizeScope="True">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition  Height="*"></RowDefinition>
+                        <RowDefinition  Height="*"></RowDefinition>
+                        <RowDefinition  Height="*"></RowDefinition>
+                        <RowDefinition  Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Image  Height="100" Width="100"  Source="{Binding Path=Photo, Converter={StaticResource ImageConverter}}"></Image>
+                    <Label Grid.Row="2" HorizontalContentAlignment ="Left" Content="{Binding Price , Converter={StaticResource PriceConverter}}" Margin="5"></Label>
+                    <Label  Grid.Row="1" HorizontalContentAlignment ="Left" Content="{Binding SalePrice, Converter={StaticResource PriceConverter}}"  Foreground="Red"   ></Label>
+                    <Label Grid.Row="3" HorizontalContentAlignment ="Left" Content="{Binding Name}" FontWeight="Bold" ></Label>
+                </Grid>
+            </Border>
+        </DataTemplate>
+        
+    </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -44,6 +69,7 @@
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Name="InfoColumn" Width="0"></ColumnDefinition>
                         <ColumnDefinition Width="auto"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
@@ -53,7 +79,7 @@
                         <RowDefinition></RowDefinition>
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
-                    <WrapPanel Name="Expanders" Grid.ColumnSpan="4" Margin="5" Background="LightYellow">
+                    <WrapPanel Name="Expanders" Grid.ColumnSpan="5" Margin="5" Background="LightYellow">
                         <Expander Header="Filtrowanie" Margin="5,0,5,0" Expanded="ExpanderGroup_Expand" Collapsed="ExpanderGroup_Expand">
                             <Grid HorizontalAlignment="Stretch" Width="{Binding Path=Width,ElementName=ExpanderToolbar}">
                                 <Grid.RowDefinitions>
@@ -102,38 +128,64 @@
                             </GroupBox>
                         </Expander>
                     </WrapPanel>
-                    <ListBox Name="ListofItem" Grid.Row="1" Grid.RowSpan="4" Grid.ColumnSpan="3" Margin="5">
-
-                    </ListBox>
-                    <Grid Grid.Row="1" Grid.Column="3" Grid.RowSpan="4" Background="LightYellow" >
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"></RowDefinition>
-                            <RowDefinition Height="auto"></RowDefinition>
-                            <RowDefinition Height="auto"></RowDefinition>
-                            <RowDefinition Height="auto"></RowDefinition>
-                        </Grid.RowDefinitions>
-                        <Button Margin="5" Padding="10" BorderThickness="0" Background="Transparent" Click="Products_Add_Click">Dodaj</Button>
-                        <Button Margin="5" Padding="10" BorderThickness="0" Grid.Row="1" Background="Transparent">Usun</Button>
-                        <Button Margin="5" Padding="10" BorderThickness="0" Grid.Row="2" Background="Transparent">Edytuj</Button>
-                        <Button Margin="5" Padding="10" BorderThickness="0" Grid.Row="3" Background="Transparent">Szczegóły</Button>
-                    </Grid>
-                </Grid>
-            </TabItem>
-            <TabItem Header="Magazyn" Background="#ff1616">
-                <Grid Margin="5">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="73*"></ColumnDefinition>
-                        <ColumnDefinition Width="119*"/>
-                        <ColumnDefinition Width="192*"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <ListBox Name="MagazynLista" Grid.ColumnSpan="2">
+                    <ListBox Name="ListofItem" Grid.Row="1" Grid.RowSpan="4" Grid.ColumnSpan="3" Margin="5" ItemTemplate="{StaticResource SaleTemplate}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionChanged="ListOfItem_SelectionChanged">
                         <ListBox.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel></WrapPanel>
                             </ItemsPanelTemplate>
                         </ListBox.ItemsPanel>
                     </ListBox>
-                    <Grid Grid.Column ="2" Margin="5,5,5,5" DataContext="{Binding ElementName=MagazynLista, Path=SelectedItem}">
+                    <Grid Grid.Row="1" Grid.Column="4" Grid.RowSpan="4" Background="LightYellow" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Button Name="AddProduct" Margin="5" Padding="10" BorderThickness="0" Background="Transparent"  Click="Products_Add_Click">Dodaj</Button>
+                        <Button Name="Delete_Product" Margin="5" Padding="10" BorderThickness="0" Grid.Row="1" Background="Transparent" Visibility="Hidden">Usun</Button>
+                        <Button Name="Edit_Product" Margin="5" Padding="10" BorderThickness="0" Grid.Row="2" Background="Transparent" Visibility="Hidden" Click="Products_Edit_Click" >Edytuj</Button>
+                        <Button Name="Details_Product" Margin="5" Padding="10" BorderThickness="0" Grid.Row="3" Background="Transparent" Visibility="Hidden" Click="Details_Click">Szczegóły</Button>
+                    </Grid>
+                    <Grid Name="ProductInfo" Grid.Column="3" Grid.Row="1" Grid.RowSpan="4" Margin="5" Background="White" DataContext="{Binding ElementName=ListofItem, Path=SelectedItem}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Visibility="Visible">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Button Margin="5" Click="Item_Panel_Collapse" Padding="5" Background="red" BorderThickness="0">X</Button>
+                        <Image Grid.Column="1" Grid.RowSpan="2" Margin="5" MaxWidth="150" MaxHeight="150" Source="{Binding Path=Photo,Converter={StaticResource ImageConverter}}"></Image>
+                        <StackPanel Grid.Column="2" Grid.RowSpan="2" Margin="5" VerticalAlignment="Center">
+                            <Label  Content="{Binding Name}" Margin="5"></Label>
+                            <Label Content="{Binding Price}" Margin="5"></Label>
+                            <Label  Content="{Binding Sale}" Margin="5"></Label>
+                            <Label  Content="{Binding Category}" Margin="5"></Label>
+                            <Label  Content="{Binding Category.SubCategory}" Margin="5"></Label>
+                        </StackPanel>
+                        <TextBox IsReadOnly="True" Margin="5" MinLines="8" Grid.Row="2" Grid.ColumnSpan="3" BorderThickness="0" Text="{Binding Description}" TextWrapping="WrapWithOverflow"></TextBox>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Magazyn" Background="#ff1616">
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <ListBox Name="StoreList" ItemTemplate="{StaticResource SaleTemplate}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel></WrapPanel>
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                    </ListBox>
+                    <Grid Grid.Column ="2" Margin="5,5,5,5" DataContext="{Binding ElementName=StoreList, Path=SelectedItem}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" ></ColumnDefinition>
                             <ColumnDefinition ></ColumnDefinition>
@@ -149,7 +201,7 @@
                         <Label Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">Nazwa</Label>
                         <Label Grid.Row="1" Grid.Column="1" Content="{Binding Path=Name}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
                         <Label Grid.Row="2"  Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center">Cena</Label>
-                        <Label Grid.Row="2" Grid.Column="1" Content="{Binding Path=Cena}"></Label>
+                        <Label Grid.Row="2" Grid.Column="1" Content="{Binding Path=Price}"></Label>
                         <Label Grid.Row="3"  Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center">Stan magazynowy</Label>
                         <Label Grid.Row="3" Grid.Column="1" Margin="5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="{Binding Path=StanMagazynowy}"></Label>
                         <Grid Grid.Row="4" Grid.ColumnSpan="2">
@@ -160,8 +212,8 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="auto"></RowDefinition>
                             </Grid.RowDefinitions>
-                            <usercontrols:NumericUpDown  Grid.Column="0" Margin="5" />
-                            <Button Name="Zamow"  Grid.Column="1" Margin="5">Zamow</Button>
+                            <usercontrols:NumericUpDown x:Name="OrderCount"  Grid.Column="0" Margin="5" />
+                            <Button Name="Zamow"  Grid.Column="1" Margin="5" Click="Store_OrderProduct_CLick">Zamow</Button>
                         </Grid>
 
                     </Grid>
