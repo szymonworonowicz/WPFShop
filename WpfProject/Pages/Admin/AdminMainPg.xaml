@@ -16,7 +16,7 @@
     <Page.Resources>
         <converters:ImageConverter x:Key="ImageConverter"/>
         <converters:PriceConverter x:Key="PriceConverter"/>
-        <converters:ColumnWidthConverter x:Key="ColumnWidthConverter"/>
+        <converters:PhotoIsNullConverter x:Key="ColumnWidthConverter"/>
         <DataTemplate x:Key="SaleTemplate">
             <Border x:Name="Border" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="Transparent" >
                 <Grid Margin="3" x:Name="Grid" Grid.IsSharedSizeScope="True">
@@ -104,33 +104,42 @@
                                 <Label Margin="5" Grid.Row="1" Padding="5,0,0,0">Wyprzedaz</Label>
                                 <CheckBox Name="Sale_Filter" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5"></CheckBox>
                                 <Label Grid.Row="2" Margin="5" Padding="5,0,0,0">Kategoria</Label>
-                                <ComboBox Name="Category_Filter" Grid.Row="2" Grid.Column="1" Margin="5" MinWidth="100" SelectionChanged="Category_Filter_SelectionChanged"></ComboBox>
+                                <ComboBox Name="Category_Filter" Grid.Row="2" Grid.Column="1" Margin="5" MinWidth="100" SelectionChanged="Category_Filter_SelectionChanged" Background="LightYellow"></ComboBox>
                                 <Label Grid.Row="3" Margin="5" Padding="5,0,0,0">Podkategoria</Label>
                                 <ComboBox Name="Subcategory_Filter" Grid.Row="3" Grid.Column="1" Margin="4" MinWidth="100" ></ComboBox>
                                 <WrapPanel Grid.Row="4" Grid.ColumnSpan="2" HorizontalAlignment="Right" Margin="5,10,5,5" >
-                                    <Button Name="FilterReset" Margin="5" Padding="5" Click="Product_Filter_None">Usun Filtry</Button>
-                                    <Button Name="Filter" Margin="5" Padding="5" Click="Product_Filter">Filtruj</Button>
+                                    <Button Name="FilterReset" Margin="5" Padding="5" Click="Product_Filter_None" Background="Transparent" BorderThickness="0">Usun Filtry</Button>
+                                    <Button Name="Filter" Margin="5" Padding="5" Click="Product_Filter" Background="Transparent" BorderThickness="0">Filtruj</Button>
                                 </WrapPanel>
                             </Grid>
                         </Expander >
                         <Expander Header="Grupowanie"  Margin="5,0,5,0" Expanded="ExpanderGroup_Expand" Collapsed="ExpanderGroup_Expand" >
-                            <GroupBox BorderThickness="0">
-                                <StackPanel >
-                                    <RadioButton Margin="5" Name="Group_Category" Checked="Group_Product">Po Kategorii</RadioButton>
-                                    <RadioButton Margin="5" Name="Group_Price" Checked="Group_Product">Po Cenie</RadioButton>
-                                </StackPanel>
-                            </GroupBox>
+                            <StackPanel>
+                                <GroupBox BorderThickness="0">
+                                    <StackPanel Name="Group_radio">
+                                        <RadioButton Margin="5" Name="Group_Category" Checked="Group_Product">Po Kategorii</RadioButton>
+                                        <RadioButton Margin="5" Name="Group_Price" Checked="Group_Product">Po Cenie</RadioButton>
+                                    </StackPanel>
+                                </GroupBox>
+                                <Button Name="Group_Remove" Margin="5" Padding="5" Background="Transparent" BorderThickness="0" Click="GroupRemove_Click">Usun Filtry</Button>
+                            </StackPanel>
+
+
                         </Expander>
                         <Expander Header="Sortowanie" Expanded="ExpanderGroup_Expand" Collapsed="ExpanderGroup_Expand" >
-                            <GroupBox BorderThickness="0">
-                                <StackPanel>
-                                    <RadioButton Margin="5" Content="Cena: (rosnąco)" Click="Sort_Price_Asc"/>
-                                    <RadioButton Margin="5" Content="Cena: (malejąco)" Click="Sort_Price_Dsc"/>
-                                    <RadioButton Margin="5" Content="Najnowsze" Click="Sort_Date"/>
-                                    <RadioButton Margin="5" Content="Nazwa: (A-Z)" Click="Sort_Name_Asc"/>
-                                    <RadioButton Margin="5" Content="Nazwa: (Z-A)" Click="Sort_Name_Dsc"/>
-                                </StackPanel>
-                            </GroupBox>
+                            <StackPanel>
+                                <GroupBox BorderThickness="0">
+                                    <StackPanel Name="Sort_Radio">
+                                        <RadioButton Margin="5" Content="Cena: (rosnąco)" Click="Sort_Price_Asc"/>
+                                        <RadioButton Margin="5" Content="Cena: (malejąco)" Click="Sort_Price_Dsc"/>
+                                        <RadioButton Margin="5" Content="Najnowsze" Click="Sort_Date"/>
+                                        <RadioButton Margin="5" Content="Nazwa: (A-Z)" Click="Sort_Name_Asc"/>
+                                        <RadioButton Margin="5" Content="Nazwa: (Z-A)" Click="Sort_Name_Dsc"/>
+                                    </StackPanel>
+                                </GroupBox>
+                                <Button Name="Sort_Remove" Margin="5" Padding="5" Background="Transparent" BorderThickness="0" Click="SortRemove_Click">Usun Filtry</Button>
+                            </StackPanel>
+
                         </Expander>
                     </WrapPanel>
                     <ListBox Name="ListofItem" Grid.Row="1" Grid.RowSpan="4" Grid.ColumnSpan="3" Margin="5" ItemTemplate="{StaticResource SaleTemplate}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionChanged="ListOfItem_SelectionChanged">
@@ -309,7 +318,7 @@
                         <Button Margin="5" Padding="10" BorderThickness="0" Grid.Row="0" Background="Transparent">Usun</Button>
                         <Button Margin="5" Padding="10" BorderThickness="0" Grid.Row="1" Background="Transparent" Click="Order_Edit_Click">Edytuj</Button>
                         <Button Margin="5" Padding="10" BorderThickness="0" Grid.Row="2" Background="Transparent" Click="Order_Details_Click">Szczegóły</Button>
-                        <Button Margin="5" Padding="10" BorderThickness="0" Grid.Row="3" Background="Transparent" Click="Payment_Click"> Generuj fakture</Button>
+                        <Button Margin="5" Padding="10" BorderThickness="0" Grid.Row="3" Background="Transparent" Click="Payment_Click">Generuj fakture</Button>
                     </Grid>
                 </Grid>
             </TabItem>
@@ -336,7 +345,7 @@
                     </ListView>
                 </Grid>
             </TabItem>
-            
+
         </TabControl>
     </Grid>
 </Page>

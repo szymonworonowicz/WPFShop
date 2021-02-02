@@ -70,8 +70,6 @@ namespace WpfProject.Pages.Admin
             ProductAdddlg dialog = new ProductAdddlg();
             dialog.ShowDialog();
 
-            if (dialog.newProduct.Photo != null)
-                DbAccessorService.AddProduct(product: dialog.newProduct);
         }
 
         private void Products_Edit_Click(object sender, RoutedEventArgs e)
@@ -79,7 +77,7 @@ namespace WpfProject.Pages.Admin
             var product = ListofItem.SelectedItem as Product;
             ProductAdddlg dialog = new ProductAdddlg(product);
             dialog.ShowDialog();
-            DbAccessorService.updateProduct(product);
+            ListofItem.Items.Refresh();
         }
 
         private void ListOfItem_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -379,6 +377,28 @@ namespace WpfProject.Pages.Admin
             dlg.Owner = win;
             dlg.ShowDialog();
 
+        }
+
+        private void SortRemove_Click(object sender, RoutedEventArgs e)
+        {
+            ProductView.SortDescriptions.Clear();
+            foreach(var element in Sort_Radio.Children)
+            {
+                RadioButton radio = element as RadioButton;
+                if (radio.IsChecked==true)
+                    radio.IsChecked = false;
+            }
+        }
+
+        private void GroupRemove_Click(object sender, RoutedEventArgs e)
+        {
+            ProductView.GroupDescriptions.Clear();
+            foreach(var element in Group_radio.Children)
+            {
+                RadioButton radio = element as RadioButton;
+                if (radio.IsChecked == true)
+                    radio.IsChecked = false;
+            }
         }
     }
 }

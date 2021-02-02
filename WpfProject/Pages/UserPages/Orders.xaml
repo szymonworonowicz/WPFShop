@@ -10,7 +10,7 @@
       Title="Orders" Background="White"
       Loaded="OrdersLoaded">
     <Page.Resources>
-        <converters:ColumnWidthConverter x:Key="NullConverter"/>
+        <converters:PhotoIsNullConverter x:Key="NullConverter"/>
     </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>

@@ -4,11 +4,13 @@ using System.Windows.Data;
 
 namespace WpfProject.Converters
 {
-    class ColumnWidthConverter : IValueConverter
+    class PhotoIsNullConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value == null;
+            if(value == null)
+                 return true;
+            return false;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

@@ -8,14 +8,15 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Faktura Vat"
     Width="800"
-    Height="450"
+    Height="500"
+    ResizeMode="CanMinimize"
     mc:Ignorable="d">
     <Window.Resources>
         <converters:DateConverter x:Key="dateconverter" />
         <converters:InvoicePriceConverter x:Key="InvoicePriceConverter" />
     </Window.Resources>
-    <ScrollViewer>
-        <Grid>
+    <ScrollViewer x:Name="InvoiceContent">
+        <Grid Name="InvoiceContentGrid" Background="White">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
@@ -23,6 +24,7 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
                 <RowDefinition />
+                <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
@@ -53,13 +55,21 @@
                 Margin="5"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Center">
-                <Button Background="Transparent" BorderThickness="0">
+                <Button
+                    Name="Save_btn"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Click="Save_Click">
                     <Image
                         MaxWidth="30"
                         MaxHeight="30"
                         Source="../Image_Icons/save.png" />
                 </Button>
-                <Button Background="Transparent" BorderThickness="0">
+                <Button
+                    Name="Print_btn"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Click="Print_Click">
                     <Image
                         MaxWidth="30"
                         MaxHeight="30"
@@ -143,6 +153,47 @@
                         Content="{Binding Date, Converter={StaticResource dateconverter}}" />
                 </WrapPanel>
             </Grid>
+            <Grid
+                Grid.Row="2"
+                Grid.Column="2"
+                Grid.ColumnSpan="2"
+                Margin="5"
+                VerticalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+                <Label Margin="5" Content="Cena całkowita" />
+                <Label
+                    Grid.Row="1"
+                    Margin="5"
+                    Content="Rodzaj przesyłki" />
+                <Label
+                    Grid.Row="2"
+                    Margin="5"
+                    Content="Cena z przesyłką" />
+                <Label
+                    Grid.Column="1"
+                    Margin="5"
+                    Content="{Binding OrderAmount}"
+                    ContentStringFormat="{}{0} zł" />
+                <Label
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="5"
+                    Content="{Binding OrderOption}" />
+                <Label
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Margin="5"
+                    Content="{Binding Amount}"
+                    ContentStringFormat="{}{0} zł" />
+            </Grid>
             <Grid Grid.Row="3" Grid.ColumnSpan="4">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="5*" />
@@ -221,13 +272,9 @@
                                 Margin="5"
                                 HorizontalAlignment="Center"
                                 FontSize="12"
-                                FontWeight="ExtraLight">
-                                <TextBlock.Text>
-                                    <MultiBinding StringFormat="{}{0} zł">
-                                        <Binding Path="Count" />
-                                    </MultiBinding>
-                                </TextBlock.Text>
-                            </TextBlock>
+                                FontWeight="ExtraLight"
+                                Text="{Binding Count}" />
+
                             <TextBlock
                                 Grid.Column="2"
                                 Margin="5"
@@ -245,52 +292,50 @@
                                 Margin="5"
                                 HorizontalAlignment="Center"
                                 FontSize="12"
-                                FontWeight="ExtraLight"
-                                Text="{Binding Amount}" />
+                                FontWeight="ExtraLight">
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0} zł">
+                                        <Binding Path="Amount" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Grid
-                Grid.Row="6"
-                Grid.Column="3"
-                Margin="5">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition Width="auto" />
-                </Grid.ColumnDefinitions>
-                <Label Margin="5" Content="Cena całkowita" />
-                <Label
-                    Grid.Row="1"
-                    Margin="5"
-                    Content="Rodzaj przesyłki" />
-                <Label
-                    Grid.Row="2"
-                    Margin="5"
-                    Content="Cena z przesyłką" />
-                <Label
-                    Grid.Column="1"
-                    Margin="5"
-                    Content="{Binding OrderAmount}"
-                    ContentStringFormat="{}{0} zł" />
-                <Label
-                    Grid.Row="1"
-                    Grid.Column="1"
-                    Margin="5"
-                    Content="{Binding OrderOption}" />
-                <Label
-                    Grid.Row="2"
-                    Grid.Column="1"
-                    Margin="5"
-                    Content="{Binding Amount}"
-                    ContentStringFormat="{}{0} zł" />
-            </Grid>
 
+            <Rectangle
+                Grid.Row="6"
+                Grid.ColumnSpan="4"
+                Height="1"
+                Margin="5"
+                HorizontalAlignment="Stretch"
+                Fill="Black"
+                Opacity="0.5" />
+            <StackPanel
+                Grid.Row="7"
+                Grid.ColumnSpan="4"
+                Background="LightYellow">
+                <WrapPanel HorizontalAlignment="Center">
+                    <WrapPanel Margin="5,0,5,5" VerticalAlignment="Bottom">
+                        <Image Width="20" Height="20">
+                            <Image.Source>
+                                <BitmapImage UriSource="../Image_Icons/phone.png" />
+                            </Image.Source>
+                        </Image>
+                        <Label FontSize="8">+48 999999999</Label>
+                    </WrapPanel>
+                    <WrapPanel Margin="5,0,5,5" VerticalAlignment="Bottom">
+                        <Image Height="20">
+                            <Image.Source>
+                                <BitmapImage UriSource="../Image_Icons/location.png" />
+                            </Image.Source>
+                        </Image>
+                        <Label FontSize="8">ul.Pralki 5, 13-342 Lodówka</Label>
+                    </WrapPanel>
+
+                </WrapPanel>
+            </StackPanel>
         </Grid>
     </ScrollViewer>
 </Window>

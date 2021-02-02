@@ -104,14 +104,25 @@ namespace WpfProject.Profiler
             {
                 using (DataContext context = new DataContext())
                 {
+                    product.Category = null;
                     context.Add(product);
                     context.SaveChanges();
                 }
             });
+            t.Start();
         }
 
         public static void updateProduct(Product product)
         {
+            int i = 0;
+            for (i = 0; i < products.Count; i++)
+            {
+                if (products[i] == product)
+                {
+                    break;
+                }
+            }
+            products[i] = product;
             Task t = new Task(() =>
             {
                 using (DataContext context = new DataContext())
@@ -128,6 +139,7 @@ namespace WpfProject.Profiler
                     }
                 }
             });
+            t.Start();
         }
 
         public static void updateOrder(Order order)
@@ -140,6 +152,7 @@ namespace WpfProject.Profiler
                     context.SaveChanges();
                 }
             });
+            t.Start();
         }
     }
 }

@@ -14,7 +14,7 @@
     <Page.Resources>
         <converters:ImageConverter x:Key="ImageConverter"/>
         <converters:PriceConverter x:Key="PriceConverter"/>
-        <converters:ColumnWidthConverter x:Key="ColumnWidthConverter"/>
+        <converters:PhotoIsNullConverter x:Key="ColumnWidthConverter"/>
         <DataTemplate x:Key="SaleTemplate" >
             <Border x:Name="Border" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"   Background="Transparent" >
                 <Grid Margin="3" x:Name="Grid" >

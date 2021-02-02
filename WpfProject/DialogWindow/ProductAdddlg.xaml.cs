@@ -21,6 +21,7 @@ namespace WpfProject.DialogWindow
         private DataContext context;
         private List<Category> categories;
         public Product newProduct { get; set; }
+
         public bool add { get; set; }
         public ProductAdddlg()
         {
@@ -45,7 +46,7 @@ namespace WpfProject.DialogWindow
             //CategoryCombo.SelectedIndex = 0;
             MainGrid.DataContext = newProduct;
             this.WindowStyle = WindowStyle.None;
-
+            PhotoName.Content = "";
         }
         private void AddPhoto_Click(object sender, RoutedEventArgs e)
         {
@@ -59,6 +60,8 @@ namespace WpfProject.DialogWindow
             if (dialog.ShowDialog() == true)
             {
                 photourl = dialog.FileNames[0];
+                var path = photourl.Split('\\');
+                PhotoName.Content = path[path.Length-1];
             }
 
             if (photourl != "")
@@ -89,14 +92,16 @@ namespace WpfProject.DialogWindow
 
         private void Add_Product_Click(object sender, RoutedEventArgs e)
         {
-            if (add)
-            {
-                DbAccessorService.AddProduct(newProduct);
-            }
-            else
-            {
-                DbAccessorService.updateProduct(newProduct);
-            }
+            if (newProduct.Photo.Length != 0)
+                if (add)
+                {
+                    DbAccessorService.AddProduct(newProduct);
+                }
+                else
+                {
+                    DbAccessorService.updateProduct(newProduct);
+                    
+                }
             this.Close();
         }
 
