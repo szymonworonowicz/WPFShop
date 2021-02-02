@@ -61,7 +61,7 @@
             </DataGrid.Columns>
         </DataGrid>
         <Label Name="CartSum" Grid.Row="2" HorizontalAlignment="Right" Margin="5" FontWeight="Bold" FontSize="18"></Label>
-        <Button Grid.Row="3" HorizontalAlignment="Right" Margin="5" Click="DeliveryClick">Przejdz do dostawy</Button>
+        <Button Grid.Row="3" HorizontalAlignment="Right" Click="DeliveryClick">Przejdz do dostawy</Button>
     </Grid>
 
 </Page>

@@ -1,59 +1,128 @@
-﻿<UserControl x:Class="WpfProject.UserControls.LoginRegisterNavbar"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:WpfProject.UserControls"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800"
-             Loaded="LoginRegisterNvbarLoaded">
-    <StackPanel  Grid.ColumnSpan="4" Margin="5" Background="LightYellow" VerticalAlignment="Center"  >
-        <WrapPanel Name="Logout" HorizontalAlignment="Right" Visibility="Visible"  >
+﻿<UserControl
+    x:Class="WpfProject.UserControls.LoginRegisterNavbar"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:WpfProject.UserControls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    Loaded="LoginRegisterNvbarLoaded"
+    mc:Ignorable="d">
+    <StackPanel
+        Grid.ColumnSpan="4"
+        Margin="5"
+        VerticalAlignment="Center"
+        Background="LightYellow">
+        <WrapPanel
+            Name="Logout"
+            HorizontalAlignment="Right"
+            Visibility="Visible">
             <WrapPanel Margin="5,0,5,0" HorizontalAlignment="Right">
-                <Image Width="16" Height="15" Margin="0,0,5,0 ">
+                <Image
+                    Width="16"
+                    Height="15"
+                    Margin="0,0,5,0">
                     <Image.Source>
                         <BitmapImage UriSource="pack://application:,,,/Image_Icons/account.png" />
                     </Image.Source>
                 </Image>
-                <Menu Background="LightYellow" Name="User_Panel">
-                    <MenuItem Header="Konto" FontSize="10" Foreground="Black"  >
-                        <MenuItem Header="Zamowienia" Name="Orders" Background="LightYellow" Click="Orders_Click"></MenuItem>
-                        <MenuItem Header="Ustawienia" Name="Settings" Background="LightYellow" Click="Settings_Click"></MenuItem>
-                        <MenuItem Header="Zmiana Hasla" Name="PasswordChange" Background="LightYellow" Click="PasswordChange_Click"></MenuItem>
+                <Menu Name="User_Panel" Background="LightYellow">
+                    <MenuItem
+                        FontSize="10"
+                        Foreground="Black"
+                        Header="Konto">
+                        <MenuItem
+                            Name="Orders"
+                            Background="LightYellow"
+                            Click="Orders_Click"
+                            Header="Zamowienia" />
+                        <MenuItem
+                            Name="Settings"
+                            Background="LightYellow"
+                            Click="Settings_Click"
+                            Header="Ustawienia" />
+                        <MenuItem
+                            Name="PasswordChange"
+                            Background="LightYellow"
+                            Click="PasswordChange_Click"
+                            Header="Zmiana Hasla" />
                     </MenuItem>
                 </Menu>
-                <Menu Background="LightYellow" Name="Admin_Panel">
-                    <MenuItem Header="Konto" FontSize="10" Foreground="Black"  >
-                        <MenuItem Header="Zmiana Hasla" Name="AdminPasswordChange" Background="LightYellow" Click="PasswordChange_Click"></MenuItem>
-                        <MenuItem Header="Panel admina" Name="AdminPanel" Background="LightYellow" Click="AdminPanel_CLick"></MenuItem>
+                <Menu Name="Admin_Panel" Background="LightYellow">
+                    <MenuItem
+                        FontSize="10"
+                        Foreground="Black"
+                        Header="Konto">
+                        <MenuItem
+                            Name="AdminPasswordChange"
+                            Background="LightYellow"
+                            Click="PasswordChange_Click"
+                            Header="Zmiana Hasla" />
+                        <MenuItem
+                            Name="AdminPanel"
+                            Background="LightYellow"
+                            Click="AdminPanel_CLick"
+                            Header="Panel admina" />
                     </MenuItem>
                 </Menu>
             </WrapPanel>
             <WrapPanel Margin="5,0,5,0" HorizontalAlignment="Right">
-                <Image Width="16" Height="15" Margin="0,0,5,0 ">
+                <Image
+                    Width="16"
+                    Height="15"
+                    Margin="0,0,5,0">
                     <Image.Source>
                         <BitmapImage UriSource="pack://application:,,,/Image_Icons/logout.png" />
                     </Image.Source>
                 </Image>
-                <Button Name="LogoutClick"  Background="Transparent" BorderThickness="0" FontSize="10" Click="Logout_Click">Wyloguj się</Button>
+                <Button
+                    Name="LogoutClick"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Click="Logout_Click"
+                    FontSize="10"
+                    Style="{x:Null}">
+                    Wyloguj się
+                </Button>
             </WrapPanel>
         </WrapPanel>
-        <WrapPanel  HorizontalAlignment="Right" Name="Login" Visibility="Collapsed">
+        <WrapPanel
+            Name="Login"
+            HorizontalAlignment="Right"
+            Visibility="Collapsed">
             <WrapPanel Margin="5,0,5,0">
                 <Image Width="20" Height="20">
                     <Image.Source>
                         <BitmapImage UriSource="pack://application:,,,/Image_Icons/user.png" />
                     </Image.Source>
                 </Image>
-                <Button  Background="Transparent" BorderThickness="0" FontSize="10" Click="Zaloguj_OnClick">Zaloguj się</Button>
+                <Button
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Click="Zaloguj_OnClick"
+                    FontSize="10"
+                    Style="{x:Null}">
+                    Zaloguj się
+                </Button>
             </WrapPanel>
             <WrapPanel Margin="5,0,5,0">
-                <Image Width="20" Height="20" Name="register">
+                <Image
+                    Name="register"
+                    Width="20"
+                    Height="20">
                     <Image.Source>
-                        <BitmapImage UriSource="pack://application:,,,/Image_Icons/user_add.png"/>
+                        <BitmapImage UriSource="pack://application:,,,/Image_Icons/user_add.png" />
                     </Image.Source>
                 </Image>
-                <Button  Background="Transparent" BorderThickness="0" FontSize="10" Click="Zarejestruj_OnClick">Zarejestruj się</Button>
+                <Button
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Click="Zarejestruj_OnClick"
+                    FontSize="10"
+                    Style="{x:Null}">
+                    Zarejestruj się
+                </Button>
             </WrapPanel>
         </WrapPanel>
 

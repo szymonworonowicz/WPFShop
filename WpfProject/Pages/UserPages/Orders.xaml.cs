@@ -48,7 +48,7 @@ namespace WpfProject.Pages.UserPages
         {
             var order = orderlist[OrderList.SelectedIndex];
 
-            var dlg = new InvoiceDlg(order);
+            var dlg = new Invoice(order);
 
             dlg.ShowDialog();
 

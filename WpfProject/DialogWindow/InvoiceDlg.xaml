@@ -57,8 +57,6 @@
                 VerticalAlignment="Center">
                 <Button
                     Name="Save_btn"
-                    Background="Transparent"
-                    BorderThickness="0"
                     Click="Save_Click">
                     <Image
                         MaxWidth="30"
@@ -67,8 +65,6 @@
                 </Button>
                 <Button
                     Name="Print_btn"
-                    Background="Transparent"
-                    BorderThickness="0"
                     Click="Print_Click">
                     <Image
                         MaxWidth="30"

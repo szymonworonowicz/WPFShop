@@ -35,6 +35,10 @@ namespace WpfProject.Models
             {
                 if (Product != null)
                 {
+                    if(Product.Sale !=0)
+                    {
+                        return decimal.Parse(Product.SalePrice) * (decimal)Count;
+                    }
                     return Product.Price * (decimal)Count;
                 }
                 return 0;

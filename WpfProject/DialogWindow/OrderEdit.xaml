@@ -17,6 +17,6 @@
             <Label Margin="5"> Zmien Status</Label>
             <ComboBox Margin="5" Name="OrderStatus" MinWidth="200" SelectedItem="{Binding Status}"></ComboBox>
         </WrapPanel>
-        <Button Grid.Row="3" IsDefault="true" HorizontalAlignment="Right" Margin="5" Padding="15,5,15,5" Click="Confirm">OK</Button>
+        <Button Grid.Row="3" IsDefault="true" HorizontalAlignment="Right"  Click="Confirm">OK</Button>
     </Grid>
 </Window>

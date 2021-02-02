@@ -97,9 +97,7 @@
                 Click="AddPhoto_Click">
                 Dodaj zdjecie
             </Button>
-            <Label
-                Name="PhotoName"
-                Margin="5">
+            <Label Name="PhotoName" Margin="5">
                 <Label.Content>
                     <Binding Converter="{StaticResource PhotoIsNull}" Path="Photo">
                         <Binding.ValidationRules>
@@ -181,11 +179,11 @@
             Name="Description"
             Grid.Row="6"
             Grid.Column="1"
+            MinHeight="100"
             Margin="5"
             AcceptsReturn="True"
             MaxLines="6"
             MinLines="6"
-            MinHeight="100"
             ScrollViewer.VerticalScrollBarVisibility="Visible"
             Text="{Binding Description}"
             TextWrapping="Wrap" />
@@ -193,8 +191,6 @@
             Name="AddProduct"
             Grid.Row="7"
             Grid.Column="1"
-            Margin="5"
-            Padding="5"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             Click="Add_Product_Click">
