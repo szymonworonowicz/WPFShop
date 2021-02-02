@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Media.Animation;
 using WpfProject.DAL;
 using WpfProject.Groupers;
 using WpfProject.Helpers;
@@ -302,6 +303,18 @@ namespace WpfProject.Pages
             {
                 Subcategory_Filter.ItemsSource = DbAccessorService.getCategories()[Category_Filter.SelectedIndex].SubCategories;
             }
+        }
+
+        private void SalesPRoductsSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+
+            if(InfoColumn.Width.Value != 250)
+            {
+                Storyboard storyboard = (Storyboard)FindResource("Begin");
+                storyboard.Begin(InfoColumn, true);
+            }
+
         }
     }
 }

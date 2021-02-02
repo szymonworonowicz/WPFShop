@@ -84,8 +84,6 @@ namespace WpfProject.DialogWindow
             this.Print_btn.Visibility = Visibility.Hidden;
             if (saveFileDialog.ShowDialog().Value)
             {
-                //if (System.IO.Path.GetExtension(saveFileDialog.FileName).ToLower() == "pdf")
-                //{
                 this.document = new Document();
 
                 this.document.Info.Title = $"Faktura nr {order.Date.Year}/{order.Id}";
@@ -104,7 +102,6 @@ namespace WpfProject.DialogWindow
 
                 renderer.RenderDocument();
 
-                // Save the document...
                 string filename = saveFileDialog.FileName;
                 renderer.PdfDocument.Save(filename);
 
