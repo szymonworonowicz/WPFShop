@@ -44,16 +44,6 @@ namespace WpfProject.UserControls
             MaxProperty = DependencyProperty.Register("maxValue", typeof(string), typeof(NumericUpDown), new FrameworkPropertyMetadata(""));
         }
 
-        private bool Validate(object value)
-        {
-            if (value != null && (string)value != "")
-            {
-                int.TryParse((string)value, out int current);
-                int.TryParse(maxValue, out int max);
-                return current < max;
-            }
-            return false;
-        }
         private void CounterTextChanged(object sender, TextChangedEventArgs e)
         {
             TextBox text = sender as TextBox;

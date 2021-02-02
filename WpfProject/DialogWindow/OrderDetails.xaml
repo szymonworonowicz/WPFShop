@@ -90,11 +90,11 @@
                 <Label  Grid.Column="3" Grid.Row="1" Margin="5" Grid.ColumnSpan="2" Content="{Binding UserData.Adres.HomeNumber}" ></Label>
             </Grid>
             <Label Grid.Row="8" Margin="5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left">Wartośc zamowienia:</Label>
-            <Label Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2" Margin="5"  Content="{Binding Amount}" ></Label>
+            <Label Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2" Margin="5"  Content="{Binding Amount}"  ContentStringFormat="{}{0} zł"></Label>
             <Label Grid.Row="9" Margin="5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left">Sposob dostawy:</Label>
             <Label Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="2" Margin="5"  Content="{Binding OrderOption}"></Label>
             <Label Grid.Row="10" Margin="5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left">Wartość (bez dostawy):</Label>
-            <Label Grid.Row="10" Grid.Column="1"  Grid.ColumnSpan="2" VerticalContentAlignment="Center"  Margin="5" Content="{Binding OrderAmount }"  />
+            <Label Grid.Row="10" Grid.Column="1"  Grid.ColumnSpan="2" VerticalContentAlignment="Center"  Margin="5" Content="{Binding OrderAmount }"  ContentStringFormat="{}{0} zł"  />
         </Grid>
 
 

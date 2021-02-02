@@ -34,7 +34,7 @@ namespace WpfProject.Pages.UserPages
                 context.Update(user);
                 context.SaveChanges();
 
-                MessageBox.Show("Zmieniono dane", "Zmiana Danych", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Zmieniono dane", "Zmiana Danych", MessageBoxButton.OK, MessageBoxImage.Information);
 
                 this.NavigationService.Navigate(new SalesProducts());
             }
