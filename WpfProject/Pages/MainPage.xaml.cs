@@ -1,5 +1,7 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using WpfProject.Helpers;
 using WpfProject.Pages.Admin;
 
@@ -14,6 +16,17 @@ namespace WpfProject.Pages
         public MainPage()
         {
             InitializeComponent();
+
+            CommandBinding FindBinding = new CommandBinding();
+            FindBinding.Command = ApplicationCommands.Find;
+            FindBinding.Executed += FindCommandExecuted;
+            MainWindow mw = (MainWindow)Application.Current.MainWindow;
+            mw.CommandBindings.Add(FindBinding);
+        }
+
+        private void FindCommandExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            SearchTextBox_Focus();
         }
 
         private void Cart_Click(object sender, RoutedEventArgs e)
@@ -37,6 +50,7 @@ namespace WpfProject.Pages
         private void AdminPage_Click(object sender, RoutedEventArgs e)
         {
             MainWindow mw = (MainWindow)Application.Current.MainWindow;
+            mw.CommandBindings.Clear();
             mw.Content = new AdminMainPg();
         }
 
@@ -69,10 +83,15 @@ namespace WpfProject.Pages
             sale.Filter(to_search);
         }
 
+        private void SearchTextBox_Focus()
+        {
+            Search_Text.Text = "";
+            Search_Text.Focus();
+
+        }
         private void Search_TextBox_Focus(object sender, RoutedEventArgs e)
         {
-            TextBox search = sender as TextBox;
-            search.Text = "";
+            SearchTextBox_Focus();
         }
 
         private void Seach_TextBox_LostFocus(object sender, RoutedEventArgs e)

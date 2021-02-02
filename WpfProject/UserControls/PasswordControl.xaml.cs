@@ -10,6 +10,8 @@ namespace WpfProject.UserControls
     public partial class PasswordControl : UserControl
     {
         public static DependencyProperty PasswordProperty;
+        public static DependencyProperty ValidatePasswordProperty;
+
         private bool OldPasswordButtonstate = false;
         public string Password
         {
@@ -22,15 +24,30 @@ namespace WpfProject.UserControls
                 SetValue(PasswordProperty, value);
             }
         }
+        public bool ValidatePassword
+        {
+            get
+            {
+                return (bool)GetValue(ValidatePasswordProperty);
+            }
+            set
+            {
+                SetValue(ValidatePasswordProperty, value);
+            }
+        }
+        
         public PasswordControl()
         {
             InitializeComponent();
+            Password = "";
+            
         }
 
         static PasswordControl()
         {
             PasswordProperty = DependencyProperty.Register("Password", typeof(string), typeof(PasswordControl), new FrameworkPropertyMetadata(String.Empty, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault)
                 , new ValidateValueCallback(Validate));
+            ValidatePasswordProperty = DependencyProperty.Register("ValidatePassword",typeof(bool), typeof(PasswordControl), new PropertyMetadata(true));
         }
 
         private static bool Validate(object value)
@@ -58,12 +75,12 @@ namespace WpfProject.UserControls
 
         private void Password_change(object sender, RoutedEventArgs e)
         {
-            Password = OldPassword.Password;
+           //Password = OldPassword.Password;
         }
 
         private void VisiblePassword_Text_Changed(object sender, TextChangedEventArgs e)
         {
-            OldPassword.Password = VisibleOldPassword.Text;
+            //OldPassword.Password = VisibleOldPassword.Text;
         }
     }
 }

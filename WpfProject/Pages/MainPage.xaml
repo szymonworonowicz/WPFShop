@@ -12,7 +12,8 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="LoginPage"
       Background="White"
-      Loaded="MainPage_Loaded">
+      Loaded="MainPage_Loaded"
+      >
     <Page.Resources>
         <DataTemplate x:Key="CategoryListTemplate">
             <Button Content="{Binding Name}" Margin="5" BorderThickness="0" Background="Transparent"></Button>
@@ -368,6 +369,9 @@
             </Grid.ColumnDefinitions>
 
             <Button Margin="5" Grid.Column="0" BorderThickness="0" BorderBrush="Transparent" Background="Transparent" Click="Return_To_MainPage" >
+                <Button.ToolTip>
+                    <TextBlock>Przejdź do strony głównej</TextBlock>
+                </Button.ToolTip>
                 <Image Height="50">
                     <Image.Source>
                         <BitmapImage UriSource="../Image_Icons/logo1.png"/>
@@ -388,6 +392,9 @@
                 </DockPanel>
             </Border>
             <Button Name="Cart"  Grid.Column="3" Width="40" Height="40" Background="Transparent" BorderThickness="0" Click="Cart_Click" >
+                <Button.ToolTip>
+                    <TextBlock>Przejdź do koszyka</TextBlock>
+                </Button.ToolTip>
                 <Image  Height="40" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     <Image.Source>
                         <BitmapImage UriSource="../Image_Icons/cart.png" />
@@ -402,20 +409,27 @@
         <StackPanel Grid.Row="3" Grid.ColumnSpan="4" Margin="5" Background="LightYellow"  >
             <WrapPanel HorizontalAlignment="Center" >
                 <WrapPanel Margin="5,0,5,5" VerticalAlignment="Bottom">
+                    <WrapPanel.ToolTip>
+                        <TextBlock>Nasz numer kontaktowy</TextBlock>
+                    </WrapPanel.ToolTip>
                     <Image Height="20" Width="20">
                         <Image.Source>
                             <BitmapImage UriSource="../Image_Icons/phone.png"/>
                         </Image.Source>
                     </Image>
-                    <Label FontSize="8">+48 999999999</Label>
+                    <Label FontSize="8" Content="+48 999999999"/>
                 </WrapPanel>
                 <WrapPanel Margin="5,0,5,5" VerticalAlignment="Bottom">
+                    <WrapPanel.ToolTip>
+                        <TextBlock>Adres korespondencyjny</TextBlock>
+                    </WrapPanel.ToolTip>
                     <Image Height="20">
                         <Image.Source>
                             <BitmapImage UriSource="../Image_Icons/location.png"></BitmapImage>
                         </Image.Source>
                     </Image>
-                    <Label FontSize="8">ul.Pralki 5, 13-342 Lodówka</Label>
+                    <Label FontSize="8" Content="ul.Pralki 5, 13-342 Lodówka"/>
+
                 </WrapPanel>
 
             </WrapPanel>

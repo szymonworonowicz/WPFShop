@@ -28,7 +28,7 @@ namespace WpfProject.Pages.UserPages
 
             var user = LoginService.user;
 
-            orderlist = context.Order.Include(x => x.Ordered).Where(x => x.UserDataId == user.UserDataId).ToList();
+            orderlist = context.Order.Include(x => x.Ordered).ThenInclude(x => x.Product).Where(x => x.UserDataId == user.UserDataId).ToList();
 
             OrderList.ItemsSource = orderlist;
         }
@@ -38,6 +38,17 @@ namespace WpfProject.Pages.UserPages
             var order = orderlist[OrderList.SelectedIndex];
 
             var dlg = new UserOrderDetails(order);
+
+            dlg.ShowDialog();
+
+            OrderList.SelectedIndex = -1;
+        }
+
+        private void Order_Invoice_Click(object sender, RoutedEventArgs e)
+        {
+            var order = orderlist[OrderList.SelectedIndex];
+
+            var dlg = new InvoiceDlg(order);
 
             dlg.ShowDialog();
 

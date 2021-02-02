@@ -12,7 +12,7 @@ namespace WpfProject.Pages
     public partial class RegisterPage : Page
     {
         public User user { get; set; }
-
+        public bool ValidatePassword = true;
         public RegisterPage()
         {
             InitializeComponent();
@@ -29,8 +29,35 @@ namespace WpfProject.Pages
 
         private void Register_Click(object sender, RoutedEventArgs e)
         {
-            bool canregister = AccountManager.RegisteUser(user);
-            this.NavigationService.Navigate(new SalesProducts());
+            PasswordError.Visibility = Visibility.Collapsed;
+            if (string.IsNullOrEmpty(user.Name)==false && string.IsNullOrEmpty(user.Password) == false)
+            {
+                if (firstPassword.Password != repeatPassword.Password)
+                {
+                    PasswordError.Content = "Hasla musza byc identyczne";
+                    PasswordError.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    
+                    if (AccountManager.RegisteUser(user) == true)
+                    {
+                        this.NavigationService.Navigate(new SalesProducts());
+                    }
+                    else
+                    {
+                        PasswordError.Content = "Uzytkownik o danym loginie juz istnieje";
+                        PasswordError.Visibility = Visibility.Visible;
+                    }
+
+                }
+            }
+            else
+            {
+                PasswordError.Content = "Prosze podac dane";
+                PasswordError.Visibility = Visibility.Visible;
+            } 
+
 
         }
     }
