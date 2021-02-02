@@ -8,6 +8,7 @@ using System.Windows.Input;
 using WpfProject.DAL;
 using WpfProject.Helpers;
 using WpfProject.Models;
+using WpfProject.Profiler;
 
 namespace WpfProject.Pages
 {
@@ -24,10 +25,10 @@ namespace WpfProject.Pages
 
         private void LoadSaleProducts(object sender, RoutedEventArgs e)
         {
-            var context = DataContextAccesor.GetDataContext();
-            this.products = context.Products.Include(x => x.Category).ThenInclude(x => x.SubCategory).ToList();
-
-            SalesProduct.ItemsSource = products;
+            //var context = DataContextAccesor.GetDataContext();
+            //this.products = context.Products.Include(x => x.Category).ThenInclude(x => x.SubCategory).ToList();
+            //products = DbAccessorService.getProducts();
+            SalesProduct.ItemsSource = DbAccessorService.getProducts();
         }
 
         private void Item_Panel_Collapse(object sender, RoutedEventArgs e)
@@ -46,7 +47,7 @@ namespace WpfProject.Pages
         {
             get
             {
-                return (ListCollectionView)CollectionViewSource.GetDefaultView(products);
+                return (ListCollectionView)CollectionViewSource.GetDefaultView(DbAccessorService.getProducts());
             }
         }
         private void MenuItem_Click(object sender, MouseButtonEventArgs e)

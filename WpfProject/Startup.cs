@@ -1,12 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Text.Json;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using WpfProject.Account;
 using WpfProject.DAL;
 using WpfProject.Helpers;
+using WpfProject.ImagesHelpers;
 using WpfProject.Models;
 
 namespace WpfProject
@@ -84,17 +89,14 @@ namespace WpfProject
                 }
                 productList = JsonSerializer.Deserialize<List<Product>>(json);
                 Random rand = new Random(); //losowanie obrazka
+                ImageResizer resizer = new ImageResizer();
                 foreach (var product in productList)
                 {
                     var item = path[rand.Next(0, path.Length)];
-                    using (FileStream stream = new FileStream(item, FileMode.Open, FileAccess.Read))
-                    {
-                        byte[] buffer = new byte[stream.Length];
-                        stream.Read(buffer, 0, (int)stream.Length);
 
-                        product.Photo = buffer;
-                        product.CategoryId = subCategoryList[product.CategoryId.Value - 1].Id;
-                    }
+
+                    product.Photo = resizer.resize(item);
+                    product.CategoryId = subCategoryList[product.CategoryId.Value - 1].Id;
                 }
 
                 await context.Products.AddRangeAsync(productList);

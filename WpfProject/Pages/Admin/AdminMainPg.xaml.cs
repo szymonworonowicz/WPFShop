@@ -13,6 +13,7 @@ using WpfProject.DialogWindow;
 using WpfProject.Groupers;
 using WpfProject.Helpers;
 using WpfProject.Models;
+using WpfProject.Profiler;
 
 namespace WpfProject.Pages.Admin
 {
@@ -34,19 +35,18 @@ namespace WpfProject.Pages.Admin
         private void AdminPageLoaded(object sender, RoutedEventArgs e)
         {
 
-            var list = context.Products.Include(x => x.Category).ThenInclude(x => x.SubCategory).ToList();
-            products = new ObservableCollection<Product>(list);
-            categories = context.Categories.Where(x => x.SubCategoryId == null).Include(x => x.SubCategories).ToList();
+            //var list = context.Products.Include(x => x.Category).ThenInclude(x => x.SubCategory).ToList();
+            products = new ObservableCollection<Product>(DbAccessorService.getProducts());
+            categories = DbAccessorService.getCategories();
 
 
-            orders = context.Order.Include(x => x.Ordered).Include(x => x.UserData).ThenInclude(x => x.Adres).ToList();
-            var users = context.Users.Include(x => x.UserData).ToList();
+            orders = DbAccessorService.getOrders();
             Category_Filter.ItemsSource = categories;
 
             Order_State_Filter_Combo.ItemsSource = Enum.GetValues(typeof(OrderStatus)).Cast<OrderStatus>();
             ListofItem.ItemsSource = products;
             StoreList.ItemsSource = products;
-            UserList.ItemsSource = users;
+            UserList.ItemsSource = DbAccessorService.getUsers();
             ListofItemOrder.ItemsSource = orders;
         }
 
