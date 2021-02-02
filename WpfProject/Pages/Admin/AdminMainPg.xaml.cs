@@ -119,6 +119,11 @@ namespace WpfProject.Pages.Admin
             OrderCount.Value = "1";
         }
 
+        private void Order_Delete_Click(object sender,RoutedEventArgs e)
+        {
+            Order order = ListofItemOrder.SelectedItem as Order;
+            DbAccessorService.DeleteOrder(order);
+        }
         private void Order_Edit_Click(object sender, RoutedEventArgs e)
         {
             Order order = ListofItemOrder.SelectedItem as Order;

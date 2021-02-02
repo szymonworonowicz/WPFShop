@@ -45,7 +45,6 @@ namespace WpfProject.DialogWindow
 
             //CategoryCombo.SelectedIndex = 0;
             MainGrid.DataContext = newProduct;
-            this.WindowStyle = WindowStyle.None;
             PhotoName.Content = "";
         }
         private void AddPhoto_Click(object sender, RoutedEventArgs e)

@@ -154,5 +154,19 @@ namespace WpfProject.Profiler
             });
             t.Start();
         }
+        public static void DeleteOrder(Order order )
+        {
+            orders.Remove(order);
+            Task t = new Task(() =>
+            {
+                using (DataContext context = new DataContext())
+                {
+                    context.Order.Remove(order);
+                    context.SaveChanges(); 
+                }
+            });
+
+            t.Start();
+        }
     }
 }

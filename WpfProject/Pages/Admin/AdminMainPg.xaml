@@ -597,8 +597,9 @@
                     <Grid
                         Grid.Row="1"
                         Grid.RowSpan="4"
+                        Width="130"
+                        HorizontalAlignment="Right"
                         Grid.Column="4"
-                        Margin="232,0,0,0"
                         Background="LightYellow">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto" />
@@ -607,7 +608,8 @@
                             <RowDefinition Height="auto" />
                             <RowDefinition Height="auto" />
                         </Grid.RowDefinitions>
-                        <Button Grid.Row="0" Padding="10">
+                        <Button Grid.Row="0" Padding="10"
+                                Click="Order_Delete_Click">
                             Usun
                         </Button>
                         <Button
