@@ -4,16 +4,34 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:WpfProject.Pages.UserPages"
+      xmlns:converters="clr-namespace:WpfProject.Converters"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Orders" Background="White"
       Loaded="OrdersLoaded">
+    <Page.Resources>
+        <converters:ColumnWidthConverter x:Key="NullConverter"/>
+    </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <Label Margin="5" HorizontalAlignment="Left"> Twoje Zamowienia</Label>
+        <Label Margin="5" HorizontalAlignment="Left"> Twoje Zamówienia</Label>
+        <Button Margin="5" HorizontalAlignment="Right" Background="Transparent" BorderThickness="0" Click="Order_Details_Click" Content="Szczegóły zamówienia">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=OrderList,Path=SelectedItem,Converter={StaticResource NullConverter}}" Value="True">
+                            <Setter Property="IsEnabled" Value="False"></Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=OrderList,Path=SelectedItem,Converter={StaticResource NullConverter}}" Value="False">
+                            <Setter Property="IsEnabled" Value="True"></Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
         
         <ListView Name="OrderList" Margin="5" Grid.Row="1" Grid.ColumnSpan="2">
 

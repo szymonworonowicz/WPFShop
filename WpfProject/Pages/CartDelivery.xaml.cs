@@ -76,7 +76,7 @@ namespace WpfProject.Pages
             var amount = cartamount + deliverycost;
             Order order = new Order { Ordered = CartHelper.getCart(),UserData = UserData, OrderAmount =cartamount,Amount = amount,OrderOption  = delivery};
 
-            this.NavigationService.Navigate(new SumaryPage(order));
+            this.NavigationService.Navigate(new SumaryPage(order,fromcart:true));
         }
     }
 }

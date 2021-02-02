@@ -35,7 +35,7 @@
                 </Grid>
             </Border>
         </DataTemplate>
-        
+
     </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -222,10 +222,11 @@
             <TabItem Header="Zamowienia" Background="#ffdb59">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="41*"></ColumnDefinition>
-                        <ColumnDefinition Width="75*"/>
-                        <ColumnDefinition Width="116*"></ColumnDefinition>
-                        <ColumnDefinition Width="116*"></ColumnDefinition>
+                        <ColumnDefinition Width="92*"></ColumnDefinition>
+                        <ColumnDefinition Width="134*"/>
+                        <ColumnDefinition Width="34*"/>
+                        <ColumnDefinition Width="259*"></ColumnDefinition>
+                        <ColumnDefinition Width="259*"></ColumnDefinition>
                         <ColumnDefinition Width="auto"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
@@ -273,7 +274,7 @@
                             </GroupBox>
                         </Expander>
                     </WrapPanel>
-                    <ListView Name="ListofItemOrder" Margin="5" Grid.Row="1" Grid.ColumnSpan="4" Grid.RowSpan="4">
+                    <ListView Name="ListofItemOrder" Margin="5,5,5,5" Grid.Row="1" Grid.ColumnSpan="5" Grid.RowSpan="4">
 
                         <ListView.View>
                             <GridView AllowsColumnReorder="False" >
@@ -286,7 +287,7 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
-                    <Grid Grid.Row="1" Grid.Column="3" Grid.RowSpan="4" Background="LightYellow" Grid.ColumnSpan="2" Margin="232,0,0,0" >
+                    <Grid Grid.Row="1" Grid.Column="4" Grid.RowSpan="4" Background="LightYellow" Margin="232,0,0,0" >
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"></RowDefinition>
                             <RowDefinition Height="auto"></RowDefinition>
@@ -309,7 +310,17 @@
                         <RowDefinition></RowDefinition>
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
-                    <ListBox Name="Users" Grid.RowSpan="2" Margin="5"></ListBox>
+                    <ListView Name="UserList" Margin="5" Grid.RowSpan="2">
+                        <ListView.View>
+                            <GridView AllowsColumnReorder="False" >
+                                <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Login" Width="auto" ></GridViewColumn>
+                                <GridViewColumn DisplayMemberBinding="{Binding UserData.Email}" Header="Email" Width="auto" ></GridViewColumn>
+                                <GridViewColumn DisplayMemberBinding="{Binding Role}" Header="Rola" Width="auto" ></GridViewColumn>
+                                <GridViewColumn DisplayMemberBinding="{Binding UserData.Name}" Header="Imie"  ></GridViewColumn>
+                                <GridViewColumn DisplayMemberBinding="{Binding UserData.Surname}" Header="Nazwisko" ></GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
                 </Grid>
             </TabItem>
             <TabItem Header="Faktury" Background="#5272ff">

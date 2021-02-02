@@ -12,7 +12,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="LoginPage"
       Background="White"
-      Loaded="MainPAge_Loaded">
+      Loaded="MainPage_Loaded">
     <Page.Resources>
         <DataTemplate x:Key="CategoryListTemplate">
             <Button Content="{Binding Name}" Margin="5" BorderThickness="0" Background="Transparent"></Button>
@@ -344,7 +344,7 @@
     </Style>
 
     </Page.Resources>
-    <Grid>
+    <Grid Name="MainGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
@@ -354,8 +354,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition  Height="*"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
         <controls:LoginRegisterNavbar Grid.ColumnSpan="4"></controls:LoginRegisterNavbar>
@@ -367,7 +366,7 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition Width="auto"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            
+
             <Button Margin="5" Grid.Column="0" BorderThickness="0" BorderBrush="Transparent" Background="Transparent" Click="Return_To_MainPage" >
                 <Image Height="50">
                     <Image.Source>
@@ -375,15 +374,17 @@
                     </Image.Source>
                 </Image>
             </Button>
-            
+
             <Border Grid.ColumnSpan="2" Grid.Column="1"  BorderThickness="1" BorderBrush="Gray" Margin="3,10,5,10"  >
                 <DockPanel>
-                    <Image VerticalAlignment="Center" DockPanel.Dock="Right" Height="20" Margin="5" >
-                        <Image.Source>
-                            <BitmapImage UriSource="../Image_Icons/search.png"/>
-                        </Image.Source>
-                    </Image>
-                    <TextBox  HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Margin="5" VerticalContentAlignment="Center" HorizontalContentAlignment="left" Padding="5" FontSize="14" BorderThickness="0">Wyszukaj przedmiot...</TextBox>
+                    <Button VerticalAlignment="Center" DockPanel.Dock="Right" Background="Transparent"  BorderThickness="0" IsDefault="True" Click="Search_CLick">
+                        <Image Height="20" Margin="5" >
+                            <Image.Source>
+                                <BitmapImage UriSource="../Image_Icons/search.png"/>
+                            </Image.Source>
+                        </Image>
+                    </Button>
+                    <TextBox Name="Search_Text" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Margin="5" VerticalContentAlignment="Center" HorizontalContentAlignment="left" Padding="5" FontSize="14" BorderThickness="0" GotFocus="Search_TextBox_Focus" LostFocus="Seach_TextBox_LostFocus">Wyszukaj przedmiot...</TextBox>
                 </DockPanel>
             </Border>
             <Button Name="Cart"  Grid.Column="3" Width="40" Height="40" Background="Transparent" BorderThickness="0" Click="Cart_Click" >
@@ -395,46 +396,10 @@
             </Button>
 
         </Grid>
-        <Menu Name="CategoryMenu" Grid.Row="2" Grid.ColumnSpan="4" Background="LightYellow" Foreground="Black"  Padding="5">
-            <MenuItem Header="AGD">
-                <MenuItem Header="Pralki"></MenuItem>
-                <MenuItem Header="Zmywarki"></MenuItem>
-                <MenuItem Header="Lodowki"></MenuItem>
-                <MenuItem Header="Ekspresy"></MenuItem>
-            </MenuItem>
-            <MenuItem Header="TV">
-                <MenuItem Header="Kino domowe"></MenuItem>
-                <MenuItem Header="Telewizory"></MenuItem>
-                <MenuItem Header="DVD"></MenuItem>
-                <MenuItem Header="Akcesoria RTV"></MenuItem>
-            </MenuItem>
-            <MenuItem Header="Telefony">
-                <MenuItem Header="Smartfony"></MenuItem>
-                <MenuItem Header="Tablety"></MenuItem>
-                <MenuItem Header="Telefony Stacjonarne"></MenuItem>
-            </MenuItem>
-            <MenuItem Header="Komputery">
-                <MenuItem Header="PC"></MenuItem>
-                <MenuItem Header="Laptopy"></MenuItem>
-                <MenuItem Header="Notebooki"></MenuItem>
-                <MenuItem Header="Drukarki"></MenuItem>
-                <MenuItem Header="Urządzenia peryferyjne"></MenuItem>
-            </MenuItem>
-            <MenuItem Header="Konsole">
-                <MenuItem Header="X-Box"></MenuItem>
-                <MenuItem Header="Playstation"></MenuItem>
-                <MenuItem Header="Nintendo"></MenuItem>
-            </MenuItem>
-            <MenuItem Header="Gadżety">
-                <MenuItem Header="Smartwatche"></MenuItem>
-                <MenuItem Header="Czytniki E-bookow"></MenuItem>
-                <MenuItem Header="Nawigacje GPS"></MenuItem>
-            </MenuItem>
-        </Menu>
-        <Frame Grid.Row="3" Grid.ColumnSpan="4" Margin="5" x:Name="WindowContent" NavigationUIVisibility="Hidden" Source="./SalesProducts.xaml" 
+        <Frame  Grid.Row="2" Grid.ColumnSpan="4" Margin="5" Name="WindowContent" NavigationUIVisibility="Hidden" Source="./SalesProducts.xaml" 
                VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
 
-        <StackPanel Grid.Row="4" Grid.ColumnSpan="4" Margin="5" Background="LightYellow"  >
+        <StackPanel Grid.Row="3" Grid.ColumnSpan="4" Margin="5" Background="LightYellow"  >
             <WrapPanel HorizontalAlignment="Center" >
                 <WrapPanel Margin="5,0,5,5" VerticalAlignment="Bottom">
                     <Image Height="20" Width="20">

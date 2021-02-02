@@ -28,13 +28,17 @@ namespace WpfProject.Pages
         {
             InitializeComponent();
         }
-        public SumaryPage(Order order)
+        public SumaryPage(Order order,bool fromcart)
         {
             InitializeComponent();
             this.order = order;
             DataContext = order;
             order.UserDataId = order.UserData.Id;
             Order_product_sumary.ItemsSource = order.Ordered;
+            if(fromcart ==false )
+            {
+                Confirm.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void Confirm_Order(object sender, RoutedEventArgs e)

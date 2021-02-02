@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Windows;
 using WpfProject.Account;
 using WpfProject.DAL;
@@ -81,23 +82,23 @@ namespace WpfProject
                 await context.SaveChangesAsync();
 
                 List<Product> productList = new List<Product>();
-                foreach (var item in path)
+                string json = "";
+                using (StreamReader str = new StreamReader("generated.json"))
                 {
+                    json = str.ReadToEnd();
+                }
+                productList = JsonSerializer.Deserialize<List<Product>>(json);
+                Random rand = new Random(); //losowanie obrazka
+                foreach (var product in productList)
+                {
+                    var item = path[rand.Next(0, path.Length)];
                     using (FileStream stream = new FileStream(item, FileMode.Open, FileAccess.Read))
                     {
                         byte[] buffer = new byte[stream.Length];
                         stream.Read(buffer, 0, (int)stream.Length);
 
-                        if (++i % 2 == 0)
-                        {
-                            productList.Add(new Product { Name = "lodowka", Price = 239.22M, Description = lorem, Photo = buffer, Sale = 0, StanMagazynowy = 20, CategoryId = subCategoryList[i].Id ,AddedDate = DateTime.Now});
-                        }
-                        else
-                        {
-                            productList.Add(new Product { Name = "lodowka", Price = 239.22M, Description = lorem, Photo = buffer, Sale = 20, StanMagazynowy = 20, CategoryId = subCategoryList[i].Id, AddedDate = DateTime.Now });
-                        }
-
-
+                        product.Photo = buffer;
+                        product.CategoryId = subCategoryList[product.CategoryId.Value-1].Id;
                     }
                 }
 

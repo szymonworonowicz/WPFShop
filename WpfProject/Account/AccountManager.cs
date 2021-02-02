@@ -110,5 +110,26 @@ namespace WpfProject.Account
 
             return true;
         }
+
+        public static bool ChangePassword(string oldPassword,string newPassword)
+        {
+            var user = LoginService.user;
+            if(VerifyPassword(oldPassword,user.Password))
+            {
+                user.Password = HashPassword(newPassword);
+                try
+                {
+                    context.Users.Update(user);
+                    context.SaveChanges();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+
+                    return false;
+                }
+                return true;
+            }
+            return false;
+        }
     }
 }

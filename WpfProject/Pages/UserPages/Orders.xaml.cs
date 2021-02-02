@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WpfProject.DAL;
+using WpfProject.DialogWindow;
 using WpfProject.Helpers;
 using WpfProject.Models;
 
@@ -23,6 +24,7 @@ namespace WpfProject.Pages.UserPages
     /// </summary>
     public partial class Orders : Page
     {
+        private List<Order> orderlist;
         public Orders()
         {
             InitializeComponent();
@@ -35,9 +37,20 @@ namespace WpfProject.Pages.UserPages
 
             var user = LoginService.user;
 
-            var orderList = context.Order.Include(x => x.Ordered).Where(x => x.UserDataId == user.UserDataId).ToList();
+            orderlist = context.Order.Include(x => x.Ordered).Where(x => x.UserDataId == user.UserDataId).ToList();
 
-            OrderList.ItemsSource = orderList;
+            OrderList.ItemsSource = orderlist;
+        }
+
+        private void Order_Details_Click(object sender, RoutedEventArgs e)
+        {
+            var order = orderlist[OrderList.SelectedIndex];
+
+            var dlg = new UserOrderDetails(order);
+
+            dlg.ShowDialog();
+
+            OrderList.SelectedIndex = -1;
         }
     }
 }

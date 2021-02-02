@@ -38,10 +38,13 @@ namespace WpfProject.Pages.Admin
         {
             var list = context.Products.Include(x => x.Category).ThenInclude(x => x.SubCategory).ToList();
             products = new ObservableCollection<Product>(list);
+
+            var orders = context.Order.Include(x => x.Ordered).Include(x => x.UserData).ToList();
+            var users = context.Users.Include(x => x.UserData).ToList();
+
             ListofItem.ItemsSource = products;
             StoreList.ItemsSource = products;
-            var orders = context.Order.Include(x => x.Ordered).Include(x => x.UserData).ToList();
-
+            UserList.ItemsSource = users;
             ListofItemOrder.ItemsSource = orders;
         }
 

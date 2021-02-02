@@ -15,9 +15,9 @@
         <converters:ImageConverter x:Key="ImageConverter"/>
         <converters:PriceConverter x:Key="PriceConverter"/>
         <converters:ColumnWidthConverter x:Key="ColumnWidthConverter"/>
-        <DataTemplate x:Key="SaleTemplate">
-            <Border x:Name="Border" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="Transparent" >
-                <Grid Margin="3" x:Name="Grid" Grid.IsSharedSizeScope="True">
+        <DataTemplate x:Key="SaleTemplate" >
+            <Border x:Name="Border" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"   Background="Transparent" >
+                <Grid Margin="3" x:Name="Grid" >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
@@ -28,9 +28,9 @@
                         <RowDefinition  Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
                     <Image  Height="100" Width="100"  Source="{Binding Path=Photo, Converter={StaticResource ImageConverter}}"></Image>
-                    <Label Grid.Row="2" HorizontalContentAlignment ="Left" Content="{Binding Price , Converter={StaticResource PriceConverter}}" Margin="5"></Label>
-                    <Label  Grid.Row="1" HorizontalContentAlignment ="Left" Content="{Binding SalePrice, Converter={StaticResource PriceConverter}}"  Foreground="Red"   ></Label>
-                    <Label Grid.Row="3" HorizontalContentAlignment ="Left" Content="{Binding Name}" FontWeight="Bold" ></Label>
+                    <Label Grid.Row="2"  Content="{Binding Price , Converter={StaticResource PriceConverter}}" Margin="5"></Label>
+                    <Label  Grid.Row="1"  Content="{Binding SalePrice, Converter={StaticResource PriceConverter}}"  Foreground="Red"   ></Label>
+                    <Label Grid.Row="3"  Content="{Binding Name}" FontWeight="Bold" ></Label>
                 </Grid>
             </Border>
         </DataTemplate>
@@ -53,15 +53,72 @@
                 </ColumnDefinition.Style>
             </ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <ListBox Name="SalesProduct" Grid.Row="1"  Padding="5" BorderThickness="0" ItemTemplate="{StaticResource SaleTemplate}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Menu Name="CategoryMenu" Grid.ColumnSpan="2" Background="LightYellow" Foreground="Black"  Padding="5" >
+            <Menu.Resources>
+                <Style TargetType="{x:Type MenuItem}">
+                    <EventSetter Event="PreviewMouseDown" Handler="MenuItem_Click" />
+                </Style>
+            </Menu.Resources>
+            <MenuItem Header="AGD">
+                <MenuItem Header="Pralki"></MenuItem>
+                <MenuItem Header="Zmywarki"></MenuItem>
+                <MenuItem Header="Lodowki"></MenuItem>
+                <MenuItem Header="Ekspresy"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="TV">
+                <MenuItem Header="Kino domowe"></MenuItem>
+                <MenuItem Header="Telewizory"></MenuItem>
+                <MenuItem Header="DVD"></MenuItem>
+                <MenuItem Header="Akcesoria RTV"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Telefony">
+                <MenuItem Header="Smartfony"></MenuItem>
+                <MenuItem Header="Tablety"></MenuItem>
+                <MenuItem Header="Telefony Stacjonarne"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Komputery">
+                <MenuItem Header="PC"></MenuItem>
+                <MenuItem Header="Laptopy"></MenuItem>
+                <MenuItem Header="Notebooki"></MenuItem>
+                <MenuItem Header="Drukarki"></MenuItem>
+                <MenuItem Header="Urządzenia peryferyjne"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Konsole">
+                <MenuItem Header="X-Box"></MenuItem>
+                <MenuItem Header="Playstation"></MenuItem>
+                <MenuItem Header="Nintendo"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Gadżety">
+                <MenuItem Header="Smartwatche"></MenuItem>
+                <MenuItem Header="Czytniki E-bookow"></MenuItem>
+                <MenuItem Header="Nawigacje GPS"></MenuItem>
+            </MenuItem>
+        </Menu>
+        <ListBox Name="SalesProduct" Grid.Row="1"  Padding="5" BorderThickness="0" ItemTemplate="{StaticResource SaleTemplate}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+            <!--<ListBox.Resources>
+                <Style TargetType="{x:Type ListBoxItem}">
+                    <Setter Property="HorizontalAlignment" Value="{Binding HorizontalContentAlignment,RelativeSource={RelativeSource AncestorType=ItemsControl}}"/>
+                    <Setter Property="VerticalAlignment" Value="{Binding VerticalContentAlignment,RelativeSource={RelativeSource AncestorType=ItemsControl}}"/>
+                </Style>
+            </ListBox.Resources>-->
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel></WrapPanel>
+                    <WrapPanel ></WrapPanel>
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
+            <ListBox.ItemContainerStyle>
+                <Style>
+                    <Setter Property="ItemsControl.HorizontalContentAlignment" Value="Stretch"/>
+                    <Setter Property="ItemsControl.VerticalContentAlignment" Value="Stretch"/>
+                </Style>
+            </ListBox.ItemContainerStyle>
         </ListBox>
 
-        <Grid Name="ProductInfo" Grid.Column="1" Background="White" DataContext="{Binding ElementName=SalesProduct, Path=SelectedItem}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
+        <Grid Name="ProductInfo" Grid.Column="1" Grid.Row="1" Background="White" DataContext="{Binding ElementName=SalesProduct, Path=SelectedItem}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
             <Grid.Style>
                 <Style TargetType="{x:Type Grid}">
                     <Style.Triggers>

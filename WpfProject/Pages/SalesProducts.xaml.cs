@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,7 @@ namespace WpfProject.Pages
     /// </summary>
     public partial class SalesProducts : Page
     {
+        private List<Product> products;
         public SalesProducts()
         {
             InitializeComponent();
@@ -30,9 +32,9 @@ namespace WpfProject.Pages
         private void LoadSaleProducts(object sender, RoutedEventArgs e)
         {
             var context = DataContextAccesor.GetDataContext();
-            var productList = context.Products.ToList();
+            this.products = context.Products.Include(x => x.Category).ThenInclude(x => x.SubCategory).ToList();
 
-            SalesProduct.ItemsSource = productList;
+            SalesProduct.ItemsSource = products;
         }
 
         private void Item_Panel_Collapse(object sender, RoutedEventArgs e)
@@ -46,6 +48,71 @@ namespace WpfProject.Pages
             CartHelper.AddToCart(p, 1);
 
             MessageBox.Show("Dodano Do koszyka", "Zamowienie", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        private ListCollectionView View
+        {
+            get
+            {
+                return (ListCollectionView)CollectionViewSource.GetDefaultView(products);
+            }
+        }
+        private void MenuItem_Click(object sender, MouseButtonEventArgs e)
+        {
+            MenuItem item = sender as MenuItem;
+            if (item != null)
+            {
+                var header = item.Header.ToString();
+
+                View.Filter = x =>
+                {
+                    Product current = x as Product;
+
+                    if (current != null)
+                    {
+                        if (current.Category.Name == header == true)
+                        {
+                            return true;
+                        }
+                        else if (current.Category.SubCategory.Name == header)
+                        {
+                            return true;
+                        }
+                    }
+
+                    return false;
+                };
+            }
+        }
+
+        public void Filter(string filter)
+        {
+            View.Filter = x =>
+            {
+                Product current = x as Product;
+
+                if (current != null)
+                {
+                    if (current.Category.Name.ToLower().Contains(filter.ToLower()))
+                    {
+                        return true;
+                    }
+                    else if (current.Category.SubCategory.Name.ToLower().Contains(filter.ToLower()))
+                    {
+                        return true;
+                    }
+                    else if (current.Name.ToLower().Contains(filter.ToLower()))
+                    {
+                        return true;
+                    }
+                }
+
+                return false;
+            };
+        }
+
+        public void resetFilter()
+        {
+            View.Filter = null;
         }
     }
 }

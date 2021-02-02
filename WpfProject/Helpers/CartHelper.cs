@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using WpfProject.Models;
 
@@ -19,8 +20,17 @@ namespace WpfProject.Helpers
             CartCreated = DateTime.Now;
 
             OrderItem item = new OrderItem { Product = p, Count = Count };
+            var iteminlist = OrderItems.FirstOrDefault(x => x.Product == item.Product);
+            if(iteminlist!= null)
+            {
+                iteminlist.Count++;
+            }
+            else
+            {
+                OrderItems.Add(item);
+            }
 
-            OrderItems.Add(item);
+
         }
 
         public static List<OrderItem> getCart()
