@@ -61,13 +61,34 @@ namespace WpfProject.UserControls
             page.WindowContent.Navigate(new RegisterPage());
         }
 
-        private void Account_Click(object sender, RoutedEventArgs e)
+        private void Orders_Click(object sender, RoutedEventArgs e)
         {
             MainWindow win = (MainWindow)Application.Current.MainWindow;
             MainPage page = new MainPage();
 
+
             win.Content = page;
-            page.WindowContent.Navigate(new AccountPage());
+            page.WindowContent.Navigate(new Orders());
+        }
+
+        private void Settings_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow win = (MainWindow)Application.Current.MainWindow;
+            MainPage page = new MainPage();
+
+
+            win.Content = page;
+            page.WindowContent.Navigate(new AccountSettings());
+        }
+
+        private void PasswordChange_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow win = (MainWindow)Application.Current.MainWindow;
+            MainPage page = new MainPage();
+
+
+            win.Content = page;
+            page.WindowContent.Navigate(new PasswordChange());
         }
     }
 }

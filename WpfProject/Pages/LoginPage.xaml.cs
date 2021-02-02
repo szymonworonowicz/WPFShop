@@ -53,5 +53,10 @@ namespace WpfProject.Pages
                 }
             }
         }
+
+        private void LoginPageLoaded(object sender, RoutedEventArgs e)
+        {
+            Login.Focus();
+        }
     }
 }

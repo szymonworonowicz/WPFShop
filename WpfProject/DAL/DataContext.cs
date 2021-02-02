@@ -12,6 +12,8 @@ namespace WpfProject.DAL
         public DbSet<User> Users { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<UserData> UserDatas { get; set; }
+        public DbSet<Adres> Adreses { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -21,5 +23,7 @@ namespace WpfProject.DAL
 
             optionsBuilder.UseSqlite(connectioString);
         }
+
+        
     }
 }

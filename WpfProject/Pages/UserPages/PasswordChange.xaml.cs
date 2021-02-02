@@ -15,20 +15,21 @@ using WpfProject.Models;
 namespace WpfProject.Pages.UserPages
 {
     /// <summary>
-    /// Interaction logic for Orders.xaml
+    /// Interaction logic for PasswordChange.xaml
     /// </summary>
-    public partial class Orders : Page
+    public partial class PasswordChange : Page
     {
         private readonly User user;
-        public Orders()
+
+        public PasswordChange()
         {
             InitializeComponent();
-
         }
-
-        private void OrdersLoaded(object sender, RoutedEventArgs e)
+        public PasswordChange(User user)
         {
-            OrdersList.DataContext = user;
+            InitializeComponent();
+            this.user = user;
         }
+       
     }
 }

@@ -22,6 +22,8 @@ namespace WpfProject.Pages.UserPages
     public partial class AccountPage : Page
     {
         private Orders OrdersPage = null;
+        private AccountSettings AccountSettings = null;
+        private PasswordChange passwordChange = null;
         private User user
         {
             get
@@ -34,12 +36,6 @@ namespace WpfProject.Pages.UserPages
             InitializeComponent();
         }
 
-        private void OrdersClick(object sender, RoutedEventArgs e)
-        {
-            if (OrdersPage == null)
-                OrdersPage = new Orders(user);
-
-            AccountContent.Navigate(OrdersPage);
-        }
+      
     }
 }
