@@ -19,13 +19,28 @@ namespace WpfProject.UserControls
     public partial class NumericUpDown : UserControl
     {
         public static DependencyProperty ValueProperty;
-        private const int maxValue = 2000;
+        public static DependencyProperty MinProperty;
+        public static DependencyProperty MaxProperty;
 
-        //public string StringValue { get; set; }
+
+        public EventHandler ValueChanged { get; set; }
+
         public string Value
         {
             get { return (string)GetValue(ValueProperty); }
             set { SetCurrentValue(ValueProperty, value); }
+        }
+
+        public  string minValue
+        {
+            get => (string)GetValue(MinProperty);
+            set => SetCurrentValue(MinProperty, value);
+        }
+
+        public string maxValue
+        {
+            get => (string)GetValue(MaxProperty);
+            set => SetCurrentValue(MaxProperty, value);
         }
         public NumericUpDown()
         {
@@ -34,36 +49,46 @@ namespace WpfProject.UserControls
         static NumericUpDown()
         {
             ValueProperty = DependencyProperty.Register("Value", typeof(string), typeof(NumericUpDown), new FrameworkPropertyMetadata("",FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+            MinProperty = DependencyProperty.Register("minValue", typeof(string), typeof(NumericUpDown), new FrameworkPropertyMetadata(""));
+            MaxProperty = DependencyProperty.Register("maxValue", typeof(string), typeof(NumericUpDown), new FrameworkPropertyMetadata(""));
         }
 
-        private static bool Validate(object value)
+        private bool Validate(object value)
         {
             if (value != null && (string)value != "")
             {
                 int.TryParse((string)value, out int current);
-                return current < maxValue;
+                int.TryParse(maxValue, out int max);
+                return current < max;
             }
             return false;
         }
         private void CounterTextChanged(object sender, TextChangedEventArgs e)
         {
             TextBox text = sender as TextBox;
+            int.TryParse(maxValue, out int max);
 
             int.TryParse(text.Text, out int current);
             if (current < 0)
                 current = 0;
-            else if (current > maxValue)
-                current = maxValue;
+            else if (current > max)
+                current = max;
 
             Value = current.ToString();
+            
+            if(ValueChanged !=null)
+            {
+                ValueChanged(this, EventArgs.Empty);
+            }
         }
 
         private void UpClick(object sender, RoutedEventArgs e)
         {
             int.TryParse(Value, out int current);
+            int.TryParse(maxValue, out int max);
             current++;
-            if (current > maxValue)
-                current = maxValue;
+            if (current > max)
+                current = max;
 
             Value = current.ToString();
         }
@@ -71,9 +96,10 @@ namespace WpfProject.UserControls
         private void DownClick(object sender, RoutedEventArgs e)
         {
             int.TryParse(Value, out int current);
+            int.TryParse(minValue, out int min);
             current--;
-            if (current < 0)
-                current = 0;
+            if (current < min)
+                current = min;
 
             Value = current.ToString();
         }

@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using WpfProject.DAL;
 using WpfProject.Helpers;
 using WpfProject.Models;
+using WpfProject.UserControls;
 
 namespace WpfProject.Pages
 {
@@ -40,7 +41,32 @@ namespace WpfProject.Pages
 
         private void DeliveryClick(object sender, RoutedEventArgs e)
         {
+
             this.NavigationService.Navigate(new CartDelivery());
+        }
+
+        private void NumericUpDown_Change_Value(object sender,EventArgs e)
+        {
+            var numeric = sender as NumericUpDown;
+            var product = CartGrid.SelectedItem as OrderItem;
+
+            if (product != null)
+            {
+                int.TryParse(numeric.Value, out int amount);
+
+                product.Count = amount;
+            }
+
+            CartSum.Content = $"Suma: {CartHelper.getCartSum()} zł";
+        }
+
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            var product = CartGrid.SelectedItem as OrderItem;
+            Items.Remove(product);
+
+            CartHelper.deleteFromCart(product);
+            CartSum.Content = $"Suma: {CartHelper.getCartSum()} zł";
         }
     }
 }

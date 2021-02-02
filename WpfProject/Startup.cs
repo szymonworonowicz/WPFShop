@@ -35,7 +35,7 @@ namespace WpfProject
                     new Category{Name = "Konsole" ,SubCategoryId=null},
                     new Category{Name = "Gadżety",SubCategoryId=null },
                 };
-               
+
 
 
 
@@ -90,11 +90,11 @@ namespace WpfProject
 
                         if (++i % 2 == 0)
                         {
-                            productList.Add(new Product { Name = "lodowka", Price = 239.22M, Description = lorem, Photo = buffer, Sale = 0, StanMagazynowy = 20, CategoryId=subCategoryList[i].Id });
+                            productList.Add(new Product { Name = "lodowka", Price = 239.22M, Description = lorem, Photo = buffer, Sale = 0, StanMagazynowy = 20, CategoryId = subCategoryList[i].Id });
                         }
                         else
                         {
-                            productList.Add(new Product { Name = "lodowka", Price = 239.22M, Description = lorem, Photo = buffer, Sale = 20, StanMagazynowy = 20, CategoryId = subCategoryList[i].Id } );
+                            productList.Add(new Product { Name = "lodowka", Price = 239.22M, Description = lorem, Photo = buffer, Sale = 20, StanMagazynowy = 20, CategoryId = subCategoryList[i].Id });
                         }
 
 
@@ -113,16 +113,16 @@ namespace WpfProject
                         Role = AppRole.Admin
                     };
 
-                    await AccountManager.Register(admin);
+                    AccountManager.RegisterAdmin(admin);
 
-                    User user = new User
-                    {
-                        Name = "user",
-                        Password = "user",
-                        Role = AppRole.User
-                    };
+                    //User user = new User
+                    //{
+                    //    Name = "user",
+                    //    Password = "user",
+                    //    Role = AppRole.User
+                    //};
 
-                    await AccountManager.Register(user);
+                    //AccountManager.Register(user);
                 }
             }
 

@@ -27,7 +27,7 @@ namespace WpfProject.Pages
             InitializeComponent();
         }
 
-        private async void Login_Onclick(object sender, RoutedEventArgs e)
+        private  void Login_Onclick(object sender, RoutedEventArgs e)
         {
             if (Login.Text != String.Empty && Password.Password != String.Empty)
             {
@@ -37,7 +37,7 @@ namespace WpfProject.Pages
                     Password = Password.Password
                 };
 
-                var data = await AccountManager.Login(user);
+                var data = AccountManager.Login(user);
 
                 LoginService.Login(data);
 

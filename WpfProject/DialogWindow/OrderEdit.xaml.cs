@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -8,26 +9,25 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using WpfProject.Models;
+using WpfProject.Helpers;
 
-namespace WpfProject.Pages
+namespace WpfProject.DialogWindow
 {
     /// <summary>
-    /// Interaction logic for SumaryPage.xaml
+    /// Interaction logic for OrderEdit.xaml
     /// </summary>
-    public partial class SumaryPage : Page
+    public partial class OrderEdit : Window
     {
-        public SumaryPage()
+        public OrderEdit()
         {
             InitializeComponent();
+            
         }
-        public SumaryPage(Order order)
+
+        private void OrderEdit_Loaded(object sender, RoutedEventArgs e)
         {
-            InitializeComponent();
-            DataContext = order;
-            Order_product_sumary.ItemsSource = order.Ordered;
+            OrderStatus.ItemsSource = Enum.GetValues(typeof(OrderStatus)).Cast<OrderStatus>();
         }
     }
 }

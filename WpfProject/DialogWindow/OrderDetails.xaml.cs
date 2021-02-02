@@ -8,26 +8,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using WpfProject.Models;
 
-namespace WpfProject.Pages
+namespace WpfProject.DialogWindow
 {
     /// <summary>
-    /// Interaction logic for SumaryPage.xaml
+    /// Interaction logic for OrderDetails.xaml
     /// </summary>
-    public partial class SumaryPage : Page
+    public partial class OrderDetails : Window
     {
-        public SumaryPage()
+        public OrderDetails()
         {
             InitializeComponent();
-        }
-        public SumaryPage(Order order)
-        {
-            InitializeComponent();
-            DataContext = order;
-            Order_product_sumary.ItemsSource = order.Ordered;
         }
     }
 }

@@ -38,7 +38,8 @@ namespace WpfProject.UserControls
 
         static PasswordControl()
         {
-            PasswordProperty = DependencyProperty.Register("Password", typeof(string), typeof(PasswordControl), new FrameworkPropertyMetadata(String.Empty), new ValidateValueCallback(Validate));
+            PasswordProperty = DependencyProperty.Register("Password", typeof(string), typeof(PasswordControl), new FrameworkPropertyMetadata(String.Empty,FrameworkPropertyMetadataOptions.BindsTwoWayByDefault)
+                , new ValidateValueCallback(Validate));
         }
 
         private static bool Validate(object value)
@@ -62,6 +63,16 @@ namespace WpfProject.UserControls
                 VisibleOldPassword.Text = OldPassword.Password.ToString();
                 OldPasswordButtonstate = true;
             }
+        }
+
+        private void Password_change(object sender, RoutedEventArgs e)
+        {
+            Password = OldPassword.Password;
+        }
+
+        private void VisiblePassword_Text_Changed(object sender, TextChangedEventArgs e)
+        {
+            OldPassword.Password = VisibleOldPassword.Text;
         }
     }
 }

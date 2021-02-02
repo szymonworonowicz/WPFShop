@@ -132,5 +132,19 @@ namespace WpfProject.Pages.Admin
             t.Start();
 
         }
+
+        private void Order_Edit_Click(object sender, RoutedEventArgs e)
+        {
+            OrderEdit edit = new OrderEdit();
+
+            edit.ShowDialog();
+        }
+
+        private void Order_Details_Click(object sender, RoutedEventArgs e)
+        {
+            OrderDetails details = new OrderDetails();
+
+            details.ShowDialog();
+        }
     }
 }

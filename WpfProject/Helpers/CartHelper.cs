@@ -31,9 +31,22 @@ namespace WpfProject.Helpers
                 return OrderItems;
             return null;
         }
+        public static void deleteFromCart(OrderItem item)
+        {
+            OrderItems.Remove(item);
+        }
         public static void resetCart()
         {
             OrderItems = null;
+        }
+
+        public static decimal getCartSum()
+        {
+            decimal sum =0;
+
+            OrderItems.ForEach(x => sum += x.Amount);
+
+            return sum;
         }
     }
 }

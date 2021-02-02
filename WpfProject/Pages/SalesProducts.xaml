@@ -60,7 +60,8 @@
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
         </ListBox>
-        <Grid Name="ProductInfo" Grid.Column="1" Background="White" DataContext="{Binding ElementName=SalesProduct, Path=SelectedItem}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+
+        <Grid Name="ProductInfo" Grid.Column="1" Background="White" DataContext="{Binding ElementName=SalesProduct, Path=SelectedItem}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
             <Grid.Style>
                 <Style TargetType="{x:Type Grid}">
                     <Style.Triggers>
@@ -87,7 +88,7 @@
                 <Label Name="Name" Content="{Binding Name}" Margin="5"></Label>
                 <Label Name="Price" Content="{Binding Price}" Margin="5"></Label>
             </StackPanel>
-            <TextBox IsReadOnly="True" Margin="5" MinLines="8" Grid.Row="2" Grid.ColumnSpan="3" BorderThickness="0" Text="{Binding Description}" TextWrapping="WrapWithOverflow"></TextBox>
+            <TextBox IsReadOnly="True" Margin="5" MinLines="8" Grid.Row="2" Grid.ColumnSpan="3" BorderThickness="0" Text="{Binding Description}" TextWrapping="WrapWithOverflow" ScrollViewer.VerticalScrollBarVisibility="Visible"></TextBox>
             <Button Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Center" Padding="5" Margin="10" Click="AddToCart_Click" > Dodaj do koszyka</Button>
         </Grid>
     </Grid>

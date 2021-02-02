@@ -12,9 +12,10 @@ namespace WpfProject.DAL
         public DbSet<User> Users { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
-        public DbSet<UserData> UserDatas { get; set; }
+        public DbSet<UserData> UserData { get; set; }
         public DbSet<Adres> Adreses { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
+        public DbSet<Order> Order { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -50,6 +51,19 @@ namespace WpfProject.DAL
                     .WithMany(x => x.Products)
                     .HasForeignKey(x => x.CategoryId)
                     .OnDelete(DeleteBehavior.SetNull);
+            });
+
+            modelBuilder.Entity<Order>(entity =>
+            {
+                entity.HasMany(x => x.Ordered)
+                    .WithOne(x => x.Order)
+                    .HasForeignKey(x => x.OrderId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                entity.HasOne(x => x.UserData)
+                    .WithMany(x => x.Orders)
+                    .HasForeignKey(x => x.UserDataId)
+                    .OnDelete(DeleteBehavior.NoAction);
             });
 
         }

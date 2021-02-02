@@ -20,16 +20,25 @@ namespace WpfProject.Account
             context = DataContextAccesor.GetDataContext();
         }
 
-        public static async Task<bool> Register(User user)
+        public static bool RegisteUser(User user)
         {
-            if (await context.Users.AnyAsync(x => x.Name == user.Name) == false) // uzytkownik nie istnieje w pazie
+            if (context.Users.Any(x => x.Name == user.Name) == false) // uzytkownik nie istnieje w pazie
             {
                 var hashedpassword = HashPassword(user.Password);
 
                 user.Password = hashedpassword;
 
-                await context.Users.AddAsync(user);
-                await context.SaveChangesAsync();
+                context.Adreses.Add(user.UserData.Adres);
+                context.SaveChanges();
+
+                user.UserData.AdresId = user.UserData.Adres.AdresId;
+                context.UserData.Add(user.UserData);
+                context.SaveChanges();
+
+                user.UserDataId = user.UserData.Id;
+                context.Users.Add(user);
+
+                context.SaveChanges();
 
                 return true;
             }
@@ -37,20 +46,41 @@ namespace WpfProject.Account
             return false;
         }
 
-        public static async Task<(AppRole role,User user)> Login(User user)
+        public static bool RegisterAdmin(User user)
         {
-            User userFromDb = await context.Users.FirstOrDefaultAsync(x => x.Name == user.Name);
+            if (context.Users.Any(x => x.Name == user.Name) == false) // uzytkownik nie istnieje w pazie
+            {
+                var hashedpassword = HashPassword(user.Password);
+
+                user.Password = hashedpassword;
+ 
+                context.Users.Add(user);
+
+                context.SaveChanges();
+
+                return true;
+            }
+
+            return false;
+        }
+
+        public static  (AppRole role, User user) Login(User user)
+        {
+            User userFromDb =  context.Users
+                .Include(x => x.UserData)
+                .ThenInclude(x => x.Adres)
+                .FirstOrDefault(x => x.Name == user.Name);
 
             if (userFromDb == null)
             {
-                return (AppRole.NotExist,null);
+                return (AppRole.NotExist, null);
             }
 
             if (VerifyPassword(user.Password, userFromDb.Password) == true)
             {
-                return (userFromDb.Role,userFromDb);
+                return (userFromDb.Role, userFromDb);
             }
-            return (AppRole.BadPassword,null);
+            return (AppRole.BadPassword, null);
         }
 
         private static string HashPassword(string password)
@@ -70,7 +100,7 @@ namespace WpfProject.Account
         private static bool VerifyPassword(string password, string hashed)
         {
             var hashedpassword = HashPassword(password);
-            for (int i = 0; i < hashedpassword.Length || i < hashed.Length;i++)
+            for (int i = 0; i < hashedpassword.Length || i < hashed.Length; i++)
             {
                 if (hashedpassword[i].ToString() != hashed[i].ToString())
                 {

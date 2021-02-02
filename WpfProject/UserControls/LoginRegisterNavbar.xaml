@@ -10,7 +10,7 @@
     <StackPanel  Grid.ColumnSpan="4" Margin="5" Background="LightYellow" VerticalAlignment="Center"  >
         <WrapPanel Name="Logout" HorizontalAlignment="Right" Visibility="Visible"  >
             <WrapPanel Margin="5,0,5,0" HorizontalAlignment="Right">
-                <Image Width="16" Height="16" Margin="0,0,5,0 ">
+                <Image Width="16" Height="15" Margin="0,0,5,0 ">
                     <Image.Source>
                         <BitmapImage UriSource="pack://application:,,,/Image_Icons/account.png" />
                     </Image.Source>
@@ -30,7 +30,7 @@
                 </Menu>
             </WrapPanel>
             <WrapPanel Margin="5,0,5,0" HorizontalAlignment="Right">
-                <Image Width="16" Height="16" Margin="0,0,5,0 ">
+                <Image Width="16" Height="15" Margin="0,0,5,0 ">
                     <Image.Source>
                         <BitmapImage UriSource="pack://application:,,,/Image_Icons/logout.png" />
                     </Image.Source>
