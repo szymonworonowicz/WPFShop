@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -22,17 +24,22 @@ namespace WpfProject.Pages
     /// </summary>
     public partial class MainPage : Page
     {
+
+        public List<Category> CategoryList { get; set; }
         public MainPage()
         {
             InitializeComponent();
+
+            var context = DataContextAccesor.GetDataContext();
+            var list = context.Categories.ToList();
+            CategoryList = context.Categories.Include(x => x.SubCategories).Where(x => x.SubCategoryId == null).ToList();
+            CategoryMenu.ItemsSource = CategoryList;
+
         }
 
         private void PageOnLoaded(object sender, RoutedEventArgs e)
         {
-            var context = DataContextAccesor.GetDataContext();
-            var categoryList = context.Categories.ToList();
 
-            CategoryList.ItemsSource = categoryList;
             if (LoginService.Role == AppRole.Admin)
             {
                 Cart.Visibility = Visibility.Collapsed;

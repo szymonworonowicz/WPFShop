@@ -38,7 +38,6 @@
         <ListBox.ItemsPanel>
             <ItemsPanelTemplate>
                 <WrapPanel></WrapPanel>
-                <!--<UniformGrid x:Name="Uniform" Columns="3" Rows="2" VerticalAlignment="Stretch"  HorizontalAlignment="Stretch" Margin="5"></UniformGrid>-->
             </ItemsPanelTemplate>
         </ListBox.ItemsPanel>
     </ListBox>

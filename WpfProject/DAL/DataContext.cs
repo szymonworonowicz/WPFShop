@@ -33,6 +33,17 @@ namespace WpfProject.DAL
             {
                 entity.HasKey(x => new { x.Id, x.ProductId });
             });
+
+            modelBuilder.Entity<Category>(entity =>
+            {
+                entity.HasKey(x => x.Id);
+
+                entity.HasOne(x => x.SubCategory)
+                .WithMany(x => x.SubCategories)
+                .HasForeignKey(x => x.SubCategoryId)
+                .OnDelete(DeleteBehavior.Cascade);
+            });
+
         }
 
     }

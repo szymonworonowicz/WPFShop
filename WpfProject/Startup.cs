@@ -27,13 +27,15 @@ namespace WpfProject
             {
                 List<Category> categoryList = new List<Category>()
                 {
-                    new Category{Name = "AGD"},
-                    new Category{Name = "TV"},
-                    new Category{Name = "Telefony"},
-                    new Category{Name = "Komputery"},
-                    new Category{Name = "Konsole" },
-                    new Category{Name = "Gadżety" }
+                    new Category{Name = "AGD" ,SubCategoryId=null},
+                    new Category{Name = "TV" ,SubCategoryId=null},
+                    new Category{Name = "Telefony" ,SubCategoryId=null},
+                    new Category{Name = "Komputery" ,SubCategoryId=null},
+                    new Category{Name = "Konsole" ,SubCategoryId=null},
+                    new Category{Name = "Gadżety",SubCategoryId=null },
                 };
+               
+
                 List<Product> productList = new List<Product>();
 
                 string directory = Path.Combine(Directory.GetCurrentDirectory(), "Image");
@@ -47,7 +49,7 @@ namespace WpfProject
                         byte[] buffer = new byte[stream.Length];
                         stream.Read(buffer, 0, (int)stream.Length);
 
-                        if(++i%2 ==0)
+                        if (++i % 2 == 0)
                         {
                             productList.Add(new Product { Name = "lodowka", Price = 239.22M, Description = "Super Lodowka", Photo = buffer, Sale = 0, StanMagazynowy = 20 });
                         }
@@ -60,7 +62,38 @@ namespace WpfProject
                     }
                 }
                 await context.Categories.AddRangeAsync(categoryList);
+
                 await context.Products.AddRangeAsync(productList);
+
+                await context.SaveChangesAsync();
+
+                List<Category> subCategoryList = new List<Category>()
+                {
+                    new Category{Name="Pralki",SubCategoryId=productList[0].Id},
+                    new Category{Name="Zmywarki",SubCategoryId=productList[0].Id},
+                    new Category{Name="Lodowki",SubCategoryId=productList[0].Id},
+                    new Category{Name="Ekspresy",SubCategoryId=productList[0].Id},
+                    new Category{Name="Kino domowe",SubCategoryId=productList[1].Id},
+                    new Category{Name="Telewizory",SubCategoryId=productList[1].Id},
+                    new Category{Name="DVD",SubCategoryId=productList[1].Id},
+                    new Category{Name="Akcesoria RTV",SubCategoryId=productList[1].Id},
+                    new Category{Name="Smartfony",SubCategoryId=productList[2].Id},
+                    new Category{Name="Tablety",SubCategoryId=productList[2].Id},
+                    new Category{Name="Telefony Stacjonarne",SubCategoryId=productList[2].Id},
+                    new Category{Name="PC",SubCategoryId=productList[2].Id},
+                    new Category{Name="Laptopy",SubCategoryId=productList[3].Id},
+                    new Category{Name="Notebooki",SubCategoryId=productList[3].Id},
+                    new Category{Name="Drukarki",SubCategoryId=productList[3].Id},
+                    new Category{Name="Urządzenia peryferyjne",SubCategoryId=productList[3].Id},
+                    new Category{Name="X-Box",SubCategoryId=productList[4].Id},
+                    new Category{Name="Playstation",SubCategoryId=productList[4].Id},
+                    new Category{Name="Nintendo",SubCategoryId=productList[4].Id},
+                    new Category{Name="Smartwatche",SubCategoryId=productList[5].Id},
+                    new Category{Name="Czytniki E-bookow",SubCategoryId=productList[5].Id},
+                    new Category{Name="Nawigacje GPS",SubCategoryId=productList[5].Id},
+                };
+
+                await context.Categories.AddRangeAsync(subCategoryList);
 
                 await context.SaveChangesAsync();
 
