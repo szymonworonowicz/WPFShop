@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
@@ -8,8 +9,9 @@ namespace WpfProject.Models
 {
     public class OrderItem : INotifyPropertyChanged
     {
-        public int Id { get; set; }
+        [Key]
         public int ProductId { get; set; }
+        [Key]
         public int OrderId { get; set; }
 
         private int count;

@@ -44,6 +44,7 @@ namespace WpfProject.Helpers
         {
             decimal sum =0;
 
+
             OrderItems.ForEach(x => sum += x.Amount);
 
             return sum;

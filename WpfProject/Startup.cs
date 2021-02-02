@@ -90,11 +90,11 @@ namespace WpfProject
 
                         if (++i % 2 == 0)
                         {
-                            productList.Add(new Product { Name = "lodowka", Price = 239.22M, Description = lorem, Photo = buffer, Sale = 0, StanMagazynowy = 20, CategoryId = subCategoryList[i].Id });
+                            productList.Add(new Product { Name = "lodowka", Price = 239.22M, Description = lorem, Photo = buffer, Sale = 0, StanMagazynowy = 20, CategoryId = subCategoryList[i].Id ,AddedDate = DateTime.Now});
                         }
                         else
                         {
-                            productList.Add(new Product { Name = "lodowka", Price = 239.22M, Description = lorem, Photo = buffer, Sale = 20, StanMagazynowy = 20, CategoryId = subCategoryList[i].Id });
+                            productList.Add(new Product { Name = "lodowka", Price = 239.22M, Description = lorem, Photo = buffer, Sale = 20, StanMagazynowy = 20, CategoryId = subCategoryList[i].Id, AddedDate = DateTime.Now });
                         }
 
 

@@ -32,7 +32,8 @@ namespace WpfProject.DAL
 
             modelBuilder.Entity<OrderItem>(entity =>
             {
-                entity.HasKey(x => new { x.Id, x.ProductId });
+                entity.HasKey(x => new { x.OrderId, x.ProductId });
+
             });
 
             modelBuilder.Entity<Category>(entity =>

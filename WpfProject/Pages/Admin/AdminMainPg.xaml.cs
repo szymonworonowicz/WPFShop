@@ -40,6 +40,9 @@ namespace WpfProject.Pages.Admin
             products = new ObservableCollection<Product>(list);
             ListofItem.ItemsSource = products;
             StoreList.ItemsSource = products;
+            var orders = context.Order.Include(x => x.Ordered).Include(x => x.UserData).ToList();
+
+            ListofItemOrder.ItemsSource = orders;
         }
 
         private void ExpanderGroup_Expand(object sender, RoutedEventArgs e)

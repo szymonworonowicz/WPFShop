@@ -14,13 +14,17 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <Label Margin="5" HorizontalAlignment="Left"> Twoje Zamowienia</Label>
-        <ListBox Name="OrdersList" Grid.Row="1" Margin="5">
-            <ListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel></StackPanel>
-                </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
-        </ListBox>
+        
+        <ListView Name="OrderList" Margin="5" Grid.Row="1" Grid.ColumnSpan="2">
+
+            <ListView.View>
+                <GridView AllowsColumnReorder="False" >
+                    <GridViewColumn DisplayMemberBinding="{Binding Date}" Header="Data Zamowienia" Width="auto" ></GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Status}" Header="Status" Width="auto" ></GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Amount}" Header="Kwota" Width="auto" ></GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
     
 </Page>

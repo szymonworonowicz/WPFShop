@@ -13,6 +13,7 @@ namespace WpfProject.Models
         public string OrderOption { get; set; }
         public decimal OrderAmount { get; set; }
         public OrderStatus Status { get; set; }
+        public DateTime Date { get; set; }
 
         public virtual UserData UserData { get; set; }
 

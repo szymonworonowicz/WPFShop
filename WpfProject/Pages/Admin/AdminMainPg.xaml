@@ -273,9 +273,19 @@
                             </GroupBox>
                         </Expander>
                     </WrapPanel>
-                    <ListBox Name="ListofItemOrder" Grid.Row="1" Grid.RowSpan="4" Grid.ColumnSpan="4" Margin="5,5,5,5">
+                    <ListView Name="ListofItemOrder" Margin="5" Grid.Row="1" Grid.ColumnSpan="4" Grid.RowSpan="4">
 
-                    </ListBox>
+                        <ListView.View>
+                            <GridView AllowsColumnReorder="False" >
+                                <GridViewColumn DisplayMemberBinding="{Binding Date}" Header="Data Zamowienia" Width="auto" ></GridViewColumn>
+                                <GridViewColumn DisplayMemberBinding="{Binding Status}" Header="Status" Width="auto" ></GridViewColumn>
+                                <GridViewColumn DisplayMemberBinding="{Binding Amount}" Header="Kwota" Width="auto" ></GridViewColumn>
+                                <GridViewColumn DisplayMemberBinding="{Binding UserData.Name}" Header="Imie"  ></GridViewColumn>
+                                <GridViewColumn DisplayMemberBinding="{Binding UserData.Surname}" Header="Nazwisko" ></GridViewColumn>
+                                <GridViewColumn DisplayMemberBinding="{Binding UserData.Email}" Header="Email"  ></GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
                     <Grid Grid.Row="1" Grid.Column="3" Grid.RowSpan="4" Background="LightYellow" Grid.ColumnSpan="2" Margin="232,0,0,0" >
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"></RowDefinition>
