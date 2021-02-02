@@ -38,5 +38,10 @@ namespace WpfProject.Pages
         {
             WindowContent.Navigate(new LoginPage());
         }
+
+        private void Zarejestruj_OnClick(object sender, RoutedEventArgs e)
+        {
+            WindowContent.Navigate(new RegisterPage());
+        }
     }
 }

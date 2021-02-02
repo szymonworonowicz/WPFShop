@@ -45,7 +45,7 @@
                             <BitmapImage UriSource="..\Image_Icons\user_add.png"/>
                         </Image.Source>
                     </Image>
-                    <Button  Background="Transparent" BorderThickness="0" FontSize="10">Zarejestruj się</Button>
+                    <Button  Background="Transparent" BorderThickness="0" FontSize="10" Click="Zarejestruj_OnClick">Zarejestruj się</Button>
                 </WrapPanel>
             </WrapPanel>
         </StackPanel>
