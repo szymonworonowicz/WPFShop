@@ -28,6 +28,7 @@ namespace WpfProject.Pages
                 Items = new ObservableCollection<OrderItem>(list);
 
             CartGrid.ItemsSource = Items;
+
         }
 
         private void DeliveryClick(object sender, RoutedEventArgs e)

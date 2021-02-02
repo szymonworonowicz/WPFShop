@@ -24,7 +24,10 @@ namespace WpfProject.Profiler
             {
                 using (var context = new DataContext())
                 {
-                    var productslist = context.Products.Include(x => x.Category).ThenInclude(x => x.SubCategory).ToList();
+                    var productslist = context.Products.Include(x => x.Category)
+                        .ThenInclude(x => x.SubCategory)
+                        .Where(x => x.StanMagazynowy>0)
+                        .ToList();
                     products = new ObservableCollection<Product>(productslist);
                 }
 
@@ -40,7 +43,10 @@ namespace WpfProject.Profiler
             {
                 using (var context = new DataContext())
                 {
-                    var categorieslist = context.Categories.Where(x => x.SubCategoryId == null).Include(x => x.SubCategories).ToList();
+                    var categorieslist = context.Categories.Where(x => x.SubCategoryId == null)
+                        .Include(x => x.SubCategories)
+                        .ToList();
+
                     categories = new ObservableCollection<Category>(categorieslist);
                 }
 

@@ -39,9 +39,9 @@ namespace WpfProject.UserControls
         }
         static NumericUpDown()
         {
-            ValueProperty = DependencyProperty.Register("Value", typeof(string), typeof(NumericUpDown), new FrameworkPropertyMetadata("", FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+            ValueProperty = DependencyProperty.Register("Value", typeof(string), typeof(NumericUpDown), new FrameworkPropertyMetadata("1", FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
             MinProperty = DependencyProperty.Register("minValue", typeof(string), typeof(NumericUpDown), new FrameworkPropertyMetadata(""));
-            MaxProperty = DependencyProperty.Register("maxValue", typeof(string), typeof(NumericUpDown), new FrameworkPropertyMetadata(""));
+            MaxProperty = DependencyProperty.Register("maxValue", typeof(string), typeof(NumericUpDown), new FrameworkPropertyMetadata("", FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         }
 
         private void CounterTextChanged(object sender, TextChangedEventArgs e)
@@ -50,9 +50,10 @@ namespace WpfProject.UserControls
             int.TryParse(maxValue, out int max);
 
             int.TryParse(text.Text, out int current);
-            if (current < 0)
+
+            if (current < 0 && max != 0)
                 current = 0;
-            else if (current > max)
+            else if (current > max && max != 0)
                 current = max;
 
             Value = current.ToString();

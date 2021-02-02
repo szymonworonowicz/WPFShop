@@ -117,6 +117,7 @@ namespace WpfProject.Pages.Admin
             
             DbAccessorService.updateProduct(product);
             OrderCount.Value = "1";
+            MessageBox.Show("Złożono zamówienie", "Zamówienie", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void Order_Delete_Click(object sender,RoutedEventArgs e)

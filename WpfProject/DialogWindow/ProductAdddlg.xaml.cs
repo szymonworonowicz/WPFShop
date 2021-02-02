@@ -91,7 +91,7 @@ namespace WpfProject.DialogWindow
 
         private void Add_Product_Click(object sender, RoutedEventArgs e)
         {
-            if (newProduct.Photo.Length != 0)
+            if (newProduct.Photo?.Length != 0)
                 if (add)
                 {
                     DbAccessorService.AddProduct(newProduct);
@@ -101,6 +101,10 @@ namespace WpfProject.DialogWindow
                     DbAccessorService.updateProduct(newProduct);
                     
                 }
+            else
+            {
+                MessageBox.Show("Probowano dodac produkt bez zdjecia", "Zdjecie Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
             this.Close();
         }
 

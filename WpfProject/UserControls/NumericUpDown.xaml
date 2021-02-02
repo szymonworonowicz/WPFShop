@@ -9,7 +9,7 @@
     d:DesignHeight="40"
     d:DesignWidth="200"
     mc:Ignorable="d">
-    <DockPanel>
+    <DockPanel DataContext="{Binding RelativeSource={RelativeSource Self}}">
         <Grid DockPanel.Dock="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="3*" />
@@ -29,7 +29,7 @@
                 VerticalContentAlignment="Center"
                 DockPanel.Dock="Left"
                 FontSize="12"
-                Text="{Binding Path=Value, ElementName=UpDown}"
+                Text="{Binding Path=Value, ElementName=UpDown, UpdateSourceTrigger=PropertyChanged}"
                 TextChanged="CounterTextChanged" />
             <Button
                 Grid.Column="1"

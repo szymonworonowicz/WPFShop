@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using WpfProject.DAL;
@@ -35,15 +37,42 @@ namespace WpfProject.Pages
             order.Status = OrderStatus.Nowe;
             order.Date = DateTime.Now;
 
-            DataContext context = DataContextAccesor.GetDataContext();
+            var productToUpdate = new List<Product>();
+            foreach(var orderItem in order.Ordered)
+            {
+                orderItem.Product.StanMagazynowy -= orderItem.Count;
+                productToUpdate.Add(orderItem.Product);
+            }
+
 
             foreach(var orderItem in order.Ordered)
             {
                 orderItem.Product = null;
             }
 
-            context.Order.Add(order);
-            context.SaveChanges();
+            using (var context = new DataContext())
+            {
+                try
+                {
+
+                    if (productToUpdate.Count > 0)
+                    {
+
+                        context.Products.UpdateRange(productToUpdate);
+                    }
+
+                    order.UserData = null;
+                    context.Order.Add(order);
+                    context.SaveChanges();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+
+                    MessageBox.Show("Błąd podczas dodawania zamówienia", "Zamowienie alert", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+
+
 
             MessageBox.Show("Dodano Zamowienie", "Zamowienie alert", MessageBoxButton.OK, MessageBoxImage.Information);
 
