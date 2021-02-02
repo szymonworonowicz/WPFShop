@@ -24,6 +24,8 @@ using System.Windows.Shapes;
 using WpfProject.Models;
 using Image = MigraDoc.DocumentObjectModel.Shapes.Image;
 using System.Threading;
+using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace WpfProject.DialogWindow
 {
@@ -95,37 +97,39 @@ namespace WpfProject.DialogWindow
             this.Print_btn.Visibility = Visibility.Hidden;
             if (saveFileDialog.ShowDialog().Value)
             {
-                using (FileStream fs = File.Create(saveFileDialog.FileName))
-                {
                     //if (System.IO.Path.GetExtension(saveFileDialog.FileName).ToLower() == "pdf")
                     //{
                     this.document = new Document();
 
-                    this.document.Info.Title = "A sample invoice";
-                    this.document.Info.Subject = "Demonstrates how to create an invoice.";
-                    this.document.Info.Author = "Stefan Lange";
+                    this.document.Info.Title = $"Faktura nr {order.Date.Year}/{order.Id}";
+                    this.document.Info.Subject = $"Faktura nr {order.Date.Year}/{order.Id}";
+                    this.document.Info.Author = "RTV&AGD";
 
                     DefineStyle();
 
                     CreatePage();
-
                     FillContent();
 
-                    MigraDoc.DocumentObjectModel.IO.DdlWriter.WriteToFile(document, "MigraDoc.mdddl");
 
                     Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-                    PdfDocumentRenderer renderer = new PdfDocumentRenderer(false, PdfSharp.Pdf.PdfFontEmbedding.Always);
+                    PdfDocumentRenderer renderer = new PdfDocumentRenderer(true);
                     renderer.Document = document;
-
 
                     renderer.RenderDocument();
 
-                    Thread.Sleep(5000);
                     // Save the document...
                     string filename = saveFileDialog.FileName;
                     renderer.PdfDocument.Save(filename);
-                    //}
-                }
+                   
+
+                    Process process = new Process();
+                    process.StartInfo = new ProcessStartInfo()
+                    {
+                        FileName = "explorer",
+                        Arguments = filename,
+
+                    };
+                    process.Start();
 
             }
             this.Close();
@@ -142,21 +146,25 @@ namespace WpfProject.DialogWindow
             paragraph.AddText($"Adres: ul. {order.UserData.Adres.Street} {order.UserData.Adres.HomeNumber}, {order.UserData.Adres.PostCode} {order.UserData.Adres.City}");
 
             MigraDoc.DocumentObjectModel.Paragraph priceParagraph = PriceFrame.AddParagraph();
-            priceParagraph.AddText($"Cena całkowita {order.OrderAmount}");
-            paragraph.AddLineBreak();
-            priceParagraph.AddText($"Rodzaj przesyłki {order.OrderOption}");
-            paragraph.AddLineBreak();
-            priceParagraph.AddText($"Cena z przesyłką {order.Amount}");
-            paragraph.AddLineBreak();
+            priceParagraph.AddText($"Cena całkowita: \n {order.OrderAmount} zł \n ");
+            //paragraph.AddLineBreak();
+            priceParagraph.AddText($"Rodzaj przesyłki: \n {order.OrderOption}  \n");
+            //paragraph.AddLineBreak();
+            priceParagraph.AddText($"Cena z przesyłką: \n {order.Amount}zł\n ");
+            //paragraph.AddLineBreak();
 
 
             foreach (var orderItem in order.Ordered)
             {
-                Row row = new Row();
+                Row row = table.AddRow();
                 row.TopPadding = 1.5;
+
                 row.Cells[0].Shading.Color = TableGray;
                 row.Cells[0].VerticalAlignment = MigraDoc.DocumentObjectModel.Tables.VerticalAlignment.Center;
+                row.Cells[0].Format.Alignment = ParagraphAlignment.Left;
                 row.Cells[1].Format.Alignment = ParagraphAlignment.Left;
+                row.Cells[2].Format.Alignment = ParagraphAlignment.Left;
+                row.Cells[3].Format.Alignment = ParagraphAlignment.Left;
                 row.Cells[1].Shading.Color = TableGray;
                 row.Cells[2].Shading.Color = TableGray;
                 row.Cells[3].Shading.Color = TableGray;
@@ -178,8 +186,9 @@ namespace WpfProject.DialogWindow
             MigraDoc.DocumentObjectModel.Section section = this.document.AddSection();
 
             // Put a logo in the header
-            Image image = section.Headers.Primary.AddImage("../Image_Icons/logo1.png");
+            Image image = section.Headers.Primary.AddImage("Image_Icons/logo1.png");
             image.Height = "2.5cm";
+            image.Width = "5cm";
             image.LockAspectRatio = true;
             image.RelativeVertical = RelativeVertical.Line;
             image.RelativeHorizontal = RelativeHorizontal.Margin;
@@ -187,80 +196,76 @@ namespace WpfProject.DialogWindow
             image.Left = ShapePosition.Right;
             image.WrapFormat.Style = WrapStyle.Through;
 
-            // Create footer
-            MigraDoc.DocumentObjectModel.Paragraph paragraph = section.Footers.Primary.AddParagraph();
-            paragraph.AddText(">ul.Pralki 5, 13-342 Lodówka");
-            paragraph.Format.Font.Size = 9;
-            paragraph.Format.Alignment = ParagraphAlignment.Center;
-
             // Create the text frame for the address
             this.addressFrame = section.AddTextFrame();
-            this.addressFrame.Height = "3.0cm";
-            this.addressFrame.Width = "7.0cm";
+            this.addressFrame.Height = "8.0cm";
+            this.addressFrame.Width = "10.0cm";
             this.addressFrame.Left = ShapePosition.Left;
             this.addressFrame.RelativeHorizontal = RelativeHorizontal.Margin;
-            this.addressFrame.Top = "5.0cm";
+            this.addressFrame.Top = "4cm";
             this.addressFrame.RelativeVertical = RelativeVertical.Page;
 
             this.PriceFrame = section.AddTextFrame();
-            this.addressFrame.Height = "3.0cm";
-            this.addressFrame.Width = "7.0cm";
-            this.addressFrame.Left = ShapePosition.Right;
-            this.addressFrame.RelativeHorizontal = RelativeHorizontal.Margin;
-            this.addressFrame.Top = "5.0cm";
-            this.addressFrame.RelativeVertical = RelativeVertical.Page;
+            this.PriceFrame.Height = "5.0cm";
+            this.PriceFrame.Width = "5.0cm";
+            this.PriceFrame.Left = ShapePosition.Right;
+            this.PriceFrame.RelativeHorizontal = RelativeHorizontal.Margin;
+            this.PriceFrame.Top = "4.0cm";
+            this.PriceFrame.RelativeVertical = RelativeVertical.Page;
 
             // Put sender in address frame
-            paragraph = addressFrame.AddParagraph("ul.Pralki 5, 13-342 Lodówka");
-            paragraph.Format.Font.Name = "Times New Roman";
-            paragraph.Format.Font.Size = 7;
-            paragraph.Format.SpaceAfter = 3;
+            //= addressFrame.AddParagraph("ul.Pralki 5, 13-342 Lodówka");
+            //paragraph.Format.Font.Name = "Times New Roman";
+            //paragraph.Format.Font.Size = 7;
+            //paragraph.Format.SpaceAfter = 3;
 
             // Add the print date field
-            paragraph = section.AddParagraph();
+            MigraDoc.DocumentObjectModel.Paragraph paragraph = section.AddParagraph();
             paragraph.Format.SpaceBefore = "8cm";
             paragraph.Style = "Reference";
-            paragraph.AddFormattedText("INVOICE", TextFormat.Bold);
+            paragraph.AddFormattedText($"Faktura nr {order.Date.Year}/{order.Id}", TextFormat.Bold);
             paragraph.AddTab();
             paragraph.AddText("Białystok, ");
             paragraph.AddDateField("dd.MM.yyyy");
 
+            paragraph = section.Footers.Primary.AddParagraph();
+            paragraph.AddText($"\u00a9 2021 RTV&AGD \n ul.Pralki 5, 13-342 Lodówka \n Data wydruku: {DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss")} ");
+            paragraph.Format.Font.Size = 9;
+            paragraph.Format.Alignment = ParagraphAlignment.Center;
+
             // Create the item table
             this.table = section.AddTable();
-            this.table.Style = "Table";
-            this.table.Borders.Color = TableBorder;
-            this.table.Borders.Width = 0.25;
-            this.table.Borders.Left.Width = 0.5;
-            this.table.Borders.Right.Width = 0.5;
-            this.table.Rows.LeftIndent = 0;
+            table.Format.Alignment = ParagraphAlignment.Justify;
+            table.Borders.Color = MigraDoc.DocumentObjectModel.Colors.Black;
+            table.Borders.Width = 0.25;
+            table.Borders.Left.Width = 0.5;
+            table.Borders.Right.Width = 0.5;
+            table.Rows.LeftIndent = 5;
+            table.TopPadding = 10;
+            table.BottomPadding = 10;
 
             // Before you can add a row, you must define the columns
-            Column column = this.table.AddColumn("1cm");
+            Column column = this.table.AddColumn("7.5cm");
             column.Format.Alignment = ParagraphAlignment.Center;
 
-            column = this.table.AddColumn("2.5cm");
-            column.Format.Alignment = ParagraphAlignment.Right;
-
-            column = this.table.AddColumn("3cm");
+            column = this.table.AddColumn("1.5cm");
             column.Format.Alignment = ParagraphAlignment.Right;
 
             column = this.table.AddColumn("3.5cm");
             column.Format.Alignment = ParagraphAlignment.Right;
 
-            column = this.table.AddColumn("2cm");
-            column.Format.Alignment = ParagraphAlignment.Center;
-
-            column = this.table.AddColumn("4cm");
+            column = this.table.AddColumn("3.5cm");
             column.Format.Alignment = ParagraphAlignment.Right;
 
+           
             // Create the header of the table
             Row row = table.AddRow();
             row.HeadingFormat = true;
-            row.Format.Alignment = ParagraphAlignment.Center;
+            row.Format.Alignment = ParagraphAlignment.Left;
             row.Format.Font.Bold = true;
             row.Shading.Color = TableBlue;
             row.Cells[0].AddParagraph("Nazwa");
-            row.Cells[0].Format.Font.Bold = false;
+            row.Cells[0].Format.Font.Bold = true;
             row.Cells[0].Format.Alignment = ParagraphAlignment.Left;
             row.Cells[0].VerticalAlignment = MigraDoc.DocumentObjectModel.Tables.VerticalAlignment.Center;
 
