@@ -56,7 +56,7 @@ namespace WpfProject.Profiler
             {
                 using (var context = new DataContext())
                 {
-                    var orderslist = context.Order.Include(x => x.Ordered).Include(x => x.UserData).ThenInclude(x => x.Adres).ToList();
+                    var orderslist = context.Order.Include(x => x.Ordered).ThenInclude(x => x.Product).Include(x => x.UserData).ThenInclude(x => x.Adres).ToList();
                     orders = new ObservableCollection<Order>(orderslist);
                 }
 

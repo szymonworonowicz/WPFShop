@@ -18,7 +18,7 @@ namespace WpfProject.Helpers
                 OrderItems = new List<OrderItem>();
             CartCreated = DateTime.Now;
 
-            OrderItem item = new OrderItem { Product = p, Count = Count };
+            OrderItem item = new OrderItem { Product = p, Count = Count, ProductId = p.Id };
             var iteminlist = OrderItems.FirstOrDefault(x => x.Product == item.Product);
             if (iteminlist != null)
             {

@@ -370,5 +370,15 @@ namespace WpfProject.Pages.Admin
             OrderView.SortDescriptions.Clear();
             OrderView.SortDescriptions.Add(new SortDescription("Date", ListSortDirection.Descending));
         }
+
+        private void Payment_Click(object sender, RoutedEventArgs e)
+        {
+            Order order = ListofItemOrder.SelectedItem as Order;
+            InvoiceDlg dlg = new InvoiceDlg(order);
+            Window win = Application.Current.MainWindow;
+            dlg.Owner = win;
+            dlg.ShowDialog();
+
+        }
     }
 }

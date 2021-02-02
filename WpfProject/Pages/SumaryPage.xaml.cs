@@ -37,6 +37,11 @@ namespace WpfProject.Pages
 
             DataContext context = DataContextAccesor.GetDataContext();
 
+            foreach(var orderItem in order.Ordered)
+            {
+                orderItem.Product = null;
+            }
+
             context.Order.Add(order);
             context.SaveChanges();
 

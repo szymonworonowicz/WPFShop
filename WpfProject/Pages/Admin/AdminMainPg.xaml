@@ -180,7 +180,7 @@
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem Header="Magazyn" Background="#ff1616">
+            <TabItem Header="Magazyn" Background="#ffdb59">
                 <Grid Margin="5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="2*"></ColumnDefinition>
@@ -304,10 +304,12 @@
                             <RowDefinition Height="auto"></RowDefinition>
                             <RowDefinition Height="auto"></RowDefinition>
                             <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
                         </Grid.RowDefinitions>
                         <Button Margin="5" Padding="10" BorderThickness="0" Grid.Row="0" Background="Transparent">Usun</Button>
                         <Button Margin="5" Padding="10" BorderThickness="0" Grid.Row="1" Background="Transparent" Click="Order_Edit_Click">Edytuj</Button>
                         <Button Margin="5" Padding="10" BorderThickness="0" Grid.Row="2" Background="Transparent" Click="Order_Details_Click">Szczegóły</Button>
+                        <Button Margin="5" Padding="10" BorderThickness="0" Grid.Row="3" Background="Transparent" Click="Payment_Click"> Generuj fakture</Button>
                     </Grid>
                 </Grid>
             </TabItem>
@@ -334,28 +336,7 @@
                     </ListView>
                 </Grid>
             </TabItem>
-            <TabItem Header="Faktury" Background="#5272ff">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition Width="auto"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <ListBox Name="Payment" Margin="5" Grid.RowSpan="2"></ListBox>
-                    <Grid Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Background="LightYellow" >
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"></RowDefinition>
-                            <RowDefinition Height="auto"></RowDefinition>
-                            <RowDefinition Height="auto"></RowDefinition>
-                        </Grid.RowDefinitions>
-                        <Button Margin="5" Padding="10" BorderThickness="0" Grid.Row="0" Background="Transparent">Drukuj</Button>
-                        <Button Margin="5" Padding="10" BorderThickness="0" Grid.Row="1" Background="Transparent">Usun</Button>
-                    </Grid>
-                </Grid>
-            </TabItem>
+            
         </TabControl>
     </Grid>
 </Page>
