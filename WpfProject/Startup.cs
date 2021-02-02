@@ -46,7 +46,7 @@ namespace WpfProject
                         byte[] buffer = new byte[stream.Length];
                         stream.Read(buffer, 0, (int)stream.Length);
 
-                        productList.Add(new Product { Name = "lodowka", Price = 239.22M, Description = "Super Lodowka", Photo = buffer, Sale = true });
+                        productList.Add(new Product { Name = "lodowka", Price = 239.22M, Description = "Super Lodowka", Photo = buffer, Sale = true,StanMagazynowy = 20});
                     }
                 }
                 await context.Categories.AddRangeAsync(categoryList);

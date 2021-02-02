@@ -13,6 +13,7 @@ namespace WpfProject.Models
         public byte [] Photo { get; set; }
         public string Description { get; set; }
         public bool Sale { get; set; }
+        public int StanMagazynowy { get; set; }
 
         public virtual Category Category { get; set; }
     }

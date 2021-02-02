@@ -2,7 +2,8 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:usercontrols="clr-namespace:WpfProject.UserControls"     
       xmlns:local="clr-namespace:WpfProject.Pages.Admin"
       xmlns:converters ="clr-namespace:WpfProject.Converters"
       mc:Ignorable="d" 
@@ -107,7 +108,7 @@
                         </Expander>
                     </WrapPanel>
                     <ListBox Name="ListofItem" Grid.Row="1" Grid.RowSpan="4" Grid.ColumnSpan="3" Margin="5">
-                        
+
                     </ListBox>
                     <Grid Grid.Row="1" Grid.Column="3" Grid.RowSpan="4" Background="LightYellow" >
                         <Grid.RowDefinitions>
@@ -123,7 +124,43 @@
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem Header="Magazyn" Background="#ff1616"></TabItem>
+            <TabItem Header="Magazyn" Background="#ff1616">
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <ListBox Name="MagazynLista">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel></WrapPanel>
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                    </ListBox>
+                    <Grid Grid.Column ="1" Margin="5" DataContext="{Binding ElementName=MagazynLista, Path=SelectedItem}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" ></ColumnDefinition>
+                            <ColumnDefinition ></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Grid.ColumnSpan="2" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18">Stan magazynowy produktu:</Label>
+                        <Label Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">Nazwa</Label>
+                        <Label Grid.Row="1" Grid.Column="1" Content="{Binding Path=Name}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
+                        <Label Grid.Row="2"  Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center">Cena</Label>
+                        <Label Grid.Row="2" Grid.Column="1" Content="{Binding Path=Cena}"></Label>
+                        <Label Grid.Row="3"  Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center">Stan magazynowy</Label>
+                        <Label Grid.Row="3" Grid.Column="1" Margin="5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="{Binding Path=StanMagazynowy}"></Label>
+                        <usercontrols:NumericUpDown Grid.Row="4"  MinHeight="50" Margin="5" />
+                        <Button Name="Zamow" Grid.Row="4" Grid.Column="1" Margin="5">Zamow</Button>
+                    </Grid>
+                </Grid>
+            </TabItem>
             <TabItem Header="Zamowienia" Background="#ffdb59"></TabItem>
             <TabItem Header="Dodaj sprzedawce" Background="#ffdb59"></TabItem>
             <TabItem Header="Uzytkownicy" Background="#5272ff"></TabItem>

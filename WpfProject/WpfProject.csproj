@@ -60,6 +60,11 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Syncfusion.Shared.WPF" Version="18.3.0.51" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="UserControls%27\" />
   </ItemGroup>
 
 </Project>
