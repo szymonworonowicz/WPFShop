@@ -28,9 +28,7 @@ namespace WpfProject.Pages
 
         private void LoadSaleProducts(object sender, RoutedEventArgs e)
         {
-            //var context = DataContextAccesor.GetDataContext();
-            //this.products = context.Products.Include(x => x.Category).ThenInclude(x => x.SubCategory).ToList();
-            //products = DbAccessorService.getProducts();
+            Category_Filter.ItemsSource = DbAccessorService.getCategories();
             SalesProduct.ItemsSource = DbAccessorService.getProducts();
         }
 

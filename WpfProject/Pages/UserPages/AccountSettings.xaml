@@ -94,9 +94,12 @@
             </TextBox.ToolTip>
             <TextBox.Text>
                 <Binding
+                    Mode="TwoWay"
                     NotifyOnValidationError="True"
-                    Path="UserData.Email"
-                    UpdateSourceTrigger="PropertyChanged">
+                    Path="Email"
+                    UpdateSourceTrigger="PropertyChanged"
+                    ValidatesOnDataErrors="True"
+                    ValidatesOnNotifyDataErrors="False">
                     <Binding.ValidationRules>
                         <validators:EmailValidator ValidatesOnTargetUpdated="True" ValidationStep="RawProposedValue" />
                     </Binding.ValidationRules>
@@ -134,7 +137,7 @@
             <TextBox.Text>
                 <Binding
                     NotifyOnValidationError="True"
-                    Path="UserData.PhoneNumber"
+                    Path="PhoneNumber"
                     UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
                         <validators:PhoneNumberValidator ValidatesOnTargetUpdated="True" ValidationStep="RawProposedValue" />
