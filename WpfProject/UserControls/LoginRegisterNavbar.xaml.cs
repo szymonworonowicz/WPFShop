@@ -46,8 +46,7 @@ namespace WpfProject.UserControls
                 User_Panel.Visibility = Visibility.Visible;
             }
             else if(LoginService.Role == AppRole.Admin)
-            {
-                Admin_Panel.Visibility = Visibility.Visible;
+            { Admin_Panel.Visibility = Visibility.Visible;
                 User_Panel.Visibility = Visibility.Collapsed;
             }
         }

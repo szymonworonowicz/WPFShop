@@ -44,6 +44,14 @@ namespace WpfProject.DAL
                 .OnDelete(DeleteBehavior.Cascade);
             });
 
+            modelBuilder.Entity<Product>(entity =>
+            {
+                entity.HasOne(x => x.Category)
+                    .WithMany(x => x.Products)
+                    .HasForeignKey(x => x.CategoryId)
+                    .OnDelete(DeleteBehavior.SetNull);
+            });
+
         }
 
     }

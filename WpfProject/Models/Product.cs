@@ -15,6 +15,7 @@ namespace WpfProject.Models
         public string Description { get; set; }
         public int Sale { get; set; }
         public int StanMagazynowy { get; set; }
+        public int? CategoryId { get; set; }
 
         [NotMapped]
         public string SalePrice

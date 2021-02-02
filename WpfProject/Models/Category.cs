@@ -21,5 +21,6 @@ namespace WpfProject.Models
         public virtual ICollection<Category> SubCategories { get; set; }
 
         public virtual Category SubCategory { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
     }
 }
