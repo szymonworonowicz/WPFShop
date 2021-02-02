@@ -7,7 +7,9 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using WpfProject.DAL;
+using WpfProject.ImagesHelpers;
 using WpfProject.Models;
+using WpfProject.Profiler;
 
 namespace WpfProject.DialogWindow
 {
@@ -58,13 +60,12 @@ namespace WpfProject.DialogWindow
             {
                 photourl = dialog.FileNames[0];
             }
+
             if (photourl != "")
-                using (FileStream stream = new FileStream(photourl, FileMode.Open, FileAccess.Read))
-                {
-                    byte[] buffer = new byte[stream.Length];
-                    stream.Read(buffer, 0, (int)stream.Length);
-                    newProduct.Photo = buffer;
-                }
+            {
+                ImageResizer resizer = new ImageResizer();
+                newProduct.Photo = resizer.resize(photourl);
+            }
 
         }
 
@@ -90,24 +91,12 @@ namespace WpfProject.DialogWindow
         {
             if (add)
             {
-                context.Products.Add(newProduct);
-
+                DbAccessorService.AddProduct(newProduct);
             }
             else
             {
-                try
-                {
-                    context.Attach(newProduct).State = EntityState.Modified;
-                }
-#pragma warning disable CS0168 // The variable 'ex' is declared but never used
-                catch (DbUpdateConcurrencyException ex)
-#pragma warning restore CS0168 // The variable 'ex' is declared but never used
-                {
-
-                }
-
+                DbAccessorService.updateProduct(newProduct);
             }
-            context.SaveChanges();
             this.Close();
         }
 

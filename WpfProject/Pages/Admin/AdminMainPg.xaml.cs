@@ -22,32 +22,22 @@ namespace WpfProject.Pages.Admin
     /// </summary>
     public partial class AdminMainPg : Page
     {
-        private readonly DataContext context;
-        public ObservableCollection<Product> products { get; set; }
-        public List<Category> categories { get; set; }
-        public List<Order> orders { get; set; }
         public AdminMainPg()
         {
             InitializeComponent();
-            context = DataContextAccesor.GetDataContext();
         }
 
         private void AdminPageLoaded(object sender, RoutedEventArgs e)
         {
-
-            //var list = context.Products.Include(x => x.Category).ThenInclude(x => x.SubCategory).ToList();
-            products = new ObservableCollection<Product>(DbAccessorService.getProducts());
-            categories = DbAccessorService.getCategories();
-
-
-            orders = DbAccessorService.getOrders();
-            Category_Filter.ItemsSource = categories;
+            
+            //orders = DbAccessorService.getOrders();
+            Category_Filter.ItemsSource = DbAccessorService.getCategories(); 
 
             Order_State_Filter_Combo.ItemsSource = Enum.GetValues(typeof(OrderStatus)).Cast<OrderStatus>();
-            ListofItem.ItemsSource = products;
-            StoreList.ItemsSource = products;
+            ListofItem.ItemsSource = DbAccessorService.getProducts();
+            StoreList.ItemsSource = DbAccessorService.getProducts();
             UserList.ItemsSource = DbAccessorService.getUsers();
-            ListofItemOrder.ItemsSource = orders;
+            ListofItemOrder.ItemsSource = DbAccessorService.getOrders(); 
         }
 
         private void ExpanderGroup_Expand(object sender, RoutedEventArgs e)
@@ -81,7 +71,7 @@ namespace WpfProject.Pages.Admin
             dialog.ShowDialog();
 
             if (dialog.newProduct.Photo != null)
-                products.Add(dialog.newProduct);
+                DbAccessorService.AddProduct(product: dialog.newProduct);
         }
 
         private void Products_Edit_Click(object sender, RoutedEventArgs e)
@@ -89,6 +79,7 @@ namespace WpfProject.Pages.Admin
             var product = ListofItem.SelectedItem as Product;
             ProductAdddlg dialog = new ProductAdddlg(product);
             dialog.ShowDialog();
+            DbAccessorService.updateProduct(product);
         }
 
         private void ListOfItem_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -125,17 +116,8 @@ namespace WpfProject.Pages.Admin
             int.TryParse(OrderCount.Value, out int orderCount);
 
             product.StanMagazynowy += orderCount;
-            try
-            {
-                context.Attach(product).State = EntityState.Modified;
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-
-                throw;
-            }
-
-
+            
+            DbAccessorService.updateProduct(product);
         }
 
         private void Order_Edit_Click(object sender, RoutedEventArgs e)
@@ -144,6 +126,8 @@ namespace WpfProject.Pages.Admin
             OrderEdit edit = new OrderEdit(order);
 
             edit.ShowDialog();
+
+            DbAccessorService.updateOrder(order);
         }
 
         private void Order_Details_Click(object sender, RoutedEventArgs e)
@@ -157,23 +141,13 @@ namespace WpfProject.Pages.Admin
         private void Product_Delete_Click(object sender, RoutedEventArgs e)
         {
             Product p = ListofItem.SelectedItem as Product;
-            products.Remove(p);
-
-            Task t = new Task(async () =>
-            {
-                context.Products.Remove(p);
-                await context.SaveChangesAsync();
-            });
-
-            t.Start();
-            //context.Products.Remove(p);
-            //context.SaveChanges();
+            DbAccessorService.DeleteProduct(product: p);
         }
         private ListCollectionView ProductView
         {
             get
             {
-                return (ListCollectionView)CollectionViewSource.GetDefaultView(products);
+                return (ListCollectionView)CollectionViewSource.GetDefaultView(DbAccessorService.getProducts());
             }
         }
         private void Product_Filter_None(object sender, RoutedEventArgs e)
@@ -255,7 +229,7 @@ namespace WpfProject.Pages.Admin
         {
             if (Category_Filter.SelectedIndex != -1)
             {
-                Subcategory_Filter.ItemsSource = categories[Category_Filter.SelectedIndex].SubCategories;
+                Subcategory_Filter.ItemsSource = DbAccessorService.getCategories()[Category_Filter.SelectedIndex].SubCategories;
             }
         }
 
@@ -330,7 +304,7 @@ namespace WpfProject.Pages.Admin
         {
             get
             {
-                return (ListCollectionView)CollectionViewSource.GetDefaultView(orders);
+                return (ListCollectionView)CollectionViewSource.GetDefaultView(DbAccessorService.getOrders());
             }
         }
 

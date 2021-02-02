@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using WpfProject.DAL;
 using WpfProject.Models;
@@ -11,18 +13,19 @@ namespace WpfProject.Profiler
 {
     class DbAccessorService
     {
-        private static List<Product> products;
-        private static List<Category> categories;
-        private static List<Order> orders;
-        private static List<User> users;
+        private static ObservableCollection<Product> products;
+        private static ObservableCollection<Category> categories;
+        private static ObservableCollection<Order> orders;
+        private static ObservableCollection<User> users;
 
-        public static List<Product> getProducts()
+        public static ObservableCollection<Product> getProducts()
         {
             if (products == null)
             {
                 using (var context = new DataContext())
                 {
-                    products = context.Products.Include(x => x.Category).ThenInclude(x => x.SubCategory).ToList();
+                    var productslist = context.Products.Include(x => x.Category).ThenInclude(x => x.SubCategory).ToList();
+                    products = new ObservableCollection<Product>(productslist);
                 }
 
 
@@ -31,13 +34,14 @@ namespace WpfProject.Profiler
             return products;
         }
 
-        public static List<Category> getCategories()
+        public static ObservableCollection<Category> getCategories()
         {
-            if (products == null)
+            if (categories == null)
             {
                 using (var context = new DataContext())
                 {
-                    categories = context.Categories.Where(x => x.SubCategoryId == null).Include(x => x.SubCategories).ToList();
+                    var categorieslist = context.Categories.Where(x => x.SubCategoryId == null).Include(x => x.SubCategories).ToList();
+                    categories = new ObservableCollection<Category>(categorieslist);
                 }
 
 
@@ -46,13 +50,14 @@ namespace WpfProject.Profiler
             return categories;
         }
 
-        public static List<Order> getOrders()
+        public static ObservableCollection<Order> getOrders()
         {
             if (orders == null)
             {
                 using (var context = new DataContext())
                 {
-                    orders = context.Order.Include(x => x.Ordered).Include(x => x.UserData).ThenInclude(x => x.Adres).ToList();
+                    var orderslist = context.Order.Include(x => x.Ordered).Include(x => x.UserData).ThenInclude(x => x.Adres).ToList();
+                    orders = new ObservableCollection<Order>(orderslist);
                 }
 
             }
@@ -60,18 +65,81 @@ namespace WpfProject.Profiler
             return orders;
         }
 
-        public static List<User> getUsers()
+        public static ObservableCollection<User> getUsers()
         {
             if (users == null)
             {
                 using (var context = new DataContext())
                 {
-                    users = context.Users.Include(x => x.UserData).ToList();
+                    var userslist = context.Users.Include(x => x.UserData).ToList();
+                    users = new ObservableCollection<User>(userslist);
                 }
 
             }
 
             return users;
+        }
+
+        internal static void DeleteProduct(Product product)
+        {
+            products.Remove(product);
+
+            Task t = new Task(() =>
+            {
+                using (var context = new DataContext())
+                {
+                    context.Products.Remove(product);
+                    context.SaveChangesAsync();
+                }
+
+            });
+
+            t.Start();
+        }
+
+        internal static void AddProduct(Product product)
+        {
+            products.Add(product);
+            Task t = new Task(() =>
+            {
+                using (DataContext context = new DataContext())
+                {
+                    context.Add(product);
+                    context.SaveChanges();
+                }
+            });
+        }
+
+        public static void updateProduct(Product product)
+        {
+            Task t = new Task(() =>
+            {
+                using (DataContext context = new DataContext())
+                {
+                    try
+                    {
+                        context.Products.Update(product);
+                        context.SaveChanges();
+                    }
+                    catch (DbUpdateConcurrencyException e)
+                    {
+                        Console.WriteLine(e);
+                        throw;
+                    }
+                }
+            });
+        }
+
+        public static void updateOrder(Order order)
+        {
+            Task t = new Task(() =>
+            {
+                using (DataContext context = new DataContext())
+                {
+                    context.Order.Update(order);
+                    context.SaveChanges();
+                }
+            });
         }
     }
 }
